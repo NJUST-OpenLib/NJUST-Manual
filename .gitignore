@@ -2,3 +2,4 @@ node_modules
 .temp
 dist
 .cache
+docs/.vuepress/.temp/internal/sidebar.js
