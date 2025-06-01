@@ -1,0 +1,65 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.vp-icon {
+  margin: 0 0.3em;
+}
+
+.smooth {
+  scroll-behavior: smooth;
+}
+
+/* ----------------- Transition ------------------------ */
+.fade-enter-active {
+  transition: 0.25s ease !important;
+  transition-property: opacity;
+}
+
+.fade-leave-active {
+  transition: 0.25s cubic-bezier(0, 1, 0.3, 1) !important;
+  transition-property: opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-slide-y-enter-active {
+  transition: 0.15s ease !important;
+  transition-property: opacity, transform;
+}
+
+.fade-slide-y-leave-active {
+  transition: 0.15s cubic-bezier(0, 1, 0.3, 1) !important;
+  transition-property: opacity, transform;
+}
+
+.fade-slide-y-enter-from,
+.fade-slide-y-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-slide-x-enter-active {
+  transition: 0.15s ease !important;
+  transition-property: opacity, transform;
+}
+
+.fade-slide-x-leave-active {
+  transition: 0.25s cubic-bezier(0, 1, 0.3, 1) !important;
+  transition-property: opacity, transform;
+}
+
+.fade-slide-x-enter-from,
+.fade-slide-x-leave-to {
+  opacity: 0 !important;
+  transform: translateX(-10px) !important;
+}

@@ -1,0 +1,34 @@
+/* ------------------ Plugin Nprogress  ------------------ */
+#nprogress .bar {
+  background: var(--vp-c-brand-1);
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--vp-c-brand-1);
+  border-left-color: var(--vp-c-brand-1);
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--vp-c-brand-1), 0 0 5px var(--vp-c-brand-1);
+}
+
+/* ------------------ Plugin Comment  ------------------ */
+.vp-comment {
+  margin-top: 80px;
+}
+
+/* ------------------ Plugin Git  ------------------ */
+.vp-doc #doc-contributors,
+.vp-doc #doc-changelog {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc .vp-changelog-wrapper {
+  background-color: var(--vp-c-default-soft);
+}
+
+.vp-doc .vp-changelog-wrapper .vp-changelog-list {
+  padding-left: 0;
+  margin-block: 8px;
+  list-style: none;
+}
