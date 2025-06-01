@@ -23,7 +23,7 @@ export default defineUserConfig({
     hostname: 'https://manual.njust.wiki',
 
     /* 文档仓库配置，用于 editLink */
-    docsRepo: 'github.com/NJUST-OpenLib/NJUST-Manual',
+    docsRepo: 'NJUST-OpenLib/NJUST-Manual',
     docsDir: 'docs',
     docsBranch: 'main',
 

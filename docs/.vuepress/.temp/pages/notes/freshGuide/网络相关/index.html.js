@@ -1,16 +1,3 @@
 import comp from "F:/Github/NJUST-Manual/docs/.vuepress/.temp/pages/notes/freshGuide/网络相关/index.html.vue"
-const data = JSON.parse("{\"path\":\"/notes/freshGuide/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/\",\"title\":\"11111\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":11111,\"createTime\":\"2025/05/31 22:51:25\"},\"headers\":[],\"readingTime\":{\"minutes\":0.03,\"words\":8},\"filePathRelative\":\"notes/freshGuide/网络相关/readme.md\"}")
+const data = JSON.parse("{\"path\":\"/notes/freshGuide/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/\",\"title\":\"11111\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":11111,\"createTime\":\"2025/05/31 22:51:25\",\"description\":\"1111\",\"head\":[[\"meta\",{\"property\":\"og:url\",\"content\":\"https://manual.njust.wiki/notes/freshGuide/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"南京理工大学生存手册\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"11111\"}],[\"meta\",{\"property\":\"og:description\",\"content\":\"1111\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"zh-CN\"}],[\"meta\",{\"property\":\"og:updated_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"meta\",{\"property\":\"article:modified_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"script\",{\"type\":\"application/ld+json\"},\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"Article\\\",\\\"headline\\\":\\\"11111\\\",\\\"image\\\":[\\\"\\\"],\\\"dateModified\\\":\\\"2025-06-01T07:58:06.000Z\\\",\\\"author\\\":[]}\"]]},\"headers\":[],\"readingTime\":{\"minutes\":0.03,\"words\":8},\"git\":{\"updatedTime\":1748764686000,\"contributors\":[{\"name\":\"NJUST Openlib\",\"username\":\"\",\"email\":\"admin@njust.wiki\",\"commits\":1,\"avatar\":\"https://gravatar.com/avatar/4cf2c7470d560ed7eafa7f81b2bed63975c45927a8ae066984e0a94229d2b8c3?d=retro\"}]},\"autoDesc\":true,\"filePathRelative\":\"notes/freshGuide/网络相关/readme.md\"}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

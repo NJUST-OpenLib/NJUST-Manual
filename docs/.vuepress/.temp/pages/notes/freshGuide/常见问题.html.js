@@ -1,16 +1,3 @@
 import comp from "F:/Github/NJUST-Manual/docs/.vuepress/.temp/pages/notes/freshGuide/常见问题.html.vue"
-const data = JSON.parse("{\"path\":\"/notes/freshGuide/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html\",\"title\":\"常见问题汇总\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"常见问题汇总\",\"createTime\":\"2025/05/31 22:53:39\"},\"headers\":[],\"readingTime\":{\"minutes\":0.07,\"words\":22},\"filePathRelative\":\"notes/freshGuide/常见问题.md\"}")
+const data = JSON.parse("{\"path\":\"/notes/freshGuide/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html\",\"title\":\"常见问题汇总\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"常见问题汇总\",\"createTime\":\"2025/05/31 22:53:39\",\"description\":\"常见问题 123 交通工具看\",\"head\":[[\"meta\",{\"property\":\"og:url\",\"content\":\"https://manual.njust.wiki/notes/freshGuide/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"南京理工大学生存手册\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"常见问题汇总\"}],[\"meta\",{\"property\":\"og:description\",\"content\":\"常见问题 123 交通工具看\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"zh-CN\"}],[\"meta\",{\"property\":\"og:updated_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"meta\",{\"property\":\"article:modified_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"script\",{\"type\":\"application/ld+json\"},\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"Article\\\",\\\"headline\\\":\\\"常见问题汇总\\\",\\\"image\\\":[\\\"\\\"],\\\"dateModified\\\":\\\"2025-06-01T07:58:06.000Z\\\",\\\"author\\\":[]}\"]]},\"headers\":[],\"readingTime\":{\"minutes\":0.07,\"words\":22},\"git\":{\"updatedTime\":1748764686000,\"contributors\":[{\"name\":\"NJUST Openlib\",\"username\":\"\",\"email\":\"admin@njust.wiki\",\"commits\":1,\"avatar\":\"https://gravatar.com/avatar/4cf2c7470d560ed7eafa7f81b2bed63975c45927a8ae066984e0a94229d2b8c3?d=retro\"}]},\"autoDesc\":true,\"filePathRelative\":\"notes/freshGuide/常见问题.md\"}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

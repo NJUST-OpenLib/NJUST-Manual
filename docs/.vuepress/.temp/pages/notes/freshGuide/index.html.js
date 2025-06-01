@@ -1,16 +1,3 @@
 import comp from "F:/Github/NJUST-Manual/docs/.vuepress/.temp/pages/notes/freshGuide/index.html.vue"
-const data = JSON.parse("{\"path\":\"/notes/freshGuide/\",\"title\":\"新生指南之写在前面\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"新生指南之写在前面\",\"createTime\":\"2025/05/31 21:59:06\",\"permalink\":\"/notes/freshGuide/\"},\"headers\":[],\"readingTime\":{\"minutes\":2.2,\"words\":660},\"filePathRelative\":\"notes/freshGuide/readme.md\"}")
+const data = JSON.parse("{\"path\":\"/notes/freshGuide/\",\"title\":\"新生指南之写在前面\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"新生指南之写在前面\",\"createTime\":\"2025/05/31 21:59:06\",\"permalink\":\"/notes/freshGuide/\",\"description\":\"注意 本站并非南京理工大学官方站点，也从未以任何形式表明或暗示官方属性。 当前域名为：NJUST.WIKI BENCH.SU 01R.CC NJUST-EDU.CN。 建议通过学校官网（www.njust.edu.cn）等官方渠道核实信息。 提示 推荐使用电脑端浏览优化体验。 🎉 欢迎加入南京理工大学！ 本指南基于往届学生经验整理，涵盖报到流程、学业...\",\"head\":[[\"meta\",{\"property\":\"og:url\",\"content\":\"https://manual.njust.wiki/notes/freshGuide/\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"南京理工大学生存手册\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"新生指南之写在前面\"}],[\"meta\",{\"property\":\"og:description\",\"content\":\"注意 本站并非南京理工大学官方站点，也从未以任何形式表明或暗示官方属性。 当前域名为：NJUST.WIKI BENCH.SU 01R.CC NJUST-EDU.CN。 建议通过学校官网（www.njust.edu.cn）等官方渠道核实信息。 提示 推荐使用电脑端浏览优化体验。 🎉 欢迎加入南京理工大学！ 本指南基于往届学生经验整理，涵盖报到流程、学业...\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"zh-CN\"}],[\"meta\",{\"property\":\"og:updated_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"meta\",{\"property\":\"article:modified_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"script\",{\"type\":\"application/ld+json\"},\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"Article\\\",\\\"headline\\\":\\\"新生指南之写在前面\\\",\\\"image\\\":[\\\"\\\"],\\\"dateModified\\\":\\\"2025-06-01T07:58:06.000Z\\\",\\\"author\\\":[]}\"]]},\"headers\":[],\"readingTime\":{\"minutes\":2.2,\"words\":660},\"git\":{\"updatedTime\":1748764686000,\"contributors\":[{\"name\":\"NJUST Openlib\",\"username\":\"\",\"email\":\"admin@njust.wiki\",\"commits\":1,\"avatar\":\"https://gravatar.com/avatar/4cf2c7470d560ed7eafa7f81b2bed63975c45927a8ae066984e0a94229d2b8c3?d=retro\"}]},\"autoDesc\":true,\"filePathRelative\":\"notes/freshGuide/readme.md\"}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}

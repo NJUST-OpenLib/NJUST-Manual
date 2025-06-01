@@ -6,7 +6,7 @@
   "author": "NJUST Openlib <admin@njust.wiki>",
   "license": "MIT",
   "engines": {
-    "node": "^18.20.0 || >=20.0.0"
+    "node": "22.0.0"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",

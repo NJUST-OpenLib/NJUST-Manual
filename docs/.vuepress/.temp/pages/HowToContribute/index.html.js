@@ -1,16 +1,3 @@
 import comp from "F:/Github/NJUST-Manual/docs/.vuepress/.temp/pages/HowToContribute/index.html.vue"
-const data = JSON.parse("{\"path\":\"/HowToContribute/\",\"title\":\"如何贡献\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"如何贡献\",\"createTime\":\"2025/06/01 15:41:52\",\"permalink\":\"/HowToContribute/\"},\"headers\":[],\"readingTime\":{\"minutes\":1.78,\"words\":535},\"filePathRelative\":\"HowToContribute.md\",\"categoryList\":[]}")
+const data = JSON.parse("{\"path\":\"/HowToContribute/\",\"title\":\"如何贡献\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"如何贡献\",\"createTime\":\"2025/06/01 15:41:52\",\"permalink\":\"/HowToContribute/\",\"description\":\"⚠️ 本页面内容由AI生成，仅供参考。 如何贡献 🎉 欢迎大家为本项目贡献力量！无论是提交代码、反馈问题还是提出建议，我们都非常欢迎。以下是几种参与方式： 1. 提交 Issue 📝 如果你在使用过程中遇到问题、发现文档有误、或者有任何改进建议，欢迎在 GitHub Issue 页面提交。请尽量详细描述你的问题或建议，包括复现步骤、期望结果等信息，...\",\"head\":[[\"meta\",{\"property\":\"og:url\",\"content\":\"https://manual.njust.wiki/HowToContribute/\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"南京理工大学生存手册\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"如何贡献\"}],[\"meta\",{\"property\":\"og:description\",\"content\":\"⚠️ 本页面内容由AI生成，仅供参考。 如何贡献 🎉 欢迎大家为本项目贡献力量！无论是提交代码、反馈问题还是提出建议，我们都非常欢迎。以下是几种参与方式： 1. 提交 Issue 📝 如果你在使用过程中遇到问题、发现文档有误、或者有任何改进建议，欢迎在 GitHub Issue 页面提交。请尽量详细描述你的问题或建议，包括复现步骤、期望结果等信息，...\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"zh-CN\"}],[\"meta\",{\"property\":\"og:updated_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"meta\",{\"property\":\"article:modified_time\",\"content\":\"2025-06-01T07:58:06.000Z\"}],[\"script\",{\"type\":\"application/ld+json\"},\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"Article\\\",\\\"headline\\\":\\\"如何贡献\\\",\\\"image\\\":[\\\"\\\"],\\\"dateModified\\\":\\\"2025-06-01T07:58:06.000Z\\\",\\\"author\\\":[]}\"]]},\"headers\":[],\"readingTime\":{\"minutes\":1.78,\"words\":535},\"git\":{\"updatedTime\":1748764686000,\"contributors\":[{\"name\":\"NJUST Openlib\",\"username\":\"\",\"email\":\"admin@njust.wiki\",\"commits\":1,\"avatar\":\"https://gravatar.com/avatar/4cf2c7470d560ed7eafa7f81b2bed63975c45927a8ae066984e0a94229d2b8c3?d=retro\"}]},\"autoDesc\":true,\"filePathRelative\":\"HowToContribute.md\",\"categoryList\":[]}")
 export { comp, data }
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updatePageData) {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ data }) => {
-    __VUE_HMR_RUNTIME__.updatePageData(data)
-  })
-}
