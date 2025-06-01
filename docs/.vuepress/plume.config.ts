@@ -40,7 +40,7 @@ export default defineThemeConfig({
   profile: {
     avatar: 'https://theme-plume.vuejs.press/plume.png',
     name: 'My Vuepress Site',
-    description: 'discribe info', ss
+    description: 'discribe info',
     // circle: true,
     // location: '',
     // organization: '',

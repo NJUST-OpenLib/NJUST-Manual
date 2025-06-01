@@ -7,7 +7,6 @@ import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/style
 import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/notation-focus.css"
 import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/notation-highlight.css"
 import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/notation-word-highlight.css"
-import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/whitespace.css"
 import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/collapsed-lines.css"
 import { setupCollapsedLines } from "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/index.js"
 import "E:/my-project/node_modules/@vuepress/highlighter-helper/lib/client/styles/code-block-title.css"
