@@ -12,6 +12,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
     "docs:build": "vuepress build docs --clean-cache --clean-temp",
+    "docs:build2": "chmod +x node_modules/.bin/vuepress && vuepress build src",
     "docs:preview": "http-server docs/.vuepress/dist",
     "vp-update": "npx vp-update"
   },
