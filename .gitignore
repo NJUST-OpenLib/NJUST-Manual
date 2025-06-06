@@ -3,3 +3,4 @@ node_modules
 dist
 .cache
 docs/.vuepress/.temp/internal/sidebar.js
+CNAME
