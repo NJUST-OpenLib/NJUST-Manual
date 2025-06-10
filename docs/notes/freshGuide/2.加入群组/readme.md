@@ -1,6 +1,7 @@
 ---
 title: 加入群组
 createTime: 2025/06/08 22:18:38
+permalink: /notes/freshGuide/addGroup/
 ---
 虽然本项目的初衷就是您可以在此获得所有您想要的资源。   
 但有时候，询问总是比查阅手册更快。   

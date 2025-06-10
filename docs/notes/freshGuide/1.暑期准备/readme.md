@@ -1,6 +1,7 @@
 ---
 title: 暑期准备
 createTime: 2025/06/01 20:54:50
+permalink: /notes/freshGuide/summerPrep/
 ---
 首先，恭喜您被南京理工大学录取！
 

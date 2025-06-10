@@ -1,6 +1,7 @@
 ---
 title: Redirect
 createTime: 2025/06/01 21:27:49
+permalink: /notes/freshGuide.html
 ---
 由于 VuePress 在处理同名目录和文件时存在细微差异，  
 本页面路径为 `/notes/freshGuide.html`，  
