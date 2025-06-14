@@ -3,6 +3,9 @@ title:  新生指南之写在前面
 createTime: 2025/05/31 21:59:06
 permalink: /notes/freshGuide/
 ---
+
+![二道门](ststic/Nanjing_erdaomen_compress.webp)
+
 ::: warning
 本站并非南京理工大学官方站点，也从未以任何形式表明或暗示官方属性。
 
