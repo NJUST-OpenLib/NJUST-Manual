@@ -11,6 +11,7 @@ config:
       name: 南京理工大学
       tagline: 生存手册
       text:  One-stop information platform for NJUSTers
+
       actions:
         -
           theme: brand
@@ -21,3 +22,4 @@ config:
           text: Github 
           link: https://github.com/NJUST-OpenLib/NJUST-Manual
 ---
+

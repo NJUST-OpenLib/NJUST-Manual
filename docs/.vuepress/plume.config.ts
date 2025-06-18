@@ -1,7 +1,7 @@
 import { defineThemeConfig } from 'vuepress-theme-plume'
 import { navbar } from './navbar'
 import { notes } from './notes'
-
+import path from 'node:path'
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
  */
@@ -30,7 +30,7 @@ export default defineThemeConfig({
   /* 站点页脚 */
   footer: {
     copyright: '<a href="https://njust.wiki">NJUST.WIKI</a> © 2025',
-    message: 'Theme <a href="https://theme-plume.vuejs.press">vuepress-theme-plume</a>',
+    message: '欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论',
 
   },
 
@@ -53,12 +53,12 @@ export default defineThemeConfig({
    * 公告板
    * @see https://theme-plume.vuejs.press/guide/features/bulletin/
    */
-  // bulletin: {
-  //   layout: 'top-right',
-  //   contentType: 'markdown',
-  //   title: '公告板标题',
-  //   content: '公告板内容',
-  // },
+bulletin: {
+   layout: 'top-right',
+  contentType: 'markdown',
+  title: '站点公告',
+  contentFile: path.join(__dirname, '_bulletin.md'),
+ },
 
   /* 过渡动画 @see https://theme-plume.vuejs.press/config/basic/#transition */
   transition: {

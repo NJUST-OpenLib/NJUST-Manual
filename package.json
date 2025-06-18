@@ -18,11 +18,17 @@
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.20",
-    "vuepress": "2.0.0-rc.20",
-    "vuepress-theme-plume": "1.0.0-rc.137",
     "http-server": "^14.1.1",
-    "vue": "^3.5.13",
     "sass-embedded": "^1.86.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vue": "^3.5.13",
+    "vuepress": "2.0.0-rc.20",
+    "vuepress-theme-plume": "1.0.0-rc.137"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0",
+    "echarts": "^5.6.0",
+    "flowchart.ts": "^3.0.1",
+    "mermaid": "^11.6.0"
   }
 }
