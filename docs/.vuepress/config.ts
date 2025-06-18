@@ -18,6 +18,28 @@ export default defineUserConfig({
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
     theme: plumeTheme({
+
+        watermark: {
+            watermarkOptions: {
+           "width": 250,
+  "height": 250,
+  "rotate": 30,
+  "contentType": "multi-line-text",
+  "content": "NJUST.WIKI\n南理工生存手册",
+  "globalAlpha": 0.15,
+  "mode": "default",
+  "textType": "fill",
+  "lineHeight": 30,
+  "fontSize": "20px",
+  "fontFamily": "sans-serif",
+  "fontStyle": "",
+  "fontVariant": "",
+  "fontColor": "#899",
+  "fontWeight": "normal",
+  "filter": "none",
+  "letterSpacing": "0px"
+            }
+          },
         notes,
         /* 添加您的部署域名，有助于 SEO, 生成 sitemap */
         hostname: 'https://manual.njust.wiki',
@@ -143,7 +165,7 @@ export default defineUserConfig({
          * 水印
          * @see https://theme-plume.vuejs.press/guide/features/watermark/
          */
-         watermark: true,
+        
 
         /**
          * 评论 comments

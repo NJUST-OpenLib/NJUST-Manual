@@ -55,6 +55,7 @@ export default defineThemeConfig({
    */
 bulletin: {
    layout: 'top-right',
+
   contentType: 'markdown',
   title: '站点公告',
   contentFile: path.join(__dirname, '_bulletin.md'),
