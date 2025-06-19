@@ -31,5 +31,5 @@
     "flowchart.ts": "^3.0.1",
     "mermaid": "^11.6.0"
   },
-  "packageManager": "pnpm@10"
+  "packageManager": "pnpm@10.12.1"
 }
