@@ -4,7 +4,17 @@ createTime: 2025/06/01 15:41:52
 permalink: /HowToContribute/
 ---
 
-> ⚠️ **本页面内容由AI生成，仅供参考。**
+> ⚠️ **遵守指南**
+
+::: warning  
+
+除非提交过issue并取得大多数人同意，并在本地构建测试通过，不存在任何死链接  
+否则请勿修改frontmatter中的permalink字段及static目录下任何已有静态资源的名称  
+请勿修改package.json或actions的yml文件  
+请勿修改config文件  
+请勿删除已有信息，除非存在重大错误或不当。过时信息请使用~~删除线~~或details字段进行折叠
+请检查文件格式  
+:::
 
 # 如何贡献 🎉
 
