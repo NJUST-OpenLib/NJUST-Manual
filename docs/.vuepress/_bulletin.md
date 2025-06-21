@@ -4,5 +4,7 @@
 
 **更新日志：**
 
-- 更新宿舍情况
-- 测试性加入水印，如影响观感请提交 [ISSUE](https://github.com/NJUST-OpenLib/NJUST-Manual/issues)
+- 测试性加入水印
+- 网站迁移至腾讯云 Edgeone Pages 海外版
+
+如遇到问题请提交 [ISSUE](https://github.com/NJUST-OpenLib/NJUST-Manual/issues)
