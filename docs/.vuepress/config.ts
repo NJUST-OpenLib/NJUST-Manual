@@ -2,6 +2,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { notes } from './notes.ts'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 
 export default defineUserConfig({
     base: '/',
@@ -17,6 +18,12 @@ export default defineUserConfig({
     bundler: viteBundler(),
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
+    plugins: [
+        googleAnalyticsPlugin({
+          id: 'G-36V185C0HT', // 替换成你的真实 GA ID
+          
+        }),
+      ],
     theme: plumeTheme({
 
         watermark: {

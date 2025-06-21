@@ -1,6 +1,6 @@
 /*!
-  * vue-router v4.5.0
-  * (c) 2024 Eduardo San Martin Morote
+  * vue-router v4.5.1
+  * (c) 2025 Eduardo San Martin Morote
   * @license MIT
   */
 var VueRouter = (function (exports, vue) {
@@ -786,16 +786,16 @@ var VueRouter = (function (exports, vue) {
    */
   function createMemoryHistory(base = '') {
       let listeners = [];
-      let queue = [START];
+      let queue = [[START, {}]];
       let position = 0;
       base = normalizeBase(base);
-      function setLocation(location) {
+      function setLocation(location, state = {}) {
           position++;
           if (position !== queue.length) {
               // we are in the middle, we remove everything from here in the queue
               queue.splice(position);
           }
-          queue.push(location);
+          queue.push([location, state]);
       }
       function triggerListeners(to, from, { direction, delta }) {
           const info = {
@@ -810,17 +810,17 @@ var VueRouter = (function (exports, vue) {
       const routerHistory = {
           // rewritten by Object.defineProperty
           location: START,
-          // TODO: should be kept in queue
+          // rewritten by Object.defineProperty
           state: {},
           base,
           createHref: createHref.bind(null, base),
-          replace(to) {
+          replace(to, state) {
               // remove current entry and decrement position
               queue.splice(position--, 1);
-              setLocation(to);
+              setLocation(to, state);
           },
-          push(to, data) {
-              setLocation(to);
+          push(to, state) {
+              setLocation(to, state);
           },
           listen(callback) {
               listeners.push(callback);
@@ -832,7 +832,7 @@ var VueRouter = (function (exports, vue) {
           },
           destroy() {
               listeners = [];
-              queue = [START];
+              queue = [[START, {}]];
               position = 0;
           },
           go(delta, shouldTrigger = true) {
@@ -853,7 +853,11 @@ var VueRouter = (function (exports, vue) {
       };
       Object.defineProperty(routerHistory, 'location', {
           enumerable: true,
-          get: () => queue[position],
+          get: () => queue[position][0],
+      });
+      Object.defineProperty(routerHistory, 'state', {
+          enumerable: true,
+          get: () => queue[position][1],
       });
       return routerHistory;
   }
@@ -2362,6 +2366,7 @@ var VueRouter = (function (exports, vue) {
               type: String,
               default: 'page',
           },
+          viewTransition: Boolean,
       },
       useLink,
       setup(props, { slots }) {

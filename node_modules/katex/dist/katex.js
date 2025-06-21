@@ -5091,7 +5091,7 @@ defineSymbol(symbols_text, main, accent, "\u02da", "\\r"); // ring above
 
 defineSymbol(symbols_text, main, accent, "\u02c7", "\\v"); // caron
 
-defineSymbol(symbols_text, main, accent, "\u00a8", '\\"'); // diaresis
+defineSymbol(symbols_text, main, accent, "\u00a8", '\\"'); // diaeresis
 
 defineSymbol(symbols_text, main, accent, "\u02dd", "\\H"); // double acute
 
@@ -14194,7 +14194,8 @@ defineFunction({
   names: ["\\relax"],
   props: {
     numArgs: 0,
-    allowedInText: true
+    allowedInText: true,
+    allowedInArgument: true
   },
 
   handler(_ref) {
@@ -14862,7 +14863,7 @@ defineFunctionBuilders({
   },
 
   mathmlBuilder(group, options) {
-    // Is the inner group a relevant horizonal brace?
+    // Is the inner group a relevant horizontal brace?
     let isBrace = false;
     let isOver;
     let isSup;
@@ -17890,6 +17891,7 @@ class Parser {
       if (!atom) {
         break;
       } else if (atom.type === "internal") {
+        // Internal nodes do not appear in parse tree
         continue;
       }
 
@@ -17976,8 +17978,15 @@ class Parser {
     const symbol = symbolToken.text;
     this.consume();
     this.consumeSpaces(); // ignore spaces before sup/subscript argument
+    // Skip over allowed internal nodes such as \relax
 
-    const group = this.parseGroup(name);
+    let group;
+
+    do {
+      var _group;
+
+      group = this.parseGroup(name);
+    } while (((_group = group) == null ? void 0 : _group.type) === "internal");
 
     if (!group) {
       throw new src_ParseError("Expected group after '" + symbol + "'", symbolToken);
@@ -18023,7 +18032,13 @@ class Parser {
   parseAtom(breakOnTokenText) {
     // The body of an atom is an implicit group, so that things like
     // \left(x\right)^2 work correctly.
-    const base = this.parseGroup("atom", breakOnTokenText); // In text mode, we don't have superscripts or subscripts
+    const base = this.parseGroup("atom", breakOnTokenText); // Internal nodes (e.g. \relax) cannot support super/subscripts.
+    // Instead we will pick up super/subscripts with blank base next round.
+
+    if ((base == null ? void 0 : base.type) === "internal") {
+      return base;
+    } // In text mode, we don't have superscripts or subscripts
+
 
     if (this.mode === "text") {
       return base;
@@ -18956,7 +18971,7 @@ const renderToHTMLTree = function (expression, options) {
   }
 };
 
-const version = "0.16.21";
+const version = "0.16.22";
 const __domTree = {
   Span: Span,
   Anchor: Anchor,

@@ -4,6 +4,7 @@
 ![jsr score](https://jsr.io/badges/@pengzhanbo/utils/score)
 [![MIT License](https://img.shields.io/npm/l/@pengzhanbo/utils)](https://github.com/pengzhanbo/utils/blob/main/LICENSE)
 ![npm package](https://img.shields.io/npm/dm/@pengzhanbo/utils)
+[![codecov](https://codecov.io/gh/pengzhanbo/utils/graph/badge.svg?token=LKZGX743RW)](https://codecov.io/gh/pengzhanbo/utils)
 
 一个常用的工具类库, 无依赖， 任何运行时。
 
