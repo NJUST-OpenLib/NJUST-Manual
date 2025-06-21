@@ -11,11 +11,17 @@
   "scripts": {
     "build": "npm run docs:build",
     "docs:build": "npx vuepress build docs --clean-cache --clean-temp",
-    "docs:dev": "vuepress dev docs",
-    "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
-    "docs:build2": "chmod +x node_modules/.bin/vuepress && vuepress build src",
+    "docs:dev": "npx vuepress dev docs",
+    "docs:dev-clean": "npx vuepress dev docs --clean-cache --clean-temp",
     "docs:preview": "http-server docs/.vuepress/dist",
     "vp-update": "npx vp-update"
+  },
+  "dependencies": {
+    "@pengzhanbo/utils": "^2.1.0",
+    "chart.js": "^4.5.0",
+    "echarts": "^5.6.0",
+    "flowchart.ts": "^3.0.1",
+    "mermaid": "^11.6.0"
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.23",
@@ -26,12 +32,6 @@
     "vue": "^3.5.17",
     "vuepress": "2.0.0-rc.23",
     "vuepress-theme-plume": "1.0.0-rc.154"
-  },
-  "dependencies": {
-    "chart.js": "^4.5.0",
-    "echarts": "^5.6.0",
-    "flowchart.ts": "^3.0.1",
-    "mermaid": "^11.6.0"
   },
   "packageManager": "npm@10.9.2"
 }
