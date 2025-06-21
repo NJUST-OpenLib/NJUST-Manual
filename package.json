@@ -6,12 +6,13 @@
   "author": "NJUST Openlib <admin@njust.wiki>",
   "license": "MIT",
   "engines": {
-    "node": "22.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
+    "build": "npm run docs:build",
+    "docs:build": "npx vuepress build docs --clean-cache --clean-temp",
     "docs:dev": "vuepress dev docs",
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
-    "docs:build": "vuepress build docs --clean-cache --clean-temp",
     "docs:build2": "chmod +x node_modules/.bin/vuepress && vuepress build src",
     "docs:preview": "http-server docs/.vuepress/dist",
     "vp-update": "npx vp-update"
