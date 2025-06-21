@@ -28,6 +28,7 @@
     "vuepress-theme-plume": "1.0.0-rc.154"
   },
   "dependencies": {
+    "@pengzhanbo/utils": "^2.1.0",
     "chart.js": "^4.5.0",
     "echarts": "^5.6.0",
     "flowchart.ts": "^3.0.1",
