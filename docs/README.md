@@ -6,11 +6,11 @@ config:
     type: hero
     full: true
     background: tint-plate
-    tintPlate: 150
+    tintPlate: 000
     hero:
       name: 南京理工大学
       tagline: 生存手册
-      text:  One-stop information platform for NJUSTers
+      text:  One-stop information platform for NJUSTers <br> <h1>The world will not be destroyed by those who do evil,but by those who watch them without doing anything.</h1>
 
       actions:
         -

@@ -4,7 +4,7 @@
 
 **更新日志：**
 
-- 测试性加入水印
+- 更新 27 舍情况
 - 网站迁移至腾讯云 Edgeone Pages 海外版
 
 如遇到问题请提交 [ISSUE](https://github.com/NJUST-OpenLib/NJUST-Manual/issues)
