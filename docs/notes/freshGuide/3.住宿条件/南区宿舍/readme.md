@@ -1,6 +1,7 @@
 ---
 title: 南区宿舍
 createTime: 2025/06/23 01:55:07
+permalink: /notes/freshGuide/dorm-conditions/S/
 ---
 
 ## 本节序
