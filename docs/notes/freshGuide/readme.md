@@ -3,8 +3,8 @@ title:  新生指南之写在前面
 createTime: 2025/05/31 21:59:06
 permalink: /notes/freshGuide/
 ---
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NJUST-OpenLib/NJUST-Manual)
-
+![招生咨询](ststic/ZSZXFS.webp)
+[南京理工大学 2025 年招生咨询方式](https://mp.weixin.qq.com/s/P_LFKLAO_nSCX_WBqi-IRA)
 
 ![二道门](ststic/Nanjing_erdaomen_compress.webp)
 
