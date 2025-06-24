@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  docs:
+  build_docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,11 +37,17 @@ jobs:
           npm ci
           echo "::endgroup::✅ 依赖安装完成"
 
-      - name: 🏗️ 构建 VuePress 项目
+      - name: 🏗️ 构建 VuePress 项目并保存日志
         run: |
           echo "::group::🔧 VuePress 构建中..."
-          npm run docs:build
+          npm run docs:build 2>&1 | tee build.log
           echo "::endgroup::✅ VuePress 构建完成"
+
+      - name: 📤 上传构建日志 Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-log
+          path: build.log
 
       - name: 🐍 安装 Python
         uses: actions/setup-python@v4
@@ -59,10 +65,27 @@ jobs:
 
       - name: 📝 写入构建摘要
         run: |
-          echo "### ✅ 文档构建与部署完成" >> $GITHUB_STEP_SUMMARY
-          echo "- 构建时间：$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
-          echo "- 推送到 IndexNow 的链接数：${{ env.url_count }}" >> $GITHUB_STEP_SUMMARY
-          echo "- 🚀 文档部署地址：[manual.njust.wiki](https://manual.njust.wiki)" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 文档构建与部署报告" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**完成状态：** ✅ 成功" >> $GITHUB_STEP_SUMMARY
+          echo "**构建时间：** $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "**推送链接数：** ${{ env.url_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 相关链接" >> $GITHUB_STEP_SUMMARY
+          echo "- [文档主页](https://manual.njust.wiki)" >> $GITHUB_STEP_SUMMARY
+          echo "- [GitHub 仓库](https://github.com/NJUST-OpenLib/NJUST-Manual)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 构建详情" >> $GITHUB_STEP_SUMMARY
+          echo "| 项目 | 说明 |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Node.js 版本 | $(node -v) |" >> $GITHUB_STEP_SUMMARY
+          echo "| NPM 版本 | $(npm -v) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 构建目录 | docs/.vuepress/dist |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 构建日志摘录（前 20 行）" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          head -n 20 build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: 🚚 部署到 GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
