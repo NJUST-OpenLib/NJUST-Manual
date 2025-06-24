@@ -10,7 +10,8 @@ export default defineUserConfig({
     base: '/',
     lang: 'zh-CN',
     title: '南京理工大学生存手册',
-    description: '您的一站式信息平台',
+    description: '本站是南理工学生自发建立的一个开放、共享的信息平台',
+
 
     head: [
         // 配置站点图标
@@ -24,6 +25,7 @@ export default defineUserConfig({
         seoPlugin({
             hostname: 'https://manual.njust.wiki',
             autoDescription: true,
+            
         }),
         googleAnalyticsPlugin({
           id: 'G-36V185C0HT',
