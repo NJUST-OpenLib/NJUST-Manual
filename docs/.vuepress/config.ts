@@ -3,6 +3,8 @@ import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { notes } from './notes.ts'
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+import { seoPlugin } from '@vuepress/plugin-seo'
+
 
 export default defineUserConfig({
     base: '/',
@@ -19,11 +21,16 @@ export default defineUserConfig({
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
     plugins: [
+        seoPlugin({
+            hostname: 'https://manual.njust.wiki',
+            autoDescription: true,
+        }),
         googleAnalyticsPlugin({
-          id: 'G-36V185C0HT', // 替换成你的真实 GA ID
-          
+          id: 'G-36V185C0HT',
         }),
       ],
+     
+      
     theme: plumeTheme({
 
         watermark: {

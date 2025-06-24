@@ -26,6 +26,7 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.23",
     "@vuepress/plugin-google-analytics": "^2.0.0-rc.107",
+    "@vuepress/plugin-seo": "^2.0.0-rc.110",
     "http-server": "^14.1.1",
     "sass-embedded": "^1.86.0",
     "typescript": "^5.7.3",
