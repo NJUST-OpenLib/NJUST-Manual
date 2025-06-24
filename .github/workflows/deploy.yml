@@ -44,7 +44,7 @@ jobs:
           echo "::endgroup::✅ VuePress 构建完成"
 
       - name: 📤 上传构建日志 Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build.log
