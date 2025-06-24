@@ -1,4 +1,4 @@
-name: docs
+name: 📚 构建与部署文档
 
 on:
   push:
@@ -10,37 +10,61 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 检出代码
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Get npm version from package.json
+      - name: 📦 获取 Node/npm 版本
         id: npm-version
         run: |
-          # 从 packageManager 字段提取 npm 版本
+          echo "::group::🔍 检查版本信息"
           VERSION=$(grep -o 'npm@[0-9\.]*' package.json | cut -d@ -f2)
           echo "npm_version=$VERSION" >> $GITHUB_ENV
           echo "node_version=$(node -v | cut -dv -f2)" >> $GITHUB_ENV
+          echo "::endgroup::"
 
-      - name: Setup Node.js
+      - name: 🧰 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          # 使用从 package.json 提取的 node 版本（若存在）
-          node-version: ${{ steps.npm-version.outputs.node_version || '22' }}
+          node-version: ${{ env.node_version || '22' }}
           cache: npm
           cache-dependency-path: '**/package-lock.json'
 
-      - name: Install dependencies
-        run: npm ci  # 基于 package-lock.json 进行确定性安装
-
-      - name: Build VuePress site
-        run: npm run docs:build
-      - name: Push URLs to IndexNow
+      - name: 📦 安装依赖
         run: |
+          echo "::group::📦 正在安装 npm 依赖..."
+          npm ci
+          echo "::endgroup::✅ 依赖安装完成"
+
+      - name: 🏗️ 构建 VuePress 项目
+        run: |
+          echo "::group::🔧 VuePress 构建中..."
+          npm run docs:build
+          echo "::endgroup::✅ VuePress 构建完成"
+
+      - name: 🐍 安装 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: 🚀 推送链接到 IndexNow
+        run: |
+          echo "::group::📤 推送 IndexNow..."
           pip install requests
-          python .github/scripts/push_to_indexnow.py
-        
-      - name: Deploy to GitHub Pages
+          URL_COUNT=$(python .github/scripts/push_to_indexnow.py | tee /tmp/indexnow.log | grep -Eo "[0-9]+ 个链接" | grep -Eo "[0-9]+" || echo "0")
+          echo "url_count=$URL_COUNT" >> $GITHUB_ENV
+          echo "::endgroup::✅ 推送完成"
+        continue-on-error: true
+
+      - name: 📝 写入构建摘要
+        run: |
+          echo "### ✅ 文档构建与部署完成" >> $GITHUB_STEP_SUMMARY
+          echo "- 构建时间：$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "- 推送到 IndexNow 的链接数：${{ env.url_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 🚀 文档部署地址：[manual.njust.wiki](https://manual.njust.wiki)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🚚 部署到 GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: gh-pages

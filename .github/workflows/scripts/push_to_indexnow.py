@@ -38,3 +38,4 @@ if __name__ == "__main__":
     urls = parse_urls_from_sitemap(SITEMAP_PATH)
     print(f"🌐 从 sitemap.xml 提取 {len(urls)} 个 URL")
     push_to_indexnow(urls)
+print(f"Finished")
