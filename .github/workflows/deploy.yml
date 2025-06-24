@@ -58,7 +58,7 @@ jobs:
         run: |
           echo "::group::📤 推送 IndexNow..."
           pip install requests
-          URL_COUNT=$(python .github/scripts/push_to_indexnow.py | tee /tmp/indexnow.log | grep -Eo "[0-9]+ 个链接" | grep -Eo "[0-9]+" || echo "0")
+          URL_COUNT=$(python .github/workflows/scripts/push_to_indexnow.py | tee /tmp/indexnow.log | grep -Eo "[0-9]+ 个链接" | grep -Eo "[0-9]+" || echo "0")
           echo "url_count=$URL_COUNT" >> $GITHUB_ENV
           echo "::endgroup::✅ 推送完成"
         continue-on-error: true
