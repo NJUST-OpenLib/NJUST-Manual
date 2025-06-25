@@ -12,10 +12,16 @@ meta:
 关键字：南京理工大学，南理工，理工大，新生指南，入学须知，报到流程，新生报到，大学生活，军训准备，宿舍安排，教务系统，新生攻略   
 欢迎访问南京理工大学生存手册！这里是南京理工大学学生自发创建的网站。
 
+---
+
+ [点击链接加入群聊【南理工2025年新生群】](https://qm.qq.com/q/lpQB7nO77O)  
+ 
+ ---
+
 ![招生咨询](ststic/ZSZXFS.webp)
 [南京理工大学 2025 年招生咨询方式](https://mp.weixin.qq.com/s/P_LFKLAO_nSCX_WBqi-IRA)
 
-![二道门](ststic/Nanjing_erdaomen_compress.webp)
+
 
 ::: warning
 本站并非南京理工大学官方站点，也从未以任何形式表明或暗示官方属性。
