@@ -54,6 +54,7 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/guide/features/bulletin/
    */
 bulletin: {
+    
    layout: 'top-right',
 
   contentType: 'markdown',
