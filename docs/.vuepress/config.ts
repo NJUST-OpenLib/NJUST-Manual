@@ -4,7 +4,7 @@ import { plumeTheme } from 'vuepress-theme-plume'
 import { notes } from './notes.ts'
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
-
+import { gitPlugin } from '@vuepress/plugin-git'
 
 export default defineUserConfig({
     base: '/',
@@ -22,6 +22,17 @@ export default defineUserConfig({
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
     plugins: [
+        gitPlugin({
+            changelog: {
+                maxCount: 10,
+                repoUrl: 'https://github.com/NJUST-OpenLib/NJUST-Manual',
+                commitUrlPattern: ':repo/commit/:hash',
+                issueUrlPattern: ':repo/issues/:issue',
+                tagUrlPattern: ':repo/releases/tag/:tag'
+              },
+              
+
+          }),
         seoPlugin({
             hostname: 'https://manual.njust.wiki',
             autoDescription: true,
@@ -34,7 +45,7 @@ export default defineUserConfig({
      
       
     theme: plumeTheme({
-
+        plugins: { git: true },
         watermark: {
             watermarkOptions: {
            "width": 250,
@@ -68,7 +79,17 @@ export default defineUserConfig({
         /* 页内信息 */
         editLink: true,
      // lastUpdated: true,
-        contributors: true,
+     contributors: {
+        mode: 'block',
+        avatar: true,
+        info: [
+            {
+              username: 'NJUST-OpenLib', // github username
+              alias: ['NJUST-OpenLib'], // 别名，本地 git 配置中的用户名
+              avatar: 'https://avatars.githubusercontent.com/u/202487679',
+            }
+          ]
+      },
         // changelog: false,
 
         /**
