@@ -1,12 +1,12 @@
 ---
 title: 关于我们
-date: 2025-06-27 10:00:00
+date: 2025-06-27T10:00:00.000Z
 permalink: /about/
 description: 了解更多关于南京理工大学生存手册的信息
 home: true
 config:
-  -
-    type: custom
+  - type: custom
+createTime: 2025/06/27 14:49:17
 ---
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 4rem;">
   <h1>南京理工大学生存手册</h1>
@@ -90,11 +90,11 @@ config:
 
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-  <a href="./privacy.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
+  <a href="./privacy.html" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
     <h2 style="margin-top: 0;">🔒 隐私政策</h2>
     <p>我们重视并保护您的隐私。点击了解我们如何收集、使用和保护您的信息。</p>
   </a>
-  <a href="./contact.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
+  <a href="./contact.html" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
     <h2 style="margin-top: 0;">💬 联系我们</h2>
     <p>有任何问题、建议或希望参与贡献？欢迎随时与我们取得联系。</p>
   </a>
