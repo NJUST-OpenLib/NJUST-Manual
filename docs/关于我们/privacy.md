@@ -5,29 +5,54 @@ permalink: /about/privacy.html
 ---
 # 隐私政策
 
-南京理工大学生存手册（以下简称“本平台”）致力于为用户提供开放共享的校园生活信息。本平台以开源协作的方式进行内容建设，使用 GitHub 作为协作与内容托管工具，同时启用 Gitee、GitCode 和 CNB.COOL 作为境内镜像。
+**最后更新日期**：2025年6月27日
 
-## 信息收集与使用
+---
 
-1. 本平台不会主动收集您的个人身份信息。
-2. 为了改进服务体验，我们使用了 Google Analytics，其可能会记录访问者的访问情况（如访问量、访问页面、浏览器类型等），但不会用于识别个人身份。
-3. 用户如选择在 GitHub 上参与协作、提交内容或评论，其相关信息将遵循 GitHub 的隐私政策。
+欢迎访问南京理工大学生存手册（以下简称“本平台”）。我们深知隐私对您的重要性，并致力于保护您的个人信息安全。本隐私政策旨在说明我们如何收集、使用、共享和保护您的信息。
 
-## 信息保护
+## 1. 引言
 
-本平台不会出售您的数据，也不会主动向第三方披露您的信息。
+本平台是一个基于开源协作模式的校园生活信息共享项目，使用 [GitHub](https://github.com/NJUST-OpenLib/NJUST-Manual) 作为主要的协作与内容托管平台，并由 [edgeone.ai](https://www.edgeone.ai/) 提供网络基础设施支持。
 
-## 第三方服务
+## 2. 我们收集的信息
 
-本平台部分功能依赖于第三方服务（如 Google Analytics、GitHub），请您知悉并遵守相关服务的隐私政策：
-- [Google 如何利用从使用 Google 服务的网站和应用中收集的信息](https://policies.google.com/technologies/partner-sites)
-- [Google Analytics 数据保护说明](https://support.google.com/analytics/answer/6004245?sjid=1567477046749685622-NA#zippy=%2Cinternational-transfers)
-- [GitHub 隐私政策](https://docs.github.com/cn/site-policy/privacy-policies/github-privacy-statement)。
+我们主要收集和处理以下类型的信息：
 
-## 政策更新
+*   **非个人身份信息**：为了解用户如何使用本平台并优化服务，我们通过 **Google Analytics** 收集匿名的网站使用数据，例如页面浏览量、访问时长、浏览器类型和大致地理位置。这些信息无法用于识别您的个人身份。
+*   **用户在第三方平台的公开信息**：如果您通过 **GitHub** 等平台参与本项目的贡献（如提交代码、报告问题或发表评论），您在该平台上的公开信息（如用户名和贡献内容）将被记录。此类信息的处理遵循相应平台的隐私政策。
 
-本隐私政策如有更新，将在本页面及时公示。
+## 3. 我们如何使用信息
 
-如有疑问，请通过[联系我们](/about/contact.html)页面与我们取得联系。
+我们仅将收集到的信息用于以下目的：
 
-2025.6.27
+*   分析平台使用情况，以改进内容和用户体验。
+*   维护平台的正常运行和安全。
+
+我们郑重承诺，**不会出售、出租或以任何形式交易您的个人数据**。
+
+## 4. 信息共享与披露
+
+我们不会主动与第三方共享您的个人信息，但以下情况除外：
+
+*   **服务提供商**：为了运营本平台，我们依赖以下第三方服务。这些服务商可能会根据其自身的隐私政策收集和处理您的信息：
+    *   **腾讯云**：作为本平台的网络基础设施提供商，可能会记录您的访问日志（如 IP 地址）以保障服务安全稳定。
+    *   **GitHub**：作为我们的代码托管和协作平台。
+    *   **Google Analytics**：作为我们的网站分析工具。
+*   **法律要求**：在收到有效的法律程序（如法院命令或传票）要求时，我们可能会依法披露必要的信息。
+
+## 5. 第三方服务隐私政策
+
+为确保透明度，我们建议您查阅我们所依赖的主要第三方服务的隐私政策：
+
+*   **腾讯云**：[腾讯云隐私政策](https://www.tencentcloud.com/zh/document/product/301/69461)
+*   **GitHub**：[GitHub 隐私声明](https://docs.github.com/cn/site-policy/privacy-policies/github-privacy-statement)
+*   **Google**：[Google 如何利用从使用其服务的网站或应用中收集的信息](https://policies.google.com/technologies/partner-sites) 及 [Google 隐私政策](https://policies.google.com/privacy)
+
+## 6. 政策更新
+
+我们可能会不时修订本隐私政策。任何变更都将在此页面上发布，并更新“最后更新日期”。我们鼓励您定期查看以了解最新信息。
+
+## 7. 联系我们
+
+如果您对本隐私政策有任何疑问或建议，请通过 <mcfile name="contact.md" path="f:\Github\NJUST-Manual\docs\关于我们\contact.md"></mcfile> 页面与我们联系。
