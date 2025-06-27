@@ -1,9 +1,10 @@
 ---
-title: contact
+title: 联系我们
 createTime: 2025/06/27 14:26:47p
 permalink: /about/contact.html
 ---
-您可以通过以下渠道联系我们：
+
+如有任何信息不妥或存在错误，请通过以下渠道联系我们：
 
 📧 邮箱：[admin@njust.wiki](mailto:admin@njust.wiki)
 
