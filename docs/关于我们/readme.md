@@ -13,21 +13,64 @@ config:
   <p style="font-size: 1.2rem; color: #555;">一份由你我共建的校园生活指南。</p>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-  <a href="./privacy.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
-    <h2 style="margin-top: 0;">🔒 隐私政策</h2>
-    <p>我们重视并保护您的隐私。点击了解我们如何收集、使用和保护您的信息。</p>
-  </a>
-  <a href="./contact.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
-    <h2 style="margin-top: 0;">💬 联系我们</h2>
-    <p>有任何问题、建议或希望参与贡献？欢迎随时与我们取得联系。</p>
-  </a>
+
+
+<div class="toc-container" style="
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+">
+
+[[toc]]
+
 </div>
 
----
+<style>
+.toc-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-<div class="about-section">
-  <p class="greeting">感谢您抽空阅读这个页面。能在浏览网站时细心查看"关于"部分的访客，总是令人倍感珍惜。
+.toc-container .table-of-contents {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.toc-container .table-of-contents ul {
+  padding-left: 1.2em;
+}
+
+.toc-container .table-of-contents a {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc-container .table-of-contents a:hover {
+  color:hsl(186, 42.10%, 42.00%);
+}
+</style>
+
+
+
+## 关于
+
+本手册是主要由 22 级本科生@Light 发起并编写的。这是南京理工大学第一本综合性手册，经验难免不足。
+
+我不是什么优秀学生，没有奖学金，没有参加过正式的竞赛，也没有保研或评优，更懒得参加什么学校部门或者活动——唯一参加的活动可能就是志愿服务了。
+
+所以你大概率没有在公众号或是什么地方见到我。不过如果你经常水群，应该对我有点印象。
+
+由于本人精力有限，手册编写难免由纰漏，请您多多包涵。
+
+
+## 后记
+
+感谢您抽空阅读这个页面。能在浏览网站时细心查看"关于"部分的访客，总是令人倍感珍惜。
 
 这个网站的灵感来源于浙江大学的求是手册（<a href="https://zjuers.com/welcome/postscript/" target="_blank">zjuers.com</a>）。正如他们所做的那样，我们也希望能为南理工的莘莘学子提供一份温暖而实用的指南。
 
@@ -42,8 +85,19 @@ config:
 这既是挑战，更是难得的成长机遇。而能耐心读到这里的你，相信已经具备了这份可贵的求知精神。
 
 同时，我也想推荐《上海交通大学生存手册》这份珍贵的资料。尽管成书已逾十载，但其中的真知灼见至今仍能给予我们诸多启发。
-</p>
 
+## 合规信息
+
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+  <a href="./privacy.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
+    <h2 style="margin-top: 0;">🔒 隐私政策</h2>
+    <p>我们重视并保护您的隐私。点击了解我们如何收集、使用和保护您的信息。</p>
+  </a>
+  <a href="./contact.md" style="text-decoration: none; color: inherit; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; transition: all 0.3s; display: block;">
+    <h2 style="margin-top: 0;">💬 联系我们</h2>
+    <p>有任何问题、建议或希望参与贡献？欢迎随时与我们取得联系。</p>
+  </a>
 </div>
 
 <style>
