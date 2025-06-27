@@ -7,6 +7,6 @@ export const navbar = defineNavbarConfig([
   // { text: '归档', link: '/blog/archives/' },
   { text: '新生指南', link: '/notes/freshGuide/' },
   //friend links
-  { text: '友情链接', link: '/friendLinks/' },
-  { text: '关于', link: '/notes/about/' },
+ // { text: '友情链接', link: '/friendLinks/' },
+  { text: '关于', link: '/about/' },
 ])
