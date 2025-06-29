@@ -119,7 +119,7 @@ config:
     type: custom
 ---
 
-<div style="max-width: 960px;margin:0 auto;" class="home-custom-content">
+
 
 ::: center
 
@@ -135,14 +135,148 @@ config:
 
 :::
 
-### [关于本站](/about)
+<style>
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  justify-content: center; /* 确保卡片在容器中居中 */
+}
 
+.info-card {
+  text-decoration: none !important; /* 强制移除下划线 */
+  color: inherit;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: block;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 
-### [参与贡献](/HowToContribute)
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-color: #3eaf7c;
+}
 
-### 免责声明
+.info-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+}
 
-本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。
+.info-card p {
+  color: #4a5568;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 确保在中等屏幕尺寸下卡片均匀分布 */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .info-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.disclaimer {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.disclaimer:hover {
+  border-color: #ffc107;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.disclaimer h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.disclaimer h3 svg {
+  margin-right: 8px;
+  color: #ffc107;
+}
+
+.disclaimer p {
+  color: #4a5568;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .info-card {
+  background-color: #202127;
+  border-color: #3e4c5a;
+}
+
+[data-theme="dark"] .info-card p {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+[data-theme="dark"] .disclaimer {
+  background-color: #202127;
+  border-color: #3e4c5a;
+}
+
+[data-theme="dark"] .disclaimer p {
+  color: rgba(235, 235, 245, 0.6);
+}
+</style>
+
+<div style="max-width: 960px;margin:0 auto;" class="home-custom-content">
+
+<div class="info-cards">
+  <a href="/about/index.html" class="info-card">
+    <h3>📚 关于本站</h3>
+    <p>了解更多关于南京理工大学生存手册的信息，我们的初衷和愿景。</p>
+  </a>
+  <a href="/HowToContribute/index.html" class="info-card">
+    <h3>🚀 参与贡献</h3>
+    <p>欢迎加入我们，共同完善这份校园生活指南，分享你的经验和见解。</p>
+  </a>
+  <a href="/about/privacy.html" class="info-card">
+    <h3>🔒 隐私政策</h3>
+    <p>我们重视并保护您的隐私。点击了解我们如何收集、使用和保护您的信息。</p>
+  </a>
+  <a href="/about/contact.html" class="info-card">
+    <h3>💬 联系我们</h3>
+    <p>有任何问题、建议或希望参与贡献？欢迎随时与我们取得联系。</p>
+  </a>
+</div>
+
+---
+
+<div class="disclaimer">
+  <h3>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+      <line x1="12" y1="9" x2="12" y2="13"></line>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+    免责声明
+  </h3>
+  <p>本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。我们致力于提供准确、有用的信息，但不对内容的完整性、准确性和时效性做出保证。</p>
+</div>
 
 
 
