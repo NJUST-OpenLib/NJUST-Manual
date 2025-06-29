@@ -175,7 +175,6 @@ config:
       avatar: 'https://secure.gravatar.com/avatar/11111111111111111111111111111111?d=mp&f=y'
     }
   ]" 
-  :fetchGithub="true"
 />
 
 <!-- 仅显示自定义贡献者的示例 -->
