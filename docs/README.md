@@ -135,63 +135,59 @@ config:
 
 :::
 
-### 关于本站
+### [关于本站](/about)
 
-南京理工大学生存手册是由南理工学生自发建立的一个开放、共享的信息平台，旨在帮助南理工学子更好地适应大学生活。本站内容涵盖新生指南、校园生活、学习资源等多个方面，致力于为南理工学子提供全方位的校园生活指南。
 
-### 参与贡献
-
-本站内容持续更新中，欢迎所有南理工学子参与贡献！如果你有任何建议或想要参与内容编写，可以通过以下方式：
-
-1. 在 [GitHub](https://github.com/NJUST-OpenLib/NJUST-Manual/) 上提交 Issue 或 Pull Request
-2. 通过这些 [联系方式](/关于我们/contact) 联系我们
+### [参与贡献](/HowToContribute)
 
 ### 免责声明
 
-本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。如有内容侵权或错误，请及时联系我们修改或删除。
+本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。
 
 
-### 贡献者
-
-感谢所有为本站内容做出贡献的南理工学子！
-
-::: center
-
-![Ccontrib.rocks](https://contrib.rocks/image?repo=NJUST-OpenLib/NJUST-Manual)
-
-:::
 
 <Contributors 
-  repo="NJUST-OpenLib/NJUST-Manual"
-  :customContributors="[
+  :customContributors='[
     {
-      name: '非GitHub贡献者1',
-      url: 'https://example.com/contributor1',
-      avatar: 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+      name: "Light",
+      url: "https://example.com/contributor1",
+      //avatar: "https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+      email: "862727441@qq.com"
     },
     {
-      name: '非GitHub贡献者2',
-      url: 'https://example.com/contributor2',
-      avatar: 'https://secure.gravatar.com/avatar/11111111111111111111111111111111?d=mp&f=y'
+      name: "阿托卡",
+      url: "https://example.com/contributor2",
+      email: "1903883912@qq.com"
+    },
+    {
+      name: "非GitHub贡献者3",
+      url: "https://example.com/contributor3"
     }
-  ]" 
+  ]' 
 />
 
-<!-- 仅显示自定义贡献者的示例 -->
+
 <!-- 
+仅显示自定义贡献者的示例
+
 <Contributors 
-  :customContributors="[
+  :customContributors='[
     {
-      name: '自定义贡献者1',
-      url: 'https://example.com/custom1',
-      avatar: 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+      name: "自定义贡献者1",
+      url: "https://example.com/custom1",
+      avatar: "https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
     },
     {
-      name: '自定义贡献者2',
-      url: 'https://example.com/custom2',
-      avatar: 'https://secure.gravatar.com/avatar/11111111111111111111111111111111?d=mp&f=y'
+      name: "自定义贡献者2",
+      url: "https://example.com/custom2",
+      email: "contributor2@example.com" // 使用WeAvatar生成头像（MD5哈希）
+    },
+    {
+      name: "自定义贡献者3",
+      url: "https://example.com/custom3"
+      // 不提供avatar或email时，将使用默认头像
     }
-  ]" 
+  ]' 
   :fetchGithub="false"
 />
 -->
