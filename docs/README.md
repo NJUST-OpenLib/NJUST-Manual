@@ -65,7 +65,7 @@ config:
     type: image-text
     title: 新生必读
     description: 为南理工新生提供全方位的入学指南和校园生活攻略。
-    image: /notes/freshGuide/1.暑期准备/static/nightView_nanjing.jpg
+
     list:
       -
         title: 常见问题汇总
