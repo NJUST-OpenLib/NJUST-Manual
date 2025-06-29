@@ -89,7 +89,7 @@ config:
     type: text-image
     title: 校园生活
     description: 全面介绍南理工校园生活的方方面面，帮助学生适应大学生活。
-    image: /notes/freshGuide/1.暑期准备/static/SpringPalace_compress.webp
+
     list:
       -
         title: 军训相关
@@ -103,7 +103,7 @@ config:
   -
     type: image-text
     title: 学习资源
-    image: /notes/freshGuide/1.暑期准备/static/Nanjing_erdaomen_compress.webp
+
     description: 提供丰富的学习资源和经验分享，助力学业发展。
     list:
       -
