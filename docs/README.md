@@ -125,6 +125,13 @@ config:
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/NJUST-OpenLib/NJUST-Manual)
 ![github license](https://img.shields.io/github/license/NJUST-OpenLib/NJUST-Manual?color=32A9C3&labelColor=1B3C4A)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NJUST-OpenLib/NJUST-Manual)
+![GitHub last commit](https://img.shields.io/github/last-commit/NJUST-OpenLib/NJUST-Manual)
+![GitHub contributors](https://img.shields.io/github/contributors/NJUST-OpenLib/NJUST-Manual)
+![GitHub issues](https://img.shields.io/github/issues/NJUST-OpenLib/NJUST-Manual)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/NJUST-OpenLib/NJUST-Manual)
+![GitHub forks](https://img.shields.io/github/forks/NJUST-OpenLib/NJUST-Manual)
+![GitHub repo size](https://img.shields.io/github/repo-size/NJUST-OpenLib/NJUST-Manual)
 
 :::
 
@@ -137,23 +144,58 @@ config:
 本站内容持续更新中，欢迎所有南理工学子参与贡献！如果你有任何建议或想要参与内容编写，可以通过以下方式：
 
 1. 在 [GitHub](https://github.com/NJUST-OpenLib/NJUST-Manual/) 上提交 Issue 或 Pull Request
-2. 加入我们的交流群组（QQ群：1045974893）
-3. 联系我们的[管理团队](/关于我们/contact)
+2. 通过这些 [联系方式](/关于我们/contact) 联系我们
 
 ### 免责声明
 
 本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。如有内容侵权或错误，请及时联系我们修改或删除。
 
-### 更新记录
-
-- 2023年9月：网站正式上线
-- 2023年10月：完善新生指南内容
-- 2024年5月：更新校园设施信息
-- 2024年7月：优化网站界面，增加更多实用内容
 
 ### 贡献者
 
 感谢所有为本站内容做出贡献的南理工学子！
+
+::: center
+
+![Ccontrib.rocks](https://contrib.rocks/image?repo=NJUST-OpenLib/NJUST-Manual)
+
+:::
+
+<Contributors 
+  repo="NJUST-OpenLib/NJUST-Manual"
+  :customContributors="[
+    {
+      name: '非GitHub贡献者1',
+      url: 'https://example.com/contributor1',
+      avatar: 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+    },
+    {
+      name: '非GitHub贡献者2',
+      url: 'https://example.com/contributor2',
+      avatar: 'https://secure.gravatar.com/avatar/11111111111111111111111111111111?d=mp&f=y'
+    }
+  ]" 
+  :fetchGithub="true"
+/>
+
+<!-- 仅显示自定义贡献者的示例 -->
+<!-- 
+<Contributors 
+  :customContributors="[
+    {
+      name: '自定义贡献者1',
+      url: 'https://example.com/custom1',
+      avatar: 'https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+    },
+    {
+      name: '自定义贡献者2',
+      url: 'https://example.com/custom2',
+      avatar: 'https://secure.gravatar.com/avatar/11111111111111111111111111111111?d=mp&f=y'
+    }
+  ]" 
+  :fetchGithub="false"
+/>
+-->
 
 </div>
 
@@ -170,7 +212,3 @@ html {
   scroll-margin-top: 80px;
 }
 </style>
-
-<script setup>
-// import Contributors from '../components/Contributors.vue'
-</script>
