@@ -7,20 +7,23 @@ config:
     full: true
     background: tint-plate
     hero:
-      name: 南京理工大学生存手册
-      tagline: <p> One-stop information platform for NJUSTers </p>
-      text: The world will not be destroyed by those who do evil, but by those who watch them without doing anything.
+      name: 南京理工大学<br>生存手册
+      tagline:
+      text:   One-stop information platform for NJUSTers <br> <h1>the world will not be destroyed by those who do evil, but by those who watch them without doing anything.</h1>
       actions:
         -
           theme: brand
           text: 新生指南 →
           link: /notes/freshGuide/
+        
+
         -
           theme: alt
-          text: Github
-          link: https://github.com/NJUST-OpenLib/NJUST-Manual/
+          text: 了解更多 ↓
+          link: "#more-info"
   -
     type: features
+    id: more-info
     features:
       -
         title: 新生指南
@@ -157,6 +160,14 @@ config:
 <style>
 .home-custom-content img {
   cursor: default !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#more-info {
+  scroll-margin-top: 80px;
 }
 </style>
 
