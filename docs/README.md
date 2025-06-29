@@ -14,7 +14,7 @@ config:
         -
           theme: brand
           text: 新生指南 →
-          link: /notes/freshGuide/
+          link: /notes/freshGuide/index.html
         
 
         -
