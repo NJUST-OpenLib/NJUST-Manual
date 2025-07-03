@@ -61,14 +61,6 @@ jobs:
           URL_COUNT=$(python .github/workflows/scripts/push_to_indexnow.py | tee /tmp/indexnow.log | grep -Eo "[0-9]+ 个链接" | grep -Eo "[0-9]+" || echo "0")
           echo "url_count=$URL_COUNT" >> $GITHUB_ENV
           echo "::endgroup::✅ 推送完成"
-        env:
-          SITE_HOST: ${{ secrets.SITE_HOST || 'manual.njust.wiki' }}
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN || 'G85y0II523x6MKWv' }}
-          BAIDU_SITE: ${{ secrets.BAIDU_SITE }}
-          BAIDU_BATCH_SIZE: ${{ secrets.BAIDU_BATCH_SIZE || '20' }}
-          ENABLE_INDEXNOW: ${{ secrets.ENABLE_INDEXNOW || 'true' }}
-          ENABLE_BAIDU: ${{ secrets.ENABLE_BAIDU || 'true' }}
         continue-on-error: true
 
       - name: 📝 写入构建摘要
