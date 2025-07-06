@@ -6,6 +6,7 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
 import { gitPlugin } from '@vuepress/plugin-git'
 
+
 export default defineUserConfig({
     base: '/',
     lang: 'zh-CN',
@@ -208,17 +209,13 @@ export default defineUserConfig({
          * 评论 comments
          * @see https://theme-plume.vuejs.press/guide/features/comments/
          */
-        // comment: {
-        //   provider: '', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
-        //   comment: true,
-        //   repo: '',
-        //   repoId: '',
-        //   category: '',
-        //   categoryId: '',
-        //   mapping: 'pathname',
-        //   reactionsEnabled: true,
-        //   inputPosition: 'top',
-        // },
+        comment: {
+           comment: true,
+           provider: 'Waline', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
+           serverURL: 'https://comment-waline.njust.wiki',
+           pageview: true,
+
+         },
 
         /**
          * 加密功能
