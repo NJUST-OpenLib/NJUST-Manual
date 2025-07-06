@@ -210,11 +210,14 @@ export default defineUserConfig({
          * @see https://theme-plume.vuejs.press/guide/features/comments/
          */
         comment: {
-           comment: true,
+           
            provider: 'Waline', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
+           comment: true,
            serverURL: 'https://comment-waline.njust.wiki',
-           pageview: true,
-
+           dark: 'auto',
+           lang: 'zh-CN',
+           requiredMeta: ['nick', 'mail'], // 必填项设置  
+           
          },
 
         /**

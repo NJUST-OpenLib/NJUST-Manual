@@ -1,4 +1,5 @@
 import { defineClientConfig } from 'vuepress/client'
+import { defineWalineConfig } from '@vuepress/plugin-comment/client'
 // import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 // import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
 // import NpmBadgeGroup from 'vuepress-theme-plume/features/NpmBadgeGroup.vue'
