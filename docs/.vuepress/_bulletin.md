@@ -1,6 +1,3 @@
-站点试运行  点击右上角可关闭公告↗    
-今年是抗战胜利 80 周年，今天是七七事变 88 周年。
-
 <a href="/notes/freshGuide/FAQ.html" id="currentUrlLink">新生必读！常见问题汇总</a>  
 
 [2025 新生群](https://qm.qq.com/q/QTfKxShMGu)
