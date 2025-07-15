@@ -2,11 +2,8 @@
 
 [2025 新生群](https://qm.qq.com/q/QTfKxShMGu)
 
-[南京理工大学招生咨询 - 招生办](https://mp.weixin.qq.com/s/P_LFKLAO_nSCX_WBqi-IRA)   
-
-
 请小心诈骗！<a href="/notes/freshGuide/antiScam.html" id="currentUrlLink">反诈骗指南</a>
 
 ---
-网站启用 IPv6 访问，访问效果不佳请及时反馈  
+如果您喜欢本站，欢迎 <a href="/donate.html" id="currentUrlLink">捐赠</a>  
 如遇到问题请提交 [ISSUE](https://github.com/NJUST-OpenLib/NJUST-Manual/issues)
