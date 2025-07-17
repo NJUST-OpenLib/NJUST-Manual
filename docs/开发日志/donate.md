@@ -23,7 +23,8 @@ permalink: /donate.html
 <ul style="line-height:1.8; padding-left: 1em;">
   <li><strong>服务器：</strong>GitHub Pages — <span style="color:#2ecc71;">￥0</span></li>
   <li><strong>CDN：</strong>腾讯云 EdgeOne（个人版） — <span style="color:#2ecc71;">￥36/年</span></li>
-  <li><strong>域名：</strong><code>njust.wiki</code> — <span style="color:#2ecc71;">￥85/年</span></li>
+  <li><strong>域名：</strong><code>njust.wiki(全球)</code> — <span style="color:#2ecc71;">￥85/年</span></li>
+  <li><strong>域名：</strong><code>njust.store(国内)</code> — <span style="color:#2ecc71;">￥108/年</span></li>
 </ul>
 
 <div style="background: #f3f7ff; padding: 15px 20px; border-left: 4px solid #409eff; border-radius: 4px;">
