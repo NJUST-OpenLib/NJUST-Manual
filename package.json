@@ -17,6 +17,8 @@
     "vp-update": "npx vp-update"
   },
   "dependencies": {
+    "@iconify/iconify": "^3.1.1",
+    "@iconify/icons-carbon": "^1.2.20",
     "@pengzhanbo/utils": "^2.1.0",
     "@waline/client": "^3.5.7",
     "chart.js": "^4.5.0",

@@ -1,8 +1,18 @@
 <template>
   <div class="contributors-container">
-    <h3 v-if="title">{{ title }}</h3>
-    <div v-if="fetchGithub && loading && !customContributors.length" class="loading">加载中...</div>
-    <div v-else-if="fetchGithub && error && !customContributors.length" class="error">{{ error }}</div>
+    <h3 v-if="title" class="contributors-title">{{ title }}</h3>
+    
+    <!-- 状态提示 -->
+    <div v-if="fetchGithub && loading && !customContributors.length" class="status-indicator loading">
+      <div class="spinner"></div>
+      <span>加载贡献者信息中...</span>
+    </div>
+    <div v-else-if="fetchGithub && error && !customContributors.length" class="status-indicator error">
+      <i class="error-icon">⚠️</i>
+      <span>{{ error }}</span>
+    </div>
+    
+    <!-- 贡献者网格 -->
     <div class="contributors-grid">
       <!-- GitHub贡献者 -->
       <a 
@@ -13,12 +23,19 @@
         target="_blank"
         rel="noopener noreferrer"
         class="contributor-card"
+        :aria-label="`访问${contributor.login}的GitHub主页`"
       >
-        <img 
-          :src="contributor.avatar_url" 
-          :alt="contributor.login"
-          class="avatar"
-        />
+        <div class="avatar-container">
+          <img 
+            :src="contributor.avatar_url" 
+            :alt="contributor.login"
+            class="avatar"
+            loading="lazy"
+          />
+          <div class="hover-overlay">
+            <i class="external-icon">↗</i>
+          </div>
+        </div>
         <span class="username">{{ contributor.login }}</span>
       </a>
       
@@ -30,12 +47,19 @@
         target="_blank"
         rel="noopener noreferrer"
         class="contributor-card"
+        :aria-label="`访问${contributor.name}的主页`"
       >
-        <img 
-          :src="contributor.avatarUrl" 
-          :alt="contributor.name"
-          class="avatar"
-        />
+        <div class="avatar-container">
+          <img 
+            :src="contributor.avatarUrl" 
+            :alt="contributor.name"
+            class="avatar"
+            loading="lazy"
+          />
+          <div class="hover-overlay">
+            <i class="external-icon">↗</i>
+          </div>
+        </div>
         <span class="username">{{ contributor.name }}</span>
       </a>
     </div>
@@ -61,19 +85,20 @@ export default {
     fetchGithub: {
       type: Boolean,
       default: true
-    },
-    // 移除hashType属性，直接使用MD5
+    }
   },
   
   watch: {
-    // 监听customContributors变化，重新处理头像URL
+    // 监听自定义贡献者变化，重新处理头像URL
     customContributors: {
       handler() {
         this.processCustomContributors();
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   },
+  
   data() {
     return {
       contributors: [],
@@ -82,67 +107,60 @@ export default {
       error: null
     }
   },
+  
   mounted() {
-    // 处理自定义贡献者的头像URL
-    this.processCustomContributors()
-    
     if (this.fetchGithub) {
       this.fetchContributors()
     } else {
       this.loading = false
     }
   },
+  
   methods: {
     async fetchContributors() {
       try {
         this.loading = true
+        this.error = null
         const response = await fetch(`https://api.github.com/repos/${this.repo}/contributors`)
         
         if (!response.ok) {
-          throw new Error(`获取贡献者信息失败: ${response.statusText}`)
+          throw new Error(`HTTP错误: ${response.status}`)
         }
         
         this.contributors = await response.json()
-        this.loading = false
       } catch (error) {
         console.error('获取贡献者信息出错:', error)
-        this.error = `获取贡献者信息失败: ${error.message}`
+        this.error = '无法加载GitHub贡献者信息'
+      } finally {
         this.loading = false
       }
     },
     
-    // 处理自定义贡献者数据，为每个贡献者生成正确的头像URL
+    // 处理自定义贡献者数据
     processCustomContributors() {
-      const processed = [];
-      
-      for (const contributor of this.customContributors) {
+      this.processedCustomContributors = this.customContributors.map(contributor => {
         let avatarUrl;
         
         if (contributor.avatar) {
           avatarUrl = contributor.avatar;
         } else if (contributor.email) {
-          // 使用email生成WeAvatar URL，使用MD5哈希
+          // 使用email生成WeAvatar URL
           const hash = this.calculateMD5(contributor.email.trim().toLowerCase());
           avatarUrl = `https://weavatar.com/avatar/${hash}?d=retro`;
         } else {
-          // 如果既没有avatar也没有email，WeAvatar会返回默认头像
+          // 默认头像
           avatarUrl = 'https://weavatar.com/avatar/?d=retro';
         }
         
-        processed.push({
+        return {
           ...contributor,
           avatarUrl
-        });
-      }
-      
-      this.processedCustomContributors = processed;
+        };
+      });
     },
     
-    // 直接使用MD5哈希算法
-    
-    // 计算MD5哈希值 - 纯JavaScript实现
+    // MD5哈希算法（保持不变）
     calculateMD5(text) {
-      // 以下是一个简单的MD5实现
       function md5cycle(x, k) {
         let a = x[0], b = x[1], c = x[2], d = x[3];
         
@@ -304,71 +322,184 @@ export default {
 
 <style scoped>
 .contributors-container {
-  margin: 2rem 0;
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: var(--c-bg-card, #ffffff);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* 标题样式 */
+.contributors-title {
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--c-text-title, #1e293b);
+  border-bottom: 2px solid var(--c-brand, #3b82f6);
+  display: inline-block;
+}
+
+/* 状态指示器 */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.status-indicator.loading {
+  color: var(--c-text-secondary, #64748b);
+  background-color: var(--c-bg-soft, #f8fafc);
+}
+
+.status-indicator.error {
+  color: var(--c-danger, #dc2626);
+  background-color: var(--c-danger-bg, #fff5f5);
+}
+
+/* 加载动画 */
+.spinner {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: spinner-rotate 1s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 1.2rem;
+}
+
+/* 贡献者网格 */
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 1.25rem;
 }
 
+/* 贡献者卡片 */
 .contributor-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: var(--c-text);
-  transition: transform 0.2s;
-  padding: 0.5rem;
+  color: var(--c-text, #334155);
   border-radius: 8px;
+  transition: all 0.3s ease;
+  padding: 0.75rem 0.5rem;
+  position: relative;
 }
 
 .contributor-card:hover {
-  transform: translateY(-5px);
-  background-color: var(--c-bg-light);
+  transform: translateY(-4px);
+  background-color: var(--c-bg-hover, #f1f5f9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* 头像容器 */
+.avatar-container {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0.75rem;
+}
+
+/* 头像样式 */
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--c-brand);
+  border: 2px solid var(--c-border, #e2e8f0);
+  transition: all 0.3s ease;
 }
 
+.contributor-card:hover .avatar {
+  transform: scale(1.05);
+  border-color: var(--c-brand, #3b82f6);
+}
+
+/* 悬停覆盖层 */
+.hover-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contributor-card:hover .hover-overlay {
+  opacity: 1;
+}
+
+.external-icon {
+  color: white;
+  font-size: 1rem;
+  transform: translate(1px, -1px);
+}
+
+/* 用户名样式 */
 .username {
-  margin-top: 0.5rem;
   font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--c-text, #334155);
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  white-space: nowrap;
+  max-width: 100px;
+  transition: color 0.3s ease;
 }
 
-.loading, .error {
-  text-align: center;
-  padding: 1rem;
-  color: var(--c-text-lighter);
+.contributor-card:hover .username {
+  color: var(--c-brand, #3b82f6);
 }
 
-.error {
-  color: var(--c-danger);
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .contributors-container {
+    margin: 2rem 0;
+    padding: 1rem;
+  }
+  
+  .contributors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 1rem;
+  }
+  
+  .avatar-container {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .username {
+    font-size: 0.85rem;
+    max-width: 80px;
+  }
 }
 
-@media (max-width: 719px) {
+@media (max-width: 480px) {
   .contributors-grid {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
   
-  .avatar {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .username {
-    font-size: 0.8rem;
+  .contributors-title {
+    font-size: 1.2rem;
   }
 }
 </style>

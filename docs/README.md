@@ -279,6 +279,27 @@ config:
 </div>
 
 
+<FriendLinks :links="[
+  {
+    name: 'Vue.js',
+    url: 'https://vuejs.org/',
+    logo: 'https://avatars.githubusercontent.com/u/6128107?v=4',
+    desc: 'The Progressive JavaScript Framework.'
+  },
+  {
+    name: 'Vite',
+    url: 'https://vitejs.dev/',
+    logo: 'https://avatars.githubusercontent.com/u/65625612?v=4',
+    desc: 'Next generation frontend tooling.'
+  },
+  {
+    name: 'Tailwind CSS',
+    url: 'https://tailwindcss.com/',
+    logo: 'https://avatars.githubusercontent.com/u/67109815?v=4',
+    desc: 'Utility-first CSS framework.'
+  }
+]" />
+
 
 <Contributors 
   :customContributors='[

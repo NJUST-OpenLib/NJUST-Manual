@@ -8,6 +8,8 @@ import { defineWalineConfig } from '@vuepress/plugin-comment/client'
 // import CustomComponent from './theme/components/Custom.vue'
 import Contributors from './components/Contributors.vue'
 
+import FriendLinks from './components/FriendLinks.vue'
+
 // import './theme/styles/custom.css'
 
 export default defineClientConfig({
@@ -21,5 +23,6 @@ export default defineClientConfig({
     // your custom components
     // app.component('CustomComponent', CustomComponent)
     app.component('Contributors', Contributors)
+    app.component('FriendLinks', FriendLinks)
   },
 })
