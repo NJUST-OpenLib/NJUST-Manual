@@ -22,7 +22,10 @@
     <!-- 错误状态 -->
     <div v-else-if="error" class="error-state">
       <i class="error-icon">⚠️</i>
-      <span>{{ error }}</span>
+      <div class="error-details">
+        <span>{{ error.message }}</span>
+        <span v-if="error.details" class="error-more">{{ error.details }}</span>
+      </div>
     </div>
     
     <!-- 链接列表 -->
@@ -66,6 +69,29 @@ export default {
     applyUrl: {
       type: String,
       default: '/apply-link' // 申请页面URL
+    },
+    // 开发模式下使用的本地数据，用于调试
+    devMode: {
+      type: Boolean,
+      default: false
+    },
+    // 开发模式下的模拟数据
+    devData: {
+      type: Array,
+      default: () => [
+        {
+          name: '示例网站1',
+          url: 'https://example.com',
+          logo: 'https://picsum.photos/64/64?random=1',
+          desc: '这是一个示例网站的描述信息'
+        },
+        {
+          name: '示例网站2',
+          url: 'https://example.org',
+          logo: 'https://picsum.photos/64/64?random=2',
+          desc: '这是另一个示例网站的描述信息，可能稍长一些'
+        }
+      ]
     }
   },
   data() {
@@ -76,19 +102,60 @@ export default {
     }
   },
   async mounted() {
+    // 开发模式下直接使用模拟数据
+    if (this.devMode) {
+      this.links = this.devData;
+      this.loading = false;
+      return;
+    }
+
     try {
       // 从JSON文件加载链接数据
       const response = await fetch(this.dataUrl);
       
+      // 检查HTTP响应状态
       if (!response.ok) {
-        throw new Error(`加载失败: ${response.statusText}`);
+        // 获取错误响应的文本内容（可能是HTML）
+        const errorText = await response.text();
+        // 提取简单的错误信息
+        const simpleMessage = errorText.length > 100 
+          ? errorText.substring(0, 100) + '...' 
+          : errorText;
+          
+        throw new Error(`加载失败 (${response.status}): ${simpleMessage}`);
+      }
+      
+      // 尝试解析JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('服务器返回的不是JSON格式数据');
       }
       
       const data = await response.json();
+      
+      // 验证数据格式
+      if (!Array.isArray(data)) {
+        throw new Error('友情链接数据格式不正确，应为数组');
+      }
+      
       this.links = data;
     } catch (err) {
       console.error('友情链接加载错误:', err);
-      this.error = '无法加载友情链接数据';
+      
+      // 构建详细的错误信息
+      this.error = {
+        message: '无法加载友情链接数据',
+        details: ''
+      };
+      
+      // 根据错误类型提供更具体的提示
+      if (err.message.includes('Unexpected token \'<\'')) {
+        this.error.details = '可能是文件路径错误或服务器返回了HTML页面';
+      } else if (err.message.includes('Failed to fetch')) {
+        this.error.details = '网络请求失败，请检查网络连接';
+      } else {
+        this.error.details = err.message;
+      }
     } finally {
       this.loading = false;
     }
@@ -97,7 +164,7 @@ export default {
 </script>
 
 <style scoped>
-/* 基础样式与日夜间模式变量定义 */
+/* 保持原有样式不变 */
 :root {
   /* 日间模式变量 */
   --bg-card: #ffffff;
@@ -114,7 +181,6 @@ export default {
   --danger-bg: #fff5f5;
 }
 
-/* 夜间模式变量 */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-card: #1e293b;
@@ -132,7 +198,6 @@ export default {
   }
 }
 
-/* 容器样式 */
 .friend-links-container {
   margin: 2.5rem 0;
   padding: 1.5rem;
@@ -142,7 +207,6 @@ export default {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 头部标题与申请按钮容器 */
 .header-wrapper {
   display: flex;
   justify-content: space-between;
@@ -150,7 +214,6 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-/* 标题样式 */
 .friend-links-title {
   margin: 0 0 0.75rem 0;
   padding-bottom: 0.75rem;
@@ -161,7 +224,6 @@ export default {
   display: inline-block;
 }
 
-/* 申请链接按钮 */
 .apply-link {
   display: inline-flex;
   align-items: center;
@@ -194,14 +256,12 @@ export default {
   transform: translateX(3px);
 }
 
-/* 链接网格布局 */
 .links-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.25rem;
 }
 
-/* 链接卡片样式 */
 .link-card {
   display: flex;
   align-items: center;
@@ -215,14 +275,12 @@ export default {
   overflow: hidden;
 }
 
-/* 卡片悬停动画效果 */
 .link-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
   background-color: var(--bg-hover);
 }
 
-/* 悬停时的装饰效果 */
 .link-card::before {
   content: '';
   position: absolute;
@@ -239,14 +297,12 @@ export default {
   transform: scaleY(1);
 }
 
-/* Logo容器 */
 .link-logo {
   flex: 0 0 64px;
   margin-right: 1.25rem;
   z-index: 1;
 }
 
-/* Logo图片 */
 .logo-img {
   width: 100%;
   height: 64px;
@@ -262,14 +318,12 @@ export default {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* 链接信息区域 */
 .link-info {
   flex: 1;
   min-width: 0;
   z-index: 1;
 }
 
-/* 链接名称 */
 .link-name {
   margin: 0 0 0.35rem 0;
   font-size: 1.1rem;
@@ -285,7 +339,6 @@ export default {
   color: var(--brand);
 }
 
-/* 链接描述 */
 .link-desc {
   margin: 0;
   font-size: 0.875rem;
@@ -301,7 +354,6 @@ export default {
   color: var(--text-primary);
 }
 
-/* 箭头图标 */
 .link-arrow {
   flex: 0 0 auto;
   color: var(--text-tertiary);
@@ -317,7 +369,6 @@ export default {
   opacity: 1;
 }
 
-/* 加载和错误状态 */
 .loading-state, .error-state {
   display: flex;
   align-items: center;
@@ -335,9 +386,20 @@ export default {
 .error-state {
   color: var(--danger);
   background-color: var(--danger-bg);
+  text-align: left;
 }
 
-/* 加载动画 */
+.error-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.error-more {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
 .spinner {
   width: 1.2rem;
   height: 1.2rem;
@@ -352,7 +414,6 @@ export default {
   100% { transform: rotate(360deg); }
 }
 
-/* 响应式调整 */
 @media (max-width: 768px) {
   .links-grid {
     grid-template-columns: 1fr;
@@ -382,7 +443,6 @@ export default {
   }
 }
 
-/* 动画延迟效果 */
 .links-grid a:nth-child(1) { transition-delay: 0.05s; }
 .links-grid a:nth-child(2) { transition-delay: 0.1s; }
 .links-grid a:nth-child(3) { transition-delay: 0.15s; }
