@@ -1,5 +1,5 @@
 ---
-title: apply-link
+title: 友情链接申请
 createTime: 2025/07/22 20:56:25
 permalink: /apply-link.html
 ---
