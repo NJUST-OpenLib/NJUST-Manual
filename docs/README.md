@@ -26,21 +26,21 @@ config:
     id: more-info
     features:
       -
-        title: 新生指南
+        title: <a href="/notes/freshGuide/index.html">新生指南</a>
         icon: twemoji:graduation-cap
-        details: 从入学准备到校园生活，全方位解答新生疑问
+        details: <a href="/notes/freshGuide/index.html">从入学准备到校园生活，全方位解答新生疑问</a>
       -
-        title: 校区设施
+        title: <a href="/notes/freshGuide/campusFacilities/">校区设施</a>
         icon: twemoji:school
-        details: 详细介绍南京校区和江阴校区的食堂、宿舍等设施
+        details: <a href="/notes/freshGuide/campusFacilities/">详细介绍南京校区和江阴校区的食堂、宿舍等设施</a>
       -
         title: <a href="/notes/freshGuide/dorm-conditions/">住宿条件</a>
         icon: twemoji:house
         details: <a href="/notes/freshGuide/dorm-conditions/">提供各个宿舍楼的详细信息、设施和管理规定</a>
       -
-        title: 学习资源
+        title: <a href="https://github.com/NJUST-OpenLib/NJUST-docs">学习资源</a>
         icon: twemoji:books
-        details: 分享学习经验、考试技巧和各专业的学习资料
+        details: <a href="https://github.com/NJUST-OpenLib/NJUST-docs">分享学习经验、考试技巧和各专业的学习资料</a>
       -
         title: 校园生活
         icon: twemoji:sparkles
@@ -50,17 +50,17 @@ config:
         icon: twemoji:performing-arts
         details: 展示校内各类社团和学生组织的活动信息
       -
-        title: 防骗指南
+        title: <a href="notes/freshGuide/antiScam.html">防骗指南</a>
         icon: twemoji:shield
-        details: 提供常见诈骗手段的识别方法和防范措施
+        details: <a href="notes/freshGuide/antiScam.html">提供常见诈骗手段的识别方法和防范措施</a>
       -
-        title: 交流群组
+        title: <a href="/notes/freshGuide/addGroup/">交流群组</a>
         icon: twemoji:speech-balloon
-        details: 汇总各类新生群、专业群和地区老乡群
+        details: <a href="/notes/freshGuide/addGroup/">汇总各类新生群、专业群和地区老乡群</a>
       -
-        title: 开源共建
+        title: <a href="https://github.com/NJUST-OpenLib/NJUST-Manual/">开源共建</a>
         icon: twemoji:handshake
-        details: 欢迎所有南理工学子参与内容贡献和完善
+        details: <a href="https://github.com/NJUST-OpenLib/NJUST-Manual/">欢迎所有南理工学子参与内容贡献和完善</a>
   -
     type: image-text
     title: 新生必读
@@ -68,22 +68,22 @@ config:
 
     list:
       -
-        title: 常见问题汇总
+        title: <a href="/notes/freshGuide/FAQ.html">常见问题汇总</a>
         description: 解答新生入学前的各类疑问，包括校区位置、宿舍条件、通讯网络等。
       -
-        title: 防骗指南
+        title: <a href="notes/freshGuide/antiScam.html">防骗指南</a>
         description: 提醒新生警惕各类诈骗陷阱，保护个人财产和信息安全。
       -
-        title: 暑期准备
+        title: <a href="/notes/freshGuide/summerPrep/">暑期准备</a>
         description: 详细介绍入学前需要准备的物品、文件和注意事项。
       -
-        title: 加入群组
+        title: <a href="/notes/freshGuide/addGroup/">交流群组</a>
         description: 汇总各类新生交流群、专业群和地区老乡群，帮助新生提前融入校园。
       -
-        title: 住宿条件
+        title: <a href="/notes/freshGuide/dorm-conditions/">住宿条件</a>
         description: 全面介绍南京校区和江阴校区的宿舍环境、设施和管理规定。
       -
-        title: 校区设施
+        title: <a href="/notes/freshGuide/campusFacilities/">校区设施</a>
         description: 详细介绍校内各类设施的位置、功能和使用方法，帮助新生快速熟悉校园。
   -
     type: text-image
