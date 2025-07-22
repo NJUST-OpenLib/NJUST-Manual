@@ -65,7 +65,7 @@ config:
     type: image-text
     title: 新生必读
     description: 为南理工新生提供全方位的入学指南和校园生活攻略。
-
+    image: /20250722_2118_大学新生报到_simple_compose_01k0s4ex2ff5yvc1cshhkff6rr.png
     list:
       -
         title: <a href="/notes/freshGuide/FAQ.html">常见问题汇总</a>
@@ -89,7 +89,7 @@ config:
     type: text-image
     title: 校园生活
     description: 全面介绍南理工校园生活的方方面面，帮助学生适应大学生活。
-
+    image: /20250722_2126_青春校园片段_simple_compose_01k0s4x4kveja9sw3k865pjzk0 (1).png
     list:
       -
         title: 军训相关
@@ -103,7 +103,7 @@ config:
   -
     type: image-text
     title: 学习资源
-
+    image: /20250722_2143_图书馆阅读_simple_compose_01k0s5x6breg09xzcn4efmcjne (1).png
     description: 提供丰富的学习资源和经验分享，助力学业发展。
     list:
       -

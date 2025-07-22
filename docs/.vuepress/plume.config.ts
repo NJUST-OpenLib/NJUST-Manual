@@ -4,9 +4,10 @@ import { notes } from './notes'
 import path from 'node:path'
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
+ *   logo: 'https://theme-plume.vuejs.press/plume.png',
  */
 export default defineThemeConfig({
-  logo: 'https://theme-plume.vuejs.press/plume.png',
+  logo: 'https://manual.njust.wiki/favicon.ico',
 
   appearance: true,  // 配置 深色模式
 
