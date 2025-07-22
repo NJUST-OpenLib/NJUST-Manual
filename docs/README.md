@@ -34,9 +34,9 @@ config:
         icon: twemoji:school
         details: 详细介绍南京校区和江阴校区的食堂、宿舍等设施
       -
-        title: 住宿条件
+        title: <a href="/notes/freshGuide/dorm-conditions/">住宿条件</a>
         icon: twemoji:house
-        details: 提供各个宿舍楼的详细信息、设施和管理规定
+        details: <a href="/notes/freshGuide/dorm-conditions/">提供各个宿舍楼的详细信息、设施和管理规定</a>
       -
         title: 学习资源
         icon: twemoji:books
