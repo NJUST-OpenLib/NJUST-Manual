@@ -159,7 +159,7 @@ export default {
       });
     },
     
-    // MD5哈希算法（保持不变）
+    // MD5哈希算法实现
     calculateMD5(text) {
       function md5cycle(x, k) {
         let a = x[0], b = x[1], c = x[2], d = x[3];
@@ -321,22 +321,59 @@ export default {
 </script>
 
 <style scoped>
+/* 基础样式与日夜间模式变量定义 - 与友情链接组件完全一致 */
+:root {
+  /* 日间模式变量 */
+  --bg-card: #ffffff;
+  --bg-hover: #f8fafc;
+  --text-title: #1e293b;
+  --text-primary: #334155;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --brand: #3b82f6;
+  --brand-light: #60a5fa;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --danger: #dc2626;
+  --danger-bg: #fff5f5;
+}
+
+/* 夜间模式变量 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-card: #1e293b;
+    --bg-hover: #334155;
+    --text-title: #f8fafc;
+    --text-primary: #e2e8f0;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --brand: #60a5fa;
+    --brand-light: #93c5fd;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    --danger: #f87171;
+    --danger-bg: #1f2937;
+  }
+}
+
+/* 容器样式 - 与友情链接组件完全一致 */
 .contributors-container {
   margin: 2.5rem 0;
   padding: 1.5rem;
   border-radius: 12px;
-  background-color: var(--c-bg-card, #ffffff);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 标题样式 */
+/* 标题样式 - 与友情链接组件完全一致 */
 .contributors-title {
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.75rem;
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--c-text-title, #1e293b);
-  border-bottom: 2px solid var(--c-brand, #3b82f6);
+  color: var(--text-title);
+  border-bottom: 2px solid var(--brand);
   display: inline-block;
 }
 
@@ -350,16 +387,13 @@ export default {
   text-align: center;
   border-radius: 8px;
   margin-bottom: 1rem;
-}
-
-.status-indicator.loading {
-  color: var(--c-text-secondary, #64748b);
-  background-color: var(--c-bg-soft, #f8fafc);
+  color: var(--text-secondary);
+  background-color: var(--bg-hover);
 }
 
 .status-indicator.error {
-  color: var(--c-danger, #dc2626);
-  background-color: var(--c-danger-bg, #fff5f5);
+  color: var(--danger);
+  background-color: var(--danger-bg);
 }
 
 /* 加载动画 */
@@ -381,30 +415,49 @@ export default {
   font-size: 1.2rem;
 }
 
-/* 贡献者网格 */
+/* 贡献者网格布局 */
 .contributors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 1.25rem;
 }
 
-/* 贡献者卡片 */
+/* 贡献者卡片样式 - 与友情链接组件风格统一 */
 .contributor-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: var(--c-text, #334155);
+  color: inherit;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0.75rem 0.5rem;
   position: relative;
+  overflow: hidden;
 }
 
+/* 卡片悬停动画效果 - 与友情链接组件保持一致 */
 .contributor-card:hover {
   transform: translateY(-4px);
-  background-color: var(--c-bg-hover, #f1f5f9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-hover);
+  background-color: var(--bg-hover);
+}
+
+/* 悬停时的装饰效果 - 与友情链接组件风格统一 */
+.contributor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--brand);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.contributor-card:hover::before {
+  transform: scaleY(1);
 }
 
 /* 头像容器 */
@@ -413,6 +466,7 @@ export default {
   width: 72px;
   height: 72px;
   margin-bottom: 0.75rem;
+  z-index: 1;
 }
 
 /* 头像样式 */
@@ -421,13 +475,14 @@ export default {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--c-border, #e2e8f0);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2px;
+  background-color: var(--bg-card);
 }
 
 .contributor-card:hover .avatar {
-  transform: scale(1.05);
-  border-color: var(--c-brand, #3b82f6);
+  transform: scale(1.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* 悬停覆盖层 */
@@ -453,24 +508,25 @@ export default {
   transform: translate(1px, -1px);
 }
 
-/* 用户名样式 */
+/* 用户名样式 - 与友情链接组件文字样式统一 */
 .username {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--c-text, #334155);
+  color: var(--text-title);
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100px;
   transition: color 0.3s ease;
+  z-index: 1;
 }
 
 .contributor-card:hover .username {
-  color: var(--c-brand, #3b82f6);
+  color: var(--brand);
 }
 
-/* 响应式调整 */
+/* 响应式调整 - 与友情链接组件保持一致 */
 @media (max-width: 768px) {
   .contributors-container {
     margin: 2rem 0;
@@ -502,4 +558,12 @@ export default {
     font-size: 1.2rem;
   }
 }
+
+/* 动画延迟效果 - 与友情链接组件保持一致 */
+.contributors-grid a:nth-child(1) { transition-delay: 0.05s; }
+.contributors-grid a:nth-child(2) { transition-delay: 0.1s; }
+.contributors-grid a:nth-child(3) { transition-delay: 0.15s; }
+.contributors-grid a:nth-child(4) { transition-delay: 0.2s; }
+.contributors-grid a:nth-child(5) { transition-delay: 0.25s; }
+.contributors-grid a:nth-child(6) { transition-delay: 0.3s; }
 </style>
