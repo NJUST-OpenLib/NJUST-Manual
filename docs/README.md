@@ -278,27 +278,7 @@ config:
   <p>本站内容均由南理工学生自发贡献，仅供参考，不代表南京理工大学官方立场。我们致力于提供准确、有用的信息，但不对内容的完整性、准确性和时效性做出保证。</p>
 </div>
 
-
-<FriendLinks :links="[
-  {
-    name: 'Vue.js',
-    url: 'https://vuejs.org/',
-    logo: 'https://avatars.githubusercontent.com/u/6128107?v=4',
-    desc: 'The Progressive JavaScript Framework.'
-  },
-  {
-    name: 'Vite',
-    url: 'https://vitejs.dev/',
-    logo: 'https://avatars.githubusercontent.com/u/65625612?v=4',
-    desc: 'Next generation frontend tooling.'
-  },
-  {
-    name: 'Tailwind CSS',
-    url: 'https://tailwindcss.com/',
-    logo: 'https://avatars.githubusercontent.com/u/67109815?v=4',
-    desc: 'Utility-first CSS framework.'
-  }
-]" />
+<FriendLinks />
 
 
 <Contributors 
