@@ -1,8 +1,32 @@
 <template>
   <div class="friend-links-container">
-    <h3 class="friend-links-title">{{ title || '友情链接' }}</h3>
+    <div class="header-wrapper">
+      <h3 class="friend-links-title">{{ title || '友情链接' }}</h3>
+      <a 
+        :href="applyUrl" 
+        class="apply-link" 
+        target="_self"
+        :aria-label="`申请添加友情链接`"
+      >
+        <span>申请</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
     
-    <div class="links-grid">
+    <!-- 加载状态 -->
+    <div v-if="loading" class="loading-state">
+      <div class="spinner"></div>
+      <span>加载链接中...</span>
+    </div>
+    
+    <!-- 错误状态 -->
+    <div v-else-if="error" class="error-state">
+      <i class="error-icon">⚠️</i>
+      <span>{{ error }}</span>
+    </div>
+    
+    <!-- 链接列表 -->
+    <div v-else class="links-grid">
       <a 
         v-for="(link, index) in links" 
         :key="index" 
@@ -35,14 +59,38 @@ export default {
       type: String,
       default: '友情链接'
     },
-    links: {
-      type: Array,
-      required: true,
-      validator: (value) => {
-        return value.every(link => 
-          link.name && link.url && typeof link.name === 'string' && typeof link.url === 'string'
-        );
+    dataUrl: {
+      type: String,
+      default: '/friend-links.json' // JSON数据文件路径
+    },
+    applyUrl: {
+      type: String,
+      default: '/apply-link' // 申请页面URL
+    }
+  },
+  data() {
+    return {
+      links: [],
+      loading: true,
+      error: null
+    }
+  },
+  async mounted() {
+    try {
+      // 从JSON文件加载链接数据
+      const response = await fetch(this.dataUrl);
+      
+      if (!response.ok) {
+        throw new Error(`加载失败: ${response.statusText}`);
       }
+      
+      const data = await response.json();
+      this.links = data;
+    } catch (err) {
+      console.error('友情链接加载错误:', err);
+      this.error = '无法加载友情链接数据';
+    } finally {
+      this.loading = false;
     }
   }
 };
@@ -62,9 +110,11 @@ export default {
   --brand-light: #60a5fa;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --danger: #dc2626;
+  --danger-bg: #fff5f5;
 }
 
-/* 夜间模式变量 - 通常由父级或主题系统设置，这里仅作示例 */
+/* 夜间模式变量 */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-card: #1e293b;
@@ -77,6 +127,8 @@ export default {
     --brand-light: #93c5fd;
     --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    --danger: #f87171;
+    --danger-bg: #1f2937;
   }
 }
 
@@ -90,15 +142,56 @@ export default {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* 头部标题与申请按钮容器 */
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
 /* 标题样式 */
 .friend-links-title {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 0.75rem 0;
   padding-bottom: 0.75rem;
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--text-title);
   border-bottom: 2px solid var(--brand);
   display: inline-block;
+}
+
+/* 申请链接按钮 */
+.apply-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--brand);
+  text-decoration: none;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid var(--brand);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 0.75rem;
+}
+
+.apply-link:hover {
+  color: var(--bg-card);
+  background-color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}
+
+.apply-link i {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.apply-link:hover i {
+  transform: translateX(3px);
 }
 
 /* 链接网格布局 */
@@ -108,7 +201,7 @@ export default {
   gap: 1.25rem;
 }
 
-/* 链接卡片样式 - 移除外部边框 */
+/* 链接卡片样式 */
 .link-card {
   display: flex;
   align-items: center;
@@ -224,6 +317,41 @@ export default {
   opacity: 1;
 }
 
+/* 加载和错误状态 */
+.loading-state, .error-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: var(--bg-hover);
+}
+
+.loading-state {
+  color: var(--text-secondary);
+}
+
+.error-state {
+  color: var(--danger);
+  background-color: var(--danger-bg);
+}
+
+/* 加载动画 */
+.spinner {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: spinner-rotate 1s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* 响应式调整 */
 @media (max-width: 768px) {
   .links-grid {
@@ -247,6 +375,11 @@ export default {
   .logo-img {
     height: 56px;
   }
+  
+  .apply-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* 动画延迟效果 */
@@ -257,3 +390,4 @@ export default {
 .links-grid a:nth-child(5) { transition-delay: 0.25s; }
 .links-grid a:nth-child(6) { transition-delay: 0.3s; }
 </style>
+    

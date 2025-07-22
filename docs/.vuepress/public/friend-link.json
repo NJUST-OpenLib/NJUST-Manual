@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Vue.js 官方网站",
+    "url": "https://vuejs.org/",
+    "logo": "https://vuejs.org/images/logo.png",
+    "desc": "渐进式JavaScript框架"
+  },
+  {
+    "name": "Vite 官方网站",
+    "url": "https://vitejs.dev/",
+    "logo": "https://vitejs.dev/logo.svg",
+    "desc": "下一代前端构建工具"
+  },
+  {
+    "name": "Tailwind CSS",
+    "url": "https://tailwindcss.com/",
+    "logo": "https://tailwindcss.com/favicon-32x32.png",
+    "desc": "实用优先的CSS框架"
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com/",
+    "logo": "https://github.githubassets.com/favicon.ico",
+    "desc": "代码托管平台"
+  }
+]
+    
