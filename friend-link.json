@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Vue.js 官方网站",
+    "url": "https://vuejs.org/",
+    "logo": "https://vuejs.org/images/logo.png",
+    "desc": "渐进式JavaScript框架"
+  },
+  {
+    "name": "Netlify",
+    "url": "https://www.netlify.com/",
+    "logo": "https://www.netlify.com/assets/logos/encapsulated/lightmode/logo-netlify-encapsulated-fullcolor-lightmode.svg",
+    "desc": "全球托管平台"
+  }
+]
+    
