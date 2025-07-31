@@ -9,6 +9,9 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "fetch-contributors": "python ./.github/workflows/scripts/fetch_contributors.py",
+    "predocs:build": "npm run fetch-contributors",
+    "predocs:dev": "npm run fetch-contributors",
     "build": "npm run docs:build",
     "docs:build": "npx vuepress build docs --clean-cache --clean-temp",
     "docs:dev": "npx vuepress dev docs",

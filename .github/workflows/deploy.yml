@@ -31,28 +31,39 @@ jobs:
           cache: npm
           cache-dependency-path: '**/package-lock.json'
 
-      - name: 📦 安装依赖
+      - name: 🐍 安装 Python 环境和依赖
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: 📦 安装 Python 依赖
+        run: |
+          echo "::group::📦 正在安装 Python 依赖..."
+          pip install requests python-dotenv
+          echo "::endgroup::✅ Python 依赖安装完成"
+      
+      - name: 📦 安装 npm 依赖
         run: |
           echo "::group::📦 正在安装 npm 依赖..."
           npm ci
           echo "::endgroup::✅ 依赖安装完成"
 
+      # 将 GITHUB_TOKEN 传递给 npm run fetch-contributors
       - name: 🏗️ 构建 VuePress 项目并保存日志
         run: |
           echo "::group::🔧 VuePress 构建中..."
           npm run docs:build 2>&1 | tee build.log
           echo "::endgroup::✅ VuePress 构建完成"
-
+        env:
+          # 使用内置的 GITHUB_TOKEN，它具有足够的权限来获取仓库信息
+          # 请确保在 Python 脚本中，使用环境变量 os.getenv("GITHUB_TOKEN") 而不是硬编码
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: 📤 上传构建日志 Artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build.log
-
-      - name: 🐍 安装 Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
 
       - name: 🚀 推送链接到搜索引擎
         run: |

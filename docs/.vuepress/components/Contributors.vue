@@ -1,23 +1,22 @@
 <template>
   <div class="contributors-container">
     <h3 v-if="title" class="contributors-title">{{ title }}</h3>
-    
+
     <!-- 状态提示 -->
-    <div v-if="fetchGithub && loading && !customContributors.length" class="status-indicator loading">
+    <div v-if="loading" class="status-indicator loading">
       <div class="spinner"></div>
       <span>加载贡献者信息中...</span>
     </div>
-    <div v-else-if="fetchGithub && error && !customContributors.length" class="status-indicator error">
+    <div v-else-if="error" class="status-indicator error">
       <i class="error-icon">⚠️</i>
       <span>{{ error }}</span>
     </div>
-    
+
     <!-- 贡献者网格 -->
-    <div class="contributors-grid">
+    <div v-else class="contributors-grid">
       <!-- GitHub贡献者 -->
-      <a 
-        v-if="fetchGithub"
-        v-for="contributor in contributors" 
+      <a
+        v-for="contributor in contributors"
         :key="'github-' + contributor.id"
         :href="contributor.html_url"
         target="_blank"
@@ -26,8 +25,8 @@
         :aria-label="`访问${contributor.login}的GitHub主页`"
       >
         <div class="avatar-container">
-          <img 
-            :src="contributor.avatar_url" 
+          <img
+            :src="contributor.avatar_url"
             :alt="contributor.login"
             class="avatar"
             loading="lazy"
@@ -38,10 +37,10 @@
         </div>
         <span class="username">{{ contributor.login }}</span>
       </a>
-      
+
       <!-- 自定义贡献者 -->
-      <a 
-        v-for="(contributor, index) in processedCustomContributors" 
+      <a
+        v-for="(contributor, index) in processedCustomContributors"
         :key="'custom-' + index"
         :href="contributor.url"
         target="_blank"
@@ -50,8 +49,8 @@
         :aria-label="`访问${contributor.name}的主页`"
       >
         <div class="avatar-container">
-          <img 
-            :src="contributor.avatarUrl" 
+          <img
+            :src="contributor.avatarUrl"
             :alt="contributor.name"
             class="avatar"
             loading="lazy"
@@ -72,98 +71,71 @@ export default {
   props: {
     title: {
       type: String,
-      default: '贡献者'
+      default: '贡献者',
     },
-    repo: {
-      type: String,
-      default: 'NJUST-OpenLib/NJUST-Manual'
-    },
+    // 自定义贡献者数组，默认空
     customContributors: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
-    fetchGithub: {
-      type: Boolean,
-      default: true
-    }
   },
-  
+  data() {
+    return {
+      contributors: [], // GitHub贡献者，从本地JSON加载
+      processedCustomContributors: [], // 自定义贡献者，带头像处理
+      loading: false,
+      error: null,
+      defaultAvatar: 'https://weavatar.com/avatar/?d=retro',
+    };
+  },
   watch: {
-    // 监听自定义贡献者变化，重新处理头像URL
+    // 监听自定义贡献者数组，更新处理后的数据
     customContributors: {
       handler() {
         this.processCustomContributors();
       },
       deep: true,
-      immediate: true
-    }
+      immediate: true,
+    },
   },
-  
-  data() {
-    return {
-      contributors: [],
-      processedCustomContributors: [],
-      loading: true,
-      error: null
-    }
-  },
-  
   mounted() {
-    if (this.fetchGithub) {
-      this.fetchContributors()
-    } else {
-      this.loading = false
-    }
+    this.fetchContributorsFromLocal();
   },
-  
   methods: {
-    async fetchContributors() {
+    async fetchContributorsFromLocal() {
+      this.loading = true;
+      this.error = null;
       try {
-        this.loading = true
-        this.error = null
-        const response = await fetch(`https://api.github.com/repos/${this.repo}/contributors`)
-        
-        if (!response.ok) {
-          throw new Error(`HTTP错误: ${response.status}`)
-        }
-        
-        this.contributors = await response.json()
-      } catch (error) {
-        console.error('获取贡献者信息出错:', error)
-        this.error = '无法加载GitHub贡献者信息'
+        const res = await fetch('/contributors.json');
+        if (!res.ok) throw new Error(`读取本地贡献者文件失败: ${res.status}`);
+        const data = await res.json();
+        this.contributors = data;
+      } catch (err) {
+        console.error(err);
+        this.error = '读取贡献者数据失败';
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
-    
-    // 处理自定义贡献者数据
     processCustomContributors() {
-      this.processedCustomContributors = this.customContributors.map(contributor => {
-        let avatarUrl;
-        
+      this.processedCustomContributors = this.customContributors.map((contributor) => {
+        let avatarUrl = this.defaultAvatar;
         if (contributor.avatar) {
           avatarUrl = contributor.avatar;
         } else if (contributor.email) {
-          // 使用email生成WeAvatar URL
           const hash = this.calculateMD5(contributor.email.trim().toLowerCase());
           avatarUrl = `https://weavatar.com/avatar/${hash}?d=retro`;
-        } else {
-          // 默认头像
-          avatarUrl = 'https://weavatar.com/avatar/?d=retro';
         }
-        
         return {
           ...contributor,
-          avatarUrl
+          avatarUrl,
         };
       });
     },
-    
-    // MD5哈希算法实现
+    // MD5算法实现（保持你原有的代码）
     calculateMD5(text) {
       function md5cycle(x, k) {
         let a = x[0], b = x[1], c = x[2], d = x[3];
-        
         a = ff(a, b, c, d, k[0], 7, -680876936);
         d = ff(d, a, b, c, k[1], 12, -389564586);
         c = ff(c, d, a, b, k[2], 17, 606105819);
@@ -180,7 +152,6 @@ export default {
         d = ff(d, a, b, c, k[13], 12, -40341101);
         c = ff(c, d, a, b, k[14], 17, -1502002290);
         b = ff(b, c, d, a, k[15], 22, 1236535329);
-        
         a = gg(a, b, c, d, k[1], 5, -165796510);
         d = gg(d, a, b, c, k[6], 9, -1069501632);
         c = gg(c, d, a, b, k[11], 14, 643717713);
@@ -197,7 +168,6 @@ export default {
         d = gg(d, a, b, c, k[2], 9, -51403784);
         c = gg(c, d, a, b, k[7], 14, 1735328473);
         b = gg(b, c, d, a, k[12], 20, -1926607734);
-        
         a = hh(a, b, c, d, k[5], 4, -378558);
         d = hh(d, a, b, c, k[8], 11, -2022574463);
         c = hh(c, d, a, b, k[11], 16, 1839030562);
@@ -214,7 +184,6 @@ export default {
         d = hh(d, a, b, c, k[12], 11, -421815835);
         c = hh(c, d, a, b, k[15], 16, 530742520);
         b = hh(b, c, d, a, k[2], 23, -995338651);
-        
         a = ii(a, b, c, d, k[0], 6, -198630844);
         d = ii(d, a, b, c, k[7], 10, 1126891415);
         c = ii(c, d, a, b, k[14], 15, -1416354905);
@@ -231,99 +200,85 @@ export default {
         d = ii(d, a, b, c, k[11], 10, -1120210379);
         c = ii(c, d, a, b, k[2], 15, 718787259);
         b = ii(b, c, d, a, k[9], 21, -343485551);
-        
         x[0] = add32(a, x[0]);
         x[1] = add32(b, x[1]);
         x[2] = add32(c, x[2]);
         x[3] = add32(d, x[3]);
       }
-      
       function cmn(q, a, b, x, s, t) {
         a = add32(add32(a, q), add32(x, t));
         return add32((a << s) | (a >>> (32 - s)), b);
       }
-      
       function ff(a, b, c, d, x, s, t) {
-        return cmn((b & c) | ((~b) & d), a, b, x, s, t);
+        return cmn((b & c) | (~b & d), a, b, x, s, t);
       }
-      
       function gg(a, b, c, d, x, s, t) {
-        return cmn((b & d) | (c & (~d)), a, b, x, s, t);
+        return cmn((b & d) | (c & ~d), a, b, x, s, t);
       }
-      
       function hh(a, b, c, d, x, s, t) {
         return cmn(b ^ c ^ d, a, b, x, s, t);
       }
-      
       function ii(a, b, c, d, x, s, t) {
-        return cmn(c ^ (b | (~d)), a, b, x, s, t);
+        return cmn(c ^ (b | ~d), a, b, x, s, t);
       }
-      
       function md51(s) {
         const n = s.length;
         const state = [1732584193, -271733879, -1732584194, 271733878];
         let i;
-        
         for (i = 64; i <= s.length; i += 64) {
           md5cycle(state, md5blk(s.substring(i - 64, i)));
         }
-        
         s = s.substring(i - 64);
-        const tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        
+        const tail = new Array(16).fill(0);
         for (i = 0; i < s.length; i++) {
           tail[i >> 2] |= s.charCodeAt(i) << ((i % 4) << 3);
         }
-        
         tail[i >> 2] |= 0x80 << ((i % 4) << 3);
-        
         if (i > 55) {
           md5cycle(state, tail);
           for (i = 0; i < 16; i++) tail[i] = 0;
         }
-        
         tail[14] = n * 8;
         md5cycle(state, tail);
         return state;
       }
-      
       function md5blk(s) {
         const md5blks = [];
         for (let i = 0; i < 64; i += 4) {
-          md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24);
+          md5blks[i >> 2] =
+            s.charCodeAt(i) +
+            (s.charCodeAt(i + 1) << 8) +
+            (s.charCodeAt(i + 2) << 16) +
+            (s.charCodeAt(i + 3) << 24);
         }
         return md5blks;
       }
-      
-      function hex_md5(s) {
-        const result = md51(s);
-        return hex(result[0]) + hex(result[1]) + hex(result[2]) + hex(result[3]);
-      }
-      
-      function hex(x) {
-        const hexChars = '0123456789abcdef';
-        let output = '';
-        for (let i = 0; i < 4; i++) {
-          const value = (x >> (i * 8)) & 0xff;
-          output += hexChars.charAt((value >> 4) & 0xf) + hexChars.charAt(value & 0xf);
+      function rhex(n) {
+        const hex_chr = '0123456789abcdef';
+        let s = '';
+        for (let j = 0; j < 4; j++) {
+          s +=
+            hex_chr[(n >> (j * 8 + 4)) & 0x0f] +
+            hex_chr[(n >> (j * 8)) & 0x0f];
         }
-        return output;
+        return s;
       }
-      
+      function hex(x) {
+        for (let i = 0; i < x.length; i++) x[i] = rhex(x[i]);
+        return x.join('');
+      }
       function add32(a, b) {
         return (a + b) & 0xffffffff;
       }
-      
-      return hex_md5(text);
-    }
-  }
-}
+      return hex(md51(text));
+    },
+  },
+};
 </script>
 
+
 <style scoped>
-/* 基础样式与日夜间模式变量定义 - 与友情链接组件完全一致 */
 :root {
-  /* 日间模式变量 */
   --bg-card: #ffffff;
   --bg-hover: #f8fafc;
   --text-title: #1e293b;
@@ -337,8 +292,6 @@ export default {
   --danger: #dc2626;
   --danger-bg: #fff5f5;
 }
-
-/* 夜间模式变量 */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-card: #1e293b;
@@ -356,7 +309,6 @@ export default {
   }
 }
 
-/* 容器样式 - 与友情链接组件完全一致 */
 .contributors-container {
   margin: 2.5rem 0;
   padding: 1.5rem;
@@ -366,7 +318,6 @@ export default {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 标题样式 - 与友情链接组件完全一致 */
 .contributors-title {
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.75rem;
@@ -377,7 +328,6 @@ export default {
   display: inline-block;
 }
 
-/* 状态指示器 */
 .status-indicator {
   display: flex;
   align-items: center;
@@ -390,13 +340,10 @@ export default {
   color: var(--text-secondary);
   background-color: var(--bg-hover);
 }
-
 .status-indicator.error {
   color: var(--danger);
   background-color: var(--danger-bg);
 }
-
-/* 加载动画 */
 .spinner {
   width: 1.2rem;
   height: 1.2rem;
@@ -405,24 +352,20 @@ export default {
   border-radius: 50%;
   animation: spinner-rotate 1s linear infinite;
 }
-
 @keyframes spinner-rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 .error-icon {
   font-size: 1.2rem;
 }
 
-/* 贡献者网格布局 */
 .contributors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 1.25rem;
 }
 
-/* 贡献者卡片样式 - 与友情链接组件风格统一 */
 .contributor-card {
   display: flex;
   flex-direction: column;
@@ -435,15 +378,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
-
-/* 卡片悬停动画效果 - 与友情链接组件保持一致 */
 .contributor-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
   background-color: var(--bg-hover);
 }
-
-/* 悬停时的装饰效果 - 与友情链接组件风格统一 */
 .contributor-card::before {
   content: '';
   position: absolute;
@@ -455,12 +394,10 @@ export default {
   transform: scaleY(0);
   transition: transform 0.3s ease;
 }
-
 .contributor-card:hover::before {
   transform: scaleY(1);
 }
 
-/* 头像容器 */
 .avatar-container {
   position: relative;
   width: 72px;
@@ -469,7 +406,6 @@ export default {
   z-index: 1;
 }
 
-/* 头像样式 */
 .avatar {
   width: 100%;
   height: 100%;
@@ -479,13 +415,11 @@ export default {
   padding: 2px;
   background-color: var(--bg-card);
 }
-
 .contributor-card:hover .avatar {
   transform: scale(1.1);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* 悬停覆盖层 */
 .hover-overlay {
   position: absolute;
   inset: 0;
@@ -497,7 +431,6 @@ export default {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
 .contributor-card:hover .hover-overlay {
   opacity: 1;
 }
@@ -508,7 +441,6 @@ export default {
   transform: translate(1px, -1px);
 }
 
-/* 用户名样式 - 与友情链接组件文字样式统一 */
 .username {
   font-size: 0.9rem;
   font-weight: 500;
@@ -521,45 +453,37 @@ export default {
   transition: color 0.3s ease;
   z-index: 1;
 }
-
 .contributor-card:hover .username {
   color: var(--brand);
 }
 
-/* 响应式调整 - 与友情链接组件保持一致 */
 @media (max-width: 768px) {
   .contributors-container {
     margin: 2rem 0;
     padding: 1rem;
   }
-  
   .contributors-grid {
     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     gap: 1rem;
   }
-  
   .avatar-container {
     width: 64px;
     height: 64px;
   }
-  
   .username {
     font-size: 0.85rem;
     max-width: 80px;
   }
 }
-
 @media (max-width: 480px) {
   .contributors-grid {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
-  
   .contributors-title {
     font-size: 1.2rem;
   }
 }
 
-/* 动画延迟效果 - 与友情链接组件保持一致 */
 .contributors-grid a:nth-child(1) { transition-delay: 0.05s; }
 .contributors-grid a:nth-child(2) { transition-delay: 0.1s; }
 .contributors-grid a:nth-child(3) { transition-delay: 0.15s; }
