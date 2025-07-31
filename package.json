@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "discribe info",
-  "author": "NJUST Openlib <admin@njust.wiki>",
+  "author": "NJUST-Openlib <admin@njust.wiki>",
   "license": "MIT",
   "engines": {
     "node": ">=22.0.0"

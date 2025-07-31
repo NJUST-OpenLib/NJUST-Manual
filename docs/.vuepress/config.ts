@@ -89,13 +89,6 @@ export default defineUserConfig({
      contributors: {
         mode: 'block',
         avatar: true,
-        info: [
-            {
-              username: 'NJUST-OpenLib', // github username
-              alias: ['NJUST-OpenLib'], // 别名，本地 git 配置中的用户名
-              avatar: 'https://avatars.githubusercontent.com/u/202487679',
-            }
-          ]
       },
         // changelog: false,
 
