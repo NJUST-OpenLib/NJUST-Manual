@@ -6,8 +6,14 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
 import { gitPlugin } from '@vuepress/plugin-git'
 
+const buildDateString = new Date().toISOString();
+console.log('--- Debug: buildDateString in config.js ---', buildDateString);
+console.log('--- Debug: type of buildDateString ---', typeof buildDateString);
 
 export default defineUserConfig({
+
+ 
+
     base: '/',
     lang: 'zh-CN',
     title: '南京理工大学生存手册',
@@ -21,7 +27,7 @@ export default defineUserConfig({
 
     bundler: viteBundler(),
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
-
+    
     plugins: [
         gitPlugin({
             changelog: {
