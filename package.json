@@ -9,7 +9,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "fetch-contributors": "python ./.github/workflows/scripts/fetch_contributors.py",
+    "fetch-contributors": "node .github/workflows/scripts/fetch_contributors.mjs",
     "predocs:build": "npm run fetch-contributors",
     "predocs:dev": "npm run fetch-contributors",
     "build": "npm run docs:build",
