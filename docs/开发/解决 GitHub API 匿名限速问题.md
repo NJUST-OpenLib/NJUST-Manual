@@ -25,10 +25,10 @@ permaLink: /dev/solveGitHubAPIRateLimit.md
 />
 
 
-##  问题背景
+## 问题背景
 
-在开发 VuePress 网站 **`NJUST-Manual`** 时，我们添加了一个 Vue 组件来展示 GitHub 仓库的贡献者信息。  
-最初，这个组件直接在客户端通过 GitHub REST API 发起匿名请求获取数据。
+在开发 VuePress 网站 **`NJUST-Manual`** 时，我们添加了一个 Vue 组件用于展示 GitHub 仓库的贡献者信息。  
+最初，该组件在客户端直接通过 GitHub REST API 发起匿名请求以获取数据：
 
 ```js
 fetch("https://api.github.com/repos/NJUST-OpenLib/NJUST-Manual/contributors")
@@ -36,7 +36,7 @@ fetch("https://api.github.com/repos/NJUST-OpenLib/NJUST-Manual/contributors")
   .then(data => console.log(data));
 ```
 
-当网站访问量增加时，这种做法很快就会触发 GitHub 的 API 限流，导致浏览器控制台报错。
+随着网站访问量增长，这种做法很快触发了 GitHub 的 API 限流机制，导致浏览器控制台出现如下报错：
 
 ```json
 {
@@ -47,31 +47,28 @@ fetch("https://api.github.com/repos/NJUST-OpenLib/NJUST-Manual/contributors")
 
 ## 问题分析
 
-GitHub 对 API 请求实行了严格的**限流策略**：
+GitHub 对 API 请求实行严格的**限流策略**，具体限制如下：
 
 | 请求类型 | 限制 |
 | :--- | :--- |
 | **匿名请求** | 每小时 **60 次** / 每个 IP 地址 |
 | **授权请求** | 每小时 **5000 次** / 每个 Token |
 
-由于 VuePress 是静态网站，所有访问者的请求均在浏览器端发起，但对于 GitHub 而言，这些请求可能因代理或 NAT 机制呈现为同一 IP 地址，极易触发匿名访问的限流阈值，导致功能异常。
+由于 VuePress 是静态网站，所有访问者的请求均在浏览器端发起。但对于 GitHub 而言，这些请求可能因代理或 NAT 机制呈现为同一 IP 地址，极易触及匿名访问的限流阈值，导致功能异常。
 
-结合南京理工大学校园网环境的特点：在未进行拨号认证时，教学办公区与宿舍区这两个主要 VLAN 区域，每个 VLAN 内会共用联通、电信、移动及教育网四个一组的出口 IP。  
-这意味着，同一区域内所有设备的外网请求（尤其是访问境外网站时），均通过这几个固定 IP 发出。  
-并且访问境外网站时，总是走 ```219.*.*.*```的教育网出口。  
-因此您可能经常遇到人机验证或访问频率限制（access rate limit）的提示。  
+结合南京理工大学校园网环境特点：未进行拨号认证时，教学办公区与宿舍区这两个主要 VLAN 区域，每个 VLAN 内会共用联通、电信、移动及教育网四个出口 IP。  
+这意味着同一区域内所有设备的外网请求（尤其是访问境外网站时），均通过这几个固定 IP 发出；且访问境外网站时，始终走 ```219.*.*.*``` 的教育网出口。  
+因此，用户可能频繁遇到人机验证或访问频率限制（access rate limit）提示。
 
 
 ## 解决方案
 
-为彻底解决这一问题，我们采用“**构建阶段拉取数据 → 保存为静态文件 → 客户端直接读取**”的策略。
+为彻底解决该问题，我们采用“**构建阶段拉取数据 → 保存为静态文件 → 客户端直接读取**”的整体策略，具体实施步骤如下：
 
-
-  - **使用 Python 脚本**：在项目构建时，利用该脚本通过授权请求从 GitHub API 获取贡献者数据。
-  - **保存为静态 JSON 文件**：将获取到的数据保存到项目的 `public` 目录下，例如 `contributors.json`。
-  - **客户端直接读取**：网站的 Vue 组件不再直接请求 GitHub API，而是直接读取本地的 `contributors.json` 文件。
-  - **支持双环境配置**：该方案能同时在本地开发 (`.env`) 和 CI/CD 环境 (`secrets.GITHUB_TOKEN`) 中自动运行。
-
+- **通过 Python 脚本实现**：在项目构建阶段，利用脚本通过授权请求从 GitHub API 获取贡献者数据。
+- **保存为静态 JSON 文件**：将获取到的数据存储至项目的 `public` 目录（例如 `contributors.json`）。
+- **客户端直接读取本地文件**：网站的 Vue 组件不再直接请求 GitHub API，而是读取本地静态 JSON 文件。
+- **支持双环境配置**：方案可在本地开发环境（通过 `.env` 文件）和 CI/CD 环境（通过 `secrets.GITHUB_TOKEN`）中自动运行。
 
 
 ## Python 脚本实现
@@ -137,10 +134,9 @@ if __name__ == "__main__":
 ```
 
 
-
 ## 构建流程自动化配置
 
-我们通过 `package.json` 中的 `scripts` 实现了构建流程的自动化，确保每次构建前都会自动执行 Python 脚本来更新贡献者数据。
+我们通过 `package.json` 中的 `scripts` 字段实现构建流程自动化，确保每次构建前自动执行 Python 脚本来更新贡献者数据。
 
 `package.json`
 
@@ -162,41 +158,40 @@ if __name__ == "__main__":
 
 ### NPM Script 原理说明
 
-NPM 的 `pre` 和 `post` 脚本是自动触发的。例如，执行 `npm run docs:build` 时，NPM 会自动先执行 `predocs:build` 脚本。
+NPM 的 `pre` 和 `post` 脚本支持自动触发机制。例如执行 `npm run docs:build` 时，NPM 会自动先执行 `predocs:build` 脚本。
 
-  * **`"preX"`**：会在执行 `"X"` 脚本**之前**自动调用。
-  * **`"postX"`**：会在执行 `"X"` 脚本**之后**自动调用。
+- **`"preX"`**：会在执行 `"X"` 脚本**之前**自动调用。
+- **`"postX"`**：会在执行 `"X"` 脚本**之后**自动调用。
 
-因此，执行 `npm run build` 实际上等同于按顺序执行：
+因此，执行 `npm run build` 实际上按以下顺序执行：
 
-1.  `npm run predocs:build`
-2.  `npm run fetch-contributors`
-3.  `npm run docs:build`
-
+1. `npm run predocs:build`
+2. `npm run fetch-contributors`
+3. `npm run docs:build`
 
 
 ## GitHub Token 配置
 
-为了在不同环境中都能使用授权请求，我们需要配置 GitHub Token。
+为在不同环境中使用授权请求，需配置 GitHub Token，具体步骤如下：
 
 ### 本地开发
 
 ::: danger
-请不要把包含 token 的.env 文件 上传到 Github！
+请不要将包含 token 的 `.env` 文件上传到 Github！
 :::
 
-在项目根目录下创建 `.env` 文件，用于本地开发调试。
+在项目根目录创建 `.env` 文件，用于本地开发调试：
 
 `.env`
 
 ```env
-# 根目录下 .env 文件，需要具有repo读权限
+# 根目录下 .env 文件，需要具有 repo 读权限
 GITHUB_TOKEN=ghp_xxxxyourtokenhere
 ```
 
 ### GitHub Actions
 
-在 GitHub Actions 的工作流文件 `.github/workflows/deploy.yml` 中，通过 `secrets` 传入 Token，确保其不会被公开。
+在 GitHub Actions 工作流文件 `.github/workflows/deploy.yml` 中，通过 `secrets` 传入 Token 以确保其不被公开：
 
 ```yaml
 jobs:
@@ -211,10 +206,9 @@ jobs:
 ```
 
 
-
 ## 效果改进对比
 
-通过将 API 请求从客户端转移到构建阶段，我们实现了显著的优化：
+通过将 API 请求从客户端转移到构建阶段，实现了显著优化，具体对比如下：
 
 | 特性 | 优化前 (客户端匿名请求) | 优化后 (构建阶段请求) |
 | :--- | :--- | :--- |
@@ -224,27 +218,169 @@ jobs:
 | **页面加载速度** | 慢，受限于实时 API 请求 | 快，直接读取本地 JSON 文件 |
 
 
-
 ## 小结与建议
 
-该方案成功实现了以下目标：
+该方案成功达成了以下目标：
 
-  * 彻底规避了 GitHub API 匿名请求的限速问题。
-  * 利用构建阶段拉取数据，确保了数据的时效性。
-  * 通过 `.env` 和 CI secrets，实现了灵活的跨环境配置。
-  * 将数据静态化，显著提升了页面的加载性能和稳定性。
+- 彻底规避 GitHub API 匿名请求的限速问题。
+- 利用构建阶段拉取数据，确保数据时效性。
+- 通过 `.env` 和 CI secrets 实现灵活的跨环境配置。
+- 将数据静态化，显著提升页面加载性能和稳定性。
 
-**建议：**对于那些依赖第三方 API 但数据更新频率不高的功能，优先考虑在构建时生成静态内容。这种方式能极大提高应用的健壮性和用户体验。  
-目前，自定义贡献者头像默认由```weavatar.com```提供。github贡献者头像由```avatars.githubusercontent.com```提供。
-这两个服务在国内都有较为良好的访问性，因此暂无自建头像服务的计划。
+**建议**：对于依赖第三方 API 但数据更新频率不高的功能，优先考虑在构建时生成静态内容。这种方式能极大提高应用的健壮性和用户体验。  
+目前，自定义贡献者头像默认由 `weavatar.com` 提供，GitHub 贡献者头像由 `avatars.githubusercontent.com` 提供。这两个服务在国内访问性良好，因此暂无自建头像服务的计划。
 
+
+## Vercel 及 Cloudflare 部署
+
+这两个平台默认不支持 Python 语句，上述修改可能导致部署失败。因此需使用 Node.js 执行相关逻辑。
+
+Node.js 版代码如下：
+
+```mjs
+// .github/workflows/scripts/fetch_contributors.mjs
+
+import fetch from 'node-fetch';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import chalk from 'chalk';
+
+// === 兼容 __dirname 用法 ===
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// === 项目参数 ===
+const OWNER = 'NJUST-OpenLib';
+const REPO = 'NJUST-Manual';
+const PER_PAGE = 100;
+const OUT_FILE = path.resolve('./docs/.vuepress/public/contributors.json');
+
+// === 加载 GitHub Token ===
+const TOKEN = process.env.GITHUB_TOKEN;
+const tokenStatus = TOKEN
+  ? chalk.green('✅ 已检测到 GitHub Token（启用认证）')
+  : chalk.yellow('⚠️ 未检测到 Token，将使用匿名 API（易限速）');
+
+const headers = {
+  Accept: 'application/vnd.github+json',
+};
+if (TOKEN) {
+  headers.Authorization = `Bearer ${TOKEN}`;
+}
+
+// === 拉取贡献者数据 ===
+async function fetchAllContributors() {
+  const contributors = [];
+  let page = 1;
+  let requestCount = 0;
+
+  console.log(chalk.cyan.bold('\n📦 开始从 GitHub 仓库拉取贡献者数据'));
+  console.log(`🔗 项目：${OWNER}/${REPO}`);
+  console.log(`🔐 Token 状态：${tokenStatus}`);
+  console.log(`🔄 分页参数：每页 ${PER_PAGE} 条`);
+
+  while (true) {
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contributors?per_page=${PER_PAGE}&page=${page}`;
+    console.log(chalk.gray(`→ [第 ${page} 页] 请求 URL：${url}`));
+    const res = await fetch(url, { headers });
+    requestCount++;
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`GitHub API 请求失败：${res.status} ${text}`);
+    }
+
+    const data = await res.json();
+    console.log(chalk.gray(`   ↳ 收到 ${data.length} 条贡献者数据`));
+    if (data.length === 0) break;
+
+    contributors.push(...data);
+    page++;
+  }
+
+  console.log(chalk.green(`\n✅ 共获取 ${contributors.length} 名贡献者，发送 ${requestCount} 次请求\n`));
+  return contributors;
+}
+
+// === 筛选字段 ===
+function simplifyFields(data) {
+  console.log(chalk.blueBright('🔧 正在精简字段...'));
+  const keys = ['login', 'avatar_url', 'html_url', 'contributions'];
+  const simplified = data.map(user => {
+    const result = {};
+    for (const k of keys) {
+      if (user[k]) result[k] = user[k];
+    }
+    return result;
+  });
+  console.log(chalk.green(`✅ 字段精简完成，保留 ${simplified.length} 项`));
+  return simplified;
+}
+
+// === 保存为 JSON 文件 ===
+function saveToFile(data) {
+  const outPath = path.resolve(OUT_FILE);
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(data, null, 2), 'utf8');
+  console.log(chalk.magentaBright(`💾 已保存至：${outPath}`));
+}
+
+// === 主函数 ===
+(async () => {
+  console.log(chalk.yellow.bold('================== GitHub 贡献者列表生成器 ==================\n'));
+  const startTime = new Date();
+  console.log(`🕒 开始时间：${chalk.bold(startTime.toLocaleString())}\n`);
+
+  try {
+    const raw = await fetchAllContributors();
+    const simplified = simplifyFields(raw);
+    saveToFile(simplified);
+    const endTime = new Date();
+    const duration = ((endTime - startTime) / 1000).toFixed(2);
+    console.log(chalk.greenBright(`\n🎉 所有任务完成！用时：${duration} 秒`));
+  } catch (e) {
+    console.error(chalk.redBright(`❌ 错误：${e.message}`));
+    process.exit(1);
+  }
+
+  console.log(chalk.yellow.bold('\n============================================================\n'));
+})();
+```
+
+需安装第三方依赖包：
+
+```bash
+npm install node-fetch chalk
+```
+
+
+对应的 `package.json` 脚本配置应更新为：
+
+```json
+"scripts": {
+  "fetch-contributors": "node .github/workflows/scripts/fetch_contributors.mjs",
+  "predocs:build": "npm run fetch-contributors",
+  "predocs:dev": "npm run fetch-contributors",
+  "build": "npm run docs:build",
+  "docs:build": "npx vuepress build docs --clean-cache --clean-temp",
+  "docs:dev": "npx vuepress dev docs",
+  "docs:dev-clean": "npx vuepress dev docs --clean-cache --clean-temp",
+  "docs:preview": "http-server docs/.vuepress/dist",
+  "vp-update": "npx vp-update"
+}
+```
+
+运行结果如下：
+
+![运行结果](static/fetchcontribu.png)
 
 
 ## 配套贡献者展示组件
 
 我们开发了一个专用的 Vue 组件，用于在页面中优雅地展示构建时拉取的贡献者数据。
 这个组件不仅支持 GitHub 贡献者，还能灵活地展示自定义贡献者，并提供了完整的状态处理和交互效果。
-上述的改进正是基于此的。
+上述的改进正是为此服务的。
 
 ### 组件核心功能
 
@@ -792,6 +928,7 @@ export default {
 ```
 
 :::
+
 
 
 
