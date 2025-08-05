@@ -27,7 +27,8 @@
     "chart.js": "^4.5.0",
     "echarts": "^5.6.0",
     "flowchart.ts": "^3.0.1",
-    "mermaid": "^11.6.0"
+    "mermaid": "^11.6.0",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.23",
