@@ -241,7 +241,7 @@ Github Actions 支持 Python 环境，但是 Vercel 和 Cloudflare pages 这两�
 
 Node.js 版代码如下：
 
-```mjs
+```js  fetch_contributors.mjs
 // .github/workflows/scripts/fetch_contributors.mjs
 
 import fetch from 'node-fetch';
