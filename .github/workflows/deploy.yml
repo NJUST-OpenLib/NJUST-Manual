@@ -4,11 +4,15 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
 jobs:
   build_docs:
     runs-on: ubuntu-latest
-    env:
-      BUILD_START_TIME: ${{ github.event.workflow_run.created_at || github.event.head_commit.timestamp || '' }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       - name: 📥 检出代码
         uses: actions/checkout@v4
@@ -21,62 +25,47 @@ jobs:
           node-version: '22'
           cache: npm
 
-      - name: 📦 安装依赖
-        run: npm ci
-
-      - name: ⏱️ 记录构建开始时间
-        id: timer
-        run: echo "start_time=$(date +%s)" >> $GITHUB_ENV
-
+      - name: 📦 安装 Node.js 依赖
+        run: |
+          echo "::group::📦 安装依赖..."
+          npm ci
+          echo "::endgroup::✅ 依赖安装完成"
+          
       - name: 🏗️ 构建 VuePress 项目
         run: npm run docs:build
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
         run: |
-          urls_count=$(node .github/workflows/scripts/push_to_indexnow.js | tee /dev/tty | grep '^urls_count=' | cut -d= -f2)
-          echo "urls_count=$urls_count" >> $GITHUB_OUTPUT
-        shell: bash
+          # 运行脚本，将所有输出正常打印到控制台
+          # 并同时用 grep 筛选出 urls_count 行，重定向到 GITHUB_OUTPUT
+          node .github/workflows/scripts/push_to_indexnow.js | tee /dev/stdout | grep "urls_count" >> $GITHUB_OUTPUT
         continue-on-error: true
-
+      
       - name: 📝 写入构建摘要
         run: |
-          end_time=$(date +%s)
-          build_duration=$((end_time - $START_TIME))
-          commit_sha=$(git rev-parse --short HEAD)
-          commit_msg=$(git log -1 --pretty=%s)
-          dist_size=$(du -sh docs/.vuepress/dist | cut -f1)
-
-          # 选个小彩蛋（示例）
-          eggs=(
-            "✨ Keep pushing forward!"
-            "🚀 Build success, keep the momentum!"
-            "🎉 Another day, another build!"
-            "💪 Code never lies."
-            "🔥 Stay curious and code on!"
-          )
-          egg=${eggs[$RANDOM % ${#eggs[@]}]}
-
           cat << EOF >> $GITHUB_STEP_SUMMARY
           ## 🚀 文档构建与部署报告
           **完成状态：** ✅ 成功
           **构建时间：** $(date '+%Y-%m-%d %H:%M:%S')
-          **构建耗时：** ${build_duration} 秒
-          **最新提交：** ${commit_sha} - ${commit_msg}
           **推送链接数：** ${{ steps.push_urls.outputs.urls_count }}
-          **构建产物大小：** ${dist_size}
-
+          
           ### 相关链接
           - [文档主页](https://manual.njust.wiki)
           - [GitHub 仓库](https://github.com/NJUST-OpenLib/NJUST-Manual)
-
+          
           ### 构建详情
           | 项目 | 说明 |
-          | --- | --- |
+          |---|---|
           | Node.js 版本 | $(node -v) |
           | NPM 版本 | $(npm -v) |
           | 构建目录 | docs/.vuepress/dist |
-
-          > ${egg}
           EOF
-        shell: bash
+
+      - name: 🚀 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vuepress/dist
