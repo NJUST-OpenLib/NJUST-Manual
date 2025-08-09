@@ -8,6 +8,10 @@ on:
 jobs:
   build_docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: 📥 检出代码
@@ -15,93 +19,57 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 获取 Node/npm 版本
-        id: npm-version
-        run: |
-          echo "::group::🔍 检查版本信息"
-          VERSION=$(grep -o 'npm@[0-9\.]*' package.json | cut -d@ -f2)
-          echo "npm_version=$VERSION" >> $GITHUB_ENV
-          echo "node_version=$(node -v | cut -dv -f2)" >> $GITHUB_ENV
-          echo "::endgroup::"
-
       - name: 🧰 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.node_version || '22' }}
+          node-version: '22'
           cache: npm
-          cache-dependency-path: '**/package-lock.json'
 
-      - name: 🐍 安装 Python 环境和依赖
-        uses: actions/setup-python@v4
+      - name: 🐍 安装 Python 环境
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: '3.10'
 
-      - name: 📦 安装 Python 依赖
+      - name: 📦 安装 Node.js 和 Python 依赖
         run: |
-          echo "::group::📦 正在安装 Python 依赖..."
-          pip install requests python-dotenv
-          echo "::endgroup::✅ Python 依赖安装完成"
-      
-      - name: 📦 安装 npm 依赖
-        run: |
-          echo "::group::📦 正在安装 npm 依赖..."
+          echo "::group::📦 安装依赖..."
           npm ci
+          pip install -r requirements.txt || pip install requests python-dotenv
           echo "::endgroup::✅ 依赖安装完成"
 
-      # 将 GITHUB_TOKEN 传递给 npm run fetch-contributors
-      - name: 🏗️ 构建 VuePress 项目并保存日志
-        run: |
-          echo "::group::🔧 VuePress 构建中..."
-          npm run docs:build 2>&1 | tee build.log
-          echo "::endgroup::✅ VuePress 构建完成"
+      - name: 🏗️ 构建 VuePress 项目
+        run: npm run docs:build
         env:
-          # 使用内置的 GITHUB_TOKEN，它具有足够的权限来获取仓库信息
-          # 请确保在 Python 脚本中，使用环境变量 os.getenv("GITHUB_TOKEN") 而不是硬编码
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: 📤 上传构建日志 Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
-
       - name: 🚀 推送链接到搜索引擎
         run: |
-          echo "::group::📤 推送链接到搜索引擎..."
-          pip install requests
-          URL_COUNT=$(python .github/workflows/scripts/push_to_indexnow.py | tee /tmp/indexnow.log | grep -Eo "[0-9]+ 个链接" | grep -Eo "[0-9]+" || echo "0")
-          echo "url_count=$URL_COUNT" >> $GITHUB_ENV
-          echo "::endgroup::✅ 推送完成"
+          URL_COUNT=$(python .github/workflows/scripts/push_to_indexnow.py || echo "0")
+          echo "url_count=${URL_COUNT}" >> $GITHUB_ENV
         continue-on-error: true
 
       - name: 📝 写入构建摘要
         run: |
-          echo "## 🚀 文档构建与部署报告" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**完成状态：** ✅ 成功" >> $GITHUB_STEP_SUMMARY
-          echo "**构建时间：** $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
-          echo "**推送链接数：** ${{ env.url_count }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 相关链接" >> $GITHUB_STEP_SUMMARY
-          echo "- [文档主页](https://manual.njust.wiki)" >> $GITHUB_STEP_SUMMARY
-          echo "- [GitHub 仓库](https://github.com/NJUST-OpenLib/NJUST-Manual)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 构建详情" >> $GITHUB_STEP_SUMMARY
-          echo "| 项目 | 说明 |" >> $GITHUB_STEP_SUMMARY
-          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-          echo "| Node.js 版本 | $(node -v) |" >> $GITHUB_STEP_SUMMARY
-          echo "| NPM 版本 | $(npm -v) |" >> $GITHUB_STEP_SUMMARY
-          echo "| 构建目录 | docs/.vuepress/dist |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 构建日志摘录（前 20 行）" >> $GITHUB_STEP_SUMMARY
-          echo '```bash' >> $GITHUB_STEP_SUMMARY
-          head -n 20 build.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat << EOF >> $GITHUB_STEP_SUMMARY
+          ## 🚀 文档构建与部署报告
+          **完成状态：** ✅ 成功
+          **构建时间：** $(date '+%Y-%m-%d %H:%M:%S')
+          **推送链接数：** ${{ env.url_count }}
 
-      - name: 🚚 部署到 GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v4
+          ### 相关链接
+          - [文档主页](https://manual.njust.wiki)
+          - [GitHub 仓库](https://github.com/NJUST-OpenLib/NJUST-Manual)
+
+          ### 构建详情
+          | 项目 | 说明 |
+          |---|---|
+          | Node.js 版本 | $(node -v) |
+          | NPM 版本 | $(npm -v) |
+          | 构建目录 | docs/.vuepress/dist |
+          EOF
+        
+      - name: 🚀 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          target_branch: gh-pages
-          build_dir: docs/.vuepress/dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vuepress/dist
