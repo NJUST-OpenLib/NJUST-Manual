@@ -47,9 +47,6 @@ async function loadSitemap(filePath) {
     const xmlContent = await fs.readFile(filePath, 'utf-8');
     const parsedData = parser.parse(xmlContent);
 
-    // 调试打印解析结构，确认正确
-    // console.log("解析后的sitemap结构:", JSON.stringify(parsedData, null, 2));
-
     const urlSet = parsedData["urlset"];
     if (!urlSet || !urlSet["url"]) {
       console.log("⚠️ sitemap 文件没有找到 URL 列表。");
@@ -220,6 +217,8 @@ async function main() {
 
   if (urls.length === 0) {
     console.log("⚠️ 没有从 sitemap 中提取到任何链接，跳过推送。");
+    // 即使没有链接，也成功退出，但数量为0
+    console.log(`urls_count=0`);
     process.exit(0);
   }
 
@@ -257,6 +256,10 @@ async function main() {
     console.log("\n✅ 推送完成");
     if (ENABLE_INDEXNOW) console.log(indexnowSuccess ? "✅ IndexNow 推送正常" : "⚠️ IndexNow 推送失败");
     if (ENABLE_BAIDU) console.log(baiduSuccess ? "✅ 百度推送正常" : "⚠️ 百度推送失败");
+
+    // ⚠️ 关键修改：将结果写入 GitHub Actions 的输出
+    // 使用这个特殊的格式来设置输出变量
+    console.log(`urls_count=${urls.length}`);
   }
 }
 

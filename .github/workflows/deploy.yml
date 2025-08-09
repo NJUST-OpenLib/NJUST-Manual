@@ -25,41 +25,36 @@ jobs:
           node-version: '22'
           cache: npm
 
-      - name: 🐍 安装 Python 环境
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: 📦 安装 Node.js 和 Python 依赖
+      - name: 📦 安装 Node.js 依赖
         run: |
           echo "::group::📦 安装依赖..."
           npm ci
-          pip install -r requirements.txt || pip install requests python-dotenv
           echo "::endgroup::✅ 依赖安装完成"
-
+          
       - name: 🏗️ 构建 VuePress 项目
         run: npm run docs:build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: 🚀 推送链接到搜索引擎
+        id: push_urls
         run: |
-          URL_COUNT=$(python .github/workflows/scripts/push_to_indexnow.py || echo "0")
-          echo "url_count=${URL_COUNT}" >> $GITHUB_ENV
+          # 运行 Node.js 脚本，并将输出写入到 GITHUB_OUTPUT 文件中
+          node .github/workflows/scripts/push_to_indexnow.js >> $GITHUB_OUTPUT
         continue-on-error: true
-
+      
       - name: 📝 写入构建摘要
         run: |
           cat << EOF >> $GITHUB_STEP_SUMMARY
           ## 🚀 文档构建与部署报告
           **完成状态：** ✅ 成功
           **构建时间：** $(date '+%Y-%m-%d %H:%M:%S')
-          **推送链接数：** ${{ env.url_count }}
-
+          **推送链接数：** ${{ steps.push_urls.outputs.urls_count }}
+          
           ### 相关链接
           - [文档主页](https://manual.njust.wiki)
           - [GitHub 仓库](https://github.com/NJUST-OpenLib/NJUST-Manual)
-
+          
           ### 构建详情
           | 项目 | 说明 |
           |---|---|
@@ -67,7 +62,7 @@ jobs:
           | NPM 版本 | $(npm -v) |
           | 构建目录 | docs/.vuepress/dist |
           EOF
-        
+
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
