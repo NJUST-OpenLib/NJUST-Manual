@@ -39,8 +39,9 @@ jobs:
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
         run: |
-          # 运行 Node.js 脚本，并将输出写入到 GITHUB_OUTPUT 文件中
-          node .github/workflows/scripts/push_to_indexnow.js >> $GITHUB_OUTPUT
+          # 运行脚本，将所有输出正常打印到控制台
+          # 并同时用 grep 筛选出 urls_count 行，重定向到 GITHUB_OUTPUT
+          node .github/workflows/scripts/push_to_indexnow.js | tee /dev/stdout | grep "urls_count" >> $GITHUB_OUTPUT
         continue-on-error: true
       
       - name: 📝 写入构建摘要
