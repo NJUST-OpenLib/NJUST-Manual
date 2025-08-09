@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Vue.js 官方网站",
+    "url": "https://vuejs.org/",
+    "logo": "https://vuejs.org/images/logo.png",
+    "desc": "渐进式JavaScript框架"
+  },
+  {
+    "name": "Netlify",
+    "url": "https://www.netlify.com/",
+    "logo": "https://www.netlify.com/assets/logos/encapsulated/lightmode/logo-netlify-encapsulated-fullcolor-lightmode.svg",
+    "desc": "全球托管平台"
+  },
+  {
+    "name": "南京理工大学校园论坛",
+    "url": "https://njust.club/",
+    "desc": "多个高校联合论坛，支持匿名发言",
+    "logo": "https://www.clipartmax.com/png/middle/125-1253440_big-image-mastodon-social-network-logo.png"
+  }
+]
