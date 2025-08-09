@@ -4,3 +4,4 @@ dist
 .cache
 docs/.vuepress/.temp/internal/sidebar.js
 CNAME
+.env
