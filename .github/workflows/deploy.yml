@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_docs:
-    runs-on: [self-hosted, Linux, X64, Misaka]  # 同时匹配所有标签
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pages: write
@@ -30,17 +30,61 @@ jobs:
           node-version: '22'
           cache: npm
 
+      # 缓存 node_modules
+      - name: 缓存 node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      # 安装依赖
       - name: 📦 安装 Node.js 依赖
         run: |
           echo "::group::📦 安装依赖..."
           npm ci
           echo "::endgroup::✅ 依赖安装完成"
-          
+
       - name: 🏗️ 构建 VuePress 项目
         run: npm run docs:build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # 生成 HTML 文件列表供 lychee 检测用
+      - name: 🔍 生成构建目录 HTML 文件列表
+        run: find docs/.vuepress/dist -type f -name '*.html' > files_list.txt
+
+      # 缓存 lychee 缓存目录（提升链接检测速度）
+      - name: 恢复 lychee 缓存
+        id: restore-lychee-cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: |
+            cache-lychee-
+
+      # 运行 lychee 进行死链检测，fail: false 不失败
+      - name: 🔍 检查 404 链接
+        id: link_check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 -- --input-file files_list.txt
+          format: markdown
+          jobSummary: true
+          output: lychee/out.md
+          fail: false
+
+      # 保存 lychee 缓存
+      - name: 保存 lychee 缓存
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+
+      # 收集构建统计信息
       - name: 📊 收集构建统计信息
         id: build_stats
         run: |
@@ -72,26 +116,14 @@ jobs:
           echo "build_size=$BUILD_SIZE" >> $GITHUB_OUTPUT
           echo "page_count=$PAGE_COUNT" >> $GITHUB_OUTPUT
 
-      - name: 🔍 生成构建目录HTML文件列表
-        run: find docs/.vuepress/dist -type f -name '*.html' > files_list.txt
-
-      - name: 🔍 检查 404 链接
-        id: link_check
-        uses: lycheeverse/lychee-action@v2
-        with:
-            args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 -- --input-file files_list.txt
-            format: markdown
-            jobSummary: true
-            output: lychee/out.md
-            fail: false
-
-
+      # 推送链接到搜索引擎（你的脚本）
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
         run: |
           node .github/workflows/scripts/push_to_indexnow.js | tee /dev/stdout | grep "urls_count" >> $GITHUB_OUTPUT
         continue-on-error: true
 
+      # 写构建摘要到 Job Summary
       - name: 📝 写入构建摘要
         run: |
           END_TIME=$(date +%s)
@@ -129,6 +161,7 @@ jobs:
             echo "✅ 未检测到 404 链接" >> $GITHUB_STEP_SUMMARY
           fi
 
+      # 部署到 GitHub Pages
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
