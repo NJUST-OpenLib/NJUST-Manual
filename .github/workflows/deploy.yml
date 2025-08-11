@@ -12,6 +12,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      issues: write
 
     steps:
       - name: ⏱️ 记录开始时间
@@ -43,22 +44,17 @@ jobs:
       - name: 📊 收集构建统计信息
         id: build_stats
         run: |
-          # 提交统计
           COMMIT_COUNT=$(git rev-list --count ${{ github.event.before }}..${{ github.sha }})
-          ALL_COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"- 📝 %s (%an)")
+          ALL_COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"- 📝 [%h](https://github.com/${{ github.repository }}/commit/%H) %s (%an)")
 
-          # 构建环境信息
           NODE_VER=$(node -v)
           NPM_VER=$(npm -v)
           OS_INFO=$(uname -a)
-
-          # 机器硬件信息
           CPU_MODEL=$(lscpu | grep "Model name" | sed 's/Model name:\s*//')
           CPU_CORES=$(nproc)
           MEM_TOTAL=$(grep MemTotal /proc/meminfo | awk '{print $2/1024 " MB"}')
           DISK_TOTAL=$(df -h / | awk 'NR==2 {print $2}')
 
-          # 构建产物统计
           BUILD_SIZE=$(du -sh docs/.vuepress/dist | cut -f1)
           PAGE_COUNT=$(find docs/.vuepress/dist -type f -name "*.html" | wc -l)
 
@@ -76,21 +72,18 @@ jobs:
           echo "build_size=$BUILD_SIZE" >> $GITHUB_OUTPUT
           echo "page_count=$PAGE_COUNT" >> $GITHUB_OUTPUT
 
+      - name: 🔍 生成构建目录HTML文件列表
+        run: find docs/.vuepress/dist -type f -name '*.html' > files_list.txt
+
       - name: 🔍 检查 404 链接
         id: link_check
-        uses: lycheeverse/lychee-action@v1.9.0
+        uses: lycheeverse/lychee-action@v2
         with:
-          args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 --archive docs/.vuepress/dist
-        continue-on-error: true
-
-      - name: 📦 统计构建文件大小列表（Top 100）
-        id: build_files
-        run: |
-          echo "## 构建文件大小 Top 100 (KiB)" > files_size_report.md
-          find docs/.vuepress/dist -type f -exec du -k {} + | sort -nr | head -100 | awk '{printf "%8s KiB  %s\n", $1, $2}' >> files_size_report.md
-          echo "files_size_report<<EOF" >> $GITHUB_OUTPUT
-          cat files_size_report.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 --input-file files_list.txt
+          format: markdown
+          jobSummary: true
+          output: lychee/out.md
+          fail: false
 
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
@@ -129,15 +122,11 @@ jobs:
 
           ### 🔍 链接检查结果
           EOF
-          if [ -f lychee-report.md ]; then
-            cat lychee-report.md >> $GITHUB_STEP_SUMMARY
+          if [ -f lychee/out.md ]; then
+            cat lychee/out.md >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ 未检测到 404 链接" >> $GITHUB_STEP_SUMMARY
           fi
-
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📊 构建文件大小列表（Top 20）" >> $GITHUB_STEP_SUMMARY
-          echo "${{ steps.build_files.outputs.files_size_report }}" >> $GITHUB_STEP_SUMMARY
 
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
