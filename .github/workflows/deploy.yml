@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_docs:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, Misaka]  # 同时匹配所有标签
     permissions:
       contents: write
       pages: write
@@ -79,11 +79,12 @@ jobs:
         id: link_check
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 --input-file files_list.txt
-          format: markdown
-          jobSummary: true
-          output: lychee/out.md
-          fail: false
+            args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 -- --input-file files_list.txt
+            format: markdown
+            jobSummary: true
+            output: lychee/out.md
+            fail: false
+
 
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
