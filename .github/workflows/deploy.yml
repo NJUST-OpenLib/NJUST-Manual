@@ -80,8 +80,17 @@ jobs:
         id: link_check
         uses: lycheeverse/lychee-action@v1.9.0
         with:
-          args: --base docs/.vuepress/dist --recursive --verbose --no-progress --accept 200,302 .
+          args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 --archive docs/.vuepress/dist
         continue-on-error: true
+
+      - name: 📦 统计构建文件大小列表（Top 100）
+        id: build_files
+        run: |
+          echo "## 构建文件大小 Top 100 (KiB)" > files_size_report.md
+          find docs/.vuepress/dist -type f -exec du -k {} + | sort -nr | head -100 | awk '{printf "%8s KiB  %s\n", $1, $2}' >> files_size_report.md
+          echo "files_size_report<<EOF" >> $GITHUB_OUTPUT
+          cat files_size_report.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
@@ -125,6 +134,10 @@ jobs:
           else
             echo "✅ 未检测到 404 链接" >> $GITHUB_STEP_SUMMARY
           fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 构建文件大小列表（Top 20）" >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.build_files.outputs.files_size_report }}" >> $GITHUB_STEP_SUMMARY
 
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
