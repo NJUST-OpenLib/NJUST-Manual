@@ -1,5 +1,5 @@
 ---
-title: chap1
+title: 1.基础知识 FAQ
 createTime: 2025/08/20 17:41:39
 ---
 
