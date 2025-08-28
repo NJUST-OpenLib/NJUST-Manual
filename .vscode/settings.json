@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.port": 5598
+    "liveServer.settings.port": 5598,
+    "markdown.validate.enabled": true
 }
