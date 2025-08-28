@@ -280,7 +280,8 @@ config:
 
 <FriendLinks />
 
-
+本站点离不开大家的贡献：  
+（名单缺失请联系管理员）
 <Contributors 
   :customContributors='[
     {
@@ -295,8 +296,24 @@ config:
       email: "1903883912@qq.com"
     },
     {
-      name: "非GitHub贡献者3",
-      url: "https://example.com/contributor3"
+      name: "CPLASF",
+      email: "1910449674@qq.com"
+    },
+    {
+      name: "匣中三尺水",
+      email: "2439563074@qq.com"
+    },
+    {
+      name: "k 宝儿～",
+      email: "2313704311@qq.com"
+    },
+    {
+      name: "车长昏迷。",
+      email: "2453381926@qq.com"
+    },
+    {
+      name: "沐熙雨柒",
+      email: "2879624073@qq.com"
     }
   ]' 
 />
@@ -308,19 +325,19 @@ config:
 <Contributors 
   :customContributors='[
     {
-      name: "自定义贡献者1",
+      name: "自定义贡献者 1",
       url: "https://example.com/custom1",
       avatar: "https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
     },
     {
-      name: "自定义贡献者2",
+      name: "自定义贡献者 2",
       url: "https://example.com/custom2",
-      email: "contributor2@example.com" // 使用WeAvatar生成头像（MD5哈希）
+      email: "contributor2@example.com" // 使用 WeAvatar 生成头像（MD5 哈希）
     },
     {
-      name: "自定义贡献者3",
+      name: "自定义贡献者 3",
       url: "https://example.com/custom3"
-      // 不提供avatar或email时，将使用默认头像
+      // 不提供 avatar 或 email 时，将使用默认头像
     }
   ]' 
   :fetchGithub="false"
