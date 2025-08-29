@@ -9,7 +9,7 @@ config:
     hero:
       name: 南京理工大学<br>生存手册
       tagline:
-      text:   One-stop information platform for NJUSTers <br> <h1>the world will not be destroyed by those who do evil, but by those who watch them without doing anything.</h1>
+      text:   One-stop information platform for NJUSTers <br> <h1>the world will not be destroyed by those who do evil, but by those who watch them without doing anything.</h1> <p>Build at: {{ __BUILD_TIME__ }}</p>
       actions:
         -
           theme: brand
