@@ -85,7 +85,7 @@ export default {
       processedCustomContributors: [], // 自定义贡献者，带头像处理
       loading: false,
       error: null,
-      defaultAvatar: 'https://weavatar.com/avatar/?d=retro',
+      defaultAvatar: 'https://weavatar.com/avatar/?d=retro&s=256',
     };
   },
   watch: {
@@ -124,7 +124,7 @@ export default {
           avatarUrl = contributor.avatar;
         } else if (contributor.email) {
           const hash = this.calculateMD5(contributor.email.trim().toLowerCase());
-          avatarUrl = `https://weavatar.com/avatar/${hash}?d=retro`;
+          avatarUrl = `https://weavatar.com/avatar/${hash}?d=retro&s=256`;
         }
         return {
           ...contributor,
