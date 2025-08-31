@@ -5,7 +5,6 @@ import { notes } from './notes.ts'
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
 import { gitPlugin } from '@vuepress/plugin-git'
-import { define } from 'vuepress-plugin-define'
 
 const buildDateString = new Date().toISOString();
 console.log('--- Debug: buildDateString in config.js ---', buildDateString);
@@ -13,7 +12,8 @@ console.log('--- Debug: type of buildDateString ---', typeof buildDateString);
 
 export default defineUserConfig({
 
- 
+
+
 
     base: '/',
     lang: 'zh-CN',
@@ -30,9 +30,7 @@ export default defineUserConfig({
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
     
     plugins: [
-        define({
-            __BUILD_TIME__: new Date().toISOString(), // 你可以改成本地格式
-            }),
+        
         gitPlugin({
             changelog: {
                 maxCount: 10,
