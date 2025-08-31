@@ -289,6 +289,9 @@ config:
       url: "https://example.com/contributor1",
       //avatar: "https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
       email: "862727441@qq.com"
+    },   {
+      name: "匣中三尺水",
+      email: "2439563074@qq.com"
     },
     {
       name: "阿托卡",
@@ -298,10 +301,6 @@ config:
     {
       name: "CPLASF",
       email: "1910449674@qq.com"
-    },
-    {
-      name: "匣中三尺水",
-      email: "2439563074@qq.com"
     },
     {
       name: "k 宝儿～",
@@ -314,7 +313,23 @@ config:
     {
       name: "沐熙雨柒",
       email: "2879624073@qq.com"
-    }
+    },
+    {
+      name: "不好懂",
+      email: "2823241678@qq.com"
+    },
+    {
+      name: "     ",
+      email: "826316532@qq.com"
+    },
+    {
+      name: "✟抹茶薄荷南瓜粥✟",
+      email: "1328592170@qq.com"
+    },
+    {
+      name: "x",
+      email: "1252889817@qq.com"
+    },
   ]' 
 />
 
