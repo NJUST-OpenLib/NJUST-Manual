@@ -1,6 +1,7 @@
 ---
 title: 4.学生票 FAQ
 createTime: 2025/08/20 17:44:58
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/chap4.html
 ---
 
 **4.学生票 FAQ**
