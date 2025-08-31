@@ -1,6 +1,7 @@
 ---
 title: 高等票学
 createTime: 2025/08/20 18:08:21
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/
 ---
 南航出品，必是精品
 

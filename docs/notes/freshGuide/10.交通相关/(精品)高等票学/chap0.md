@@ -1,6 +1,7 @@
 ---
 title: 0.作者介绍
 createTime: 2025/08/20 17:39:42
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/chap0.html
 ---
 
 **0.作者介绍**

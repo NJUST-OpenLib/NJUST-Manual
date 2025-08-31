@@ -1,5 +1,5 @@
 ---
-title: 交通出行
+title: 校园出行
 createTime: 2025/08/09 23:59:44
 permalink: /notes/freshGuide/transportation/
 ---

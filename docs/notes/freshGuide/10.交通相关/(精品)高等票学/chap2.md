@@ -1,6 +1,7 @@
 ---
 title: 2.购票 FAQ
 createTime: 2025/08/20 17:41:25
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/chap2.html
 ---
 
 **2.购票 FAQ**

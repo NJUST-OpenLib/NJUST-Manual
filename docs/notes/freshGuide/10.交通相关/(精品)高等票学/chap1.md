@@ -1,6 +1,7 @@
 ---
 title: 1.基础知识 FAQ
 createTime: 2025/08/20 17:41:39
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/chap1.html
 ---
 
 **1.基础知识 FAQ**

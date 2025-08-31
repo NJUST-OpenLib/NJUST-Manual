@@ -1,6 +1,7 @@
 ---
 title: 3.乘车TIPS
 createTime: 2025/08/20 17:41:30
+permalink: /notes/freshGuide/transportation/advanced-train-ticket/chap3.html
 ---
 
 **3.乘车TIPS**
