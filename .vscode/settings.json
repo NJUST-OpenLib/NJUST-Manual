@@ -1,4 +1,7 @@
 {
     "liveServer.settings.port": 5598,
-    "markdown.validate.enabled": true
+    "markdown.validate.enabled": true,
+    "markdown.validate.ignoredLinks": [
+        "notes/freshGuide/dorm-conditions/overview.html"
+    ]
 }
