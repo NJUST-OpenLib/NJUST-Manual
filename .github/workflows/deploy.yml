@@ -72,19 +72,7 @@ jobs:
           echo "build_size=$BUILD_SIZE" >> $GITHUB_OUTPUT
           echo "page_count=$PAGE_COUNT" >> $GITHUB_OUTPUT
 
-      - name: 🔍 生成构建目录HTML文件列表
-        run: find docs/.vuepress/dist -type f -name '*.html' > files_list.txt
-
-      - name: 🔍 检查 404 链接
-        id: link_check
-        uses: lycheeverse/lychee-action@v2
-        with:
-            args: --base docs/.vuepress/dist --verbose --no-progress --accept 200,302 -- --input-file files_list.txt
-            format: markdown
-            jobSummary: true
-            output: lychee/out.md
-            fail: false
-
+     
 
       - name: 🚀 推送链接到搜索引擎
         id: push_urls
