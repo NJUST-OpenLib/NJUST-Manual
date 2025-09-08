@@ -68,7 +68,7 @@ export default {
     },
     applyUrl: {
       type: String,
-      default: '/apply-link' // 申请页面URL
+      default: '/apply-link.html' // 申请页面URL
     },
     // 开发模式下使用的本地数据，用于调试
     devMode: {

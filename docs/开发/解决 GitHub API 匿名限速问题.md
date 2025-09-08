@@ -1,5 +1,5 @@
 ---
-title: 解决 GitHub API 匿名限速问题
+title: 解决获取贡献者时 GitHub API 限速问题
 createTime: 2025/07/31 22:29:38
 permaLink: /dev/solveGitHubAPIRateLimit.md
 ---
