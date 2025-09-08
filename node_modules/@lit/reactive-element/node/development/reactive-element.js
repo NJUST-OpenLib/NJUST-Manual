@@ -648,11 +648,12 @@ class ReactiveElement
                     : defaultConverter;
             // mark state reflecting
             this.__reflectingProperty = propName;
+            const convertedValue = converter.fromAttribute(value, options.type);
             this[propName] =
-                converter.fromAttribute(value, options.type) ??
+                convertedValue ??
                     this.__defaultValues?.get(propName) ??
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    null;
+                    convertedValue;
             // mark state not reflecting
             this.__reflectingProperty = null;
         }
@@ -1085,7 +1086,7 @@ polyfillSupport?.({ ReactiveElement });
 }
 // IMPORTANT: do not change the property name or the assignment expression.
 // This line will be used in regexes to search for ReactiveElement usage.
-(global.reactiveElementVersions ??= []).push('2.1.0');
+(global.reactiveElementVersions ??= []).push('2.1.1');
 if (global.reactiveElementVersions.length > 1) {
     queueMicrotask(() => {
         issueWarning('multiple-versions', `Multiple versions of Lit loaded. Loading multiple versions ` +
