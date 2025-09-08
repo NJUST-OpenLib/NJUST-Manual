@@ -84,7 +84,7 @@ jobs:
         id: check_links
         run: |
           echo "::group::🔗 检查文档链接..."
-          node .github/workflows/scripts/check-links.js docs/.vuepress/dist 100 true | tee check-links.log
+          node .github/workflows/scripts/check-links.js docs/.vuepress/dist 100 false | tee check-links.log
           echo "::endgroup::"
         continue-on-error: true
 
