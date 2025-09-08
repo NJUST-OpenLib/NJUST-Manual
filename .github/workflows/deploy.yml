@@ -3,6 +3,7 @@ name: 📚 构建与部署文档
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -15,38 +16,46 @@ jobs:
       issues: write
 
     steps:
-      - name: ⏱️ 记录开始时间
-        id: start_time
-        run: echo "start_time=$(date +%s)" >> $GITHUB_OUTPUT
-
+      # ------------------------
+      # 检出代码
+      # ------------------------
       - name: 📥 检出代码
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # ------------------------
+      # Node.js 环境
+      # ------------------------
       - name: 🧰 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
 
+      # ------------------------
+      # 安装依赖
+      # ------------------------
       - name: 📦 安装 Node.js 依赖
         run: |
           echo "::group::📦 安装依赖..."
           npm ci
           echo "::endgroup::✅ 依赖安装完成"
-          
+
+      # ------------------------
+      # 构建 VuePress
+      # ------------------------
       - name: 🏗️ 构建 VuePress 项目
         run: npm run docs:build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # ------------------------
+      # 构建统计信息
+      # ------------------------
       - name: 📊 收集构建统计信息
         id: build_stats
         run: |
-          COMMIT_COUNT=$(git rev-list --count ${{ github.event.before }}..${{ github.sha }})
-          ALL_COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"- 📝 [%h](https://github.com/${{ github.repository }}/commit/%H) %s (%an)")
-
           NODE_VER=$(node -v)
           NPM_VER=$(npm -v)
           OS_INFO=$(uname -a)
@@ -58,10 +67,6 @@ jobs:
           BUILD_SIZE=$(du -sh docs/.vuepress/dist | cut -f1)
           PAGE_COUNT=$(find docs/.vuepress/dist -type f -name "*.html" | wc -l)
 
-          echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
-          echo "all_commits<<EOF" >> $GITHUB_OUTPUT
-          echo "$ALL_COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
           echo "node_ver=$NODE_VER" >> $GITHUB_OUTPUT
           echo "npm_ver=$NPM_VER" >> $GITHUB_OUTPUT
           echo "os_info=$OS_INFO" >> $GITHUB_OUTPUT
@@ -72,51 +77,46 @@ jobs:
           echo "build_size=$BUILD_SIZE" >> $GITHUB_OUTPUT
           echo "page_count=$PAGE_COUNT" >> $GITHUB_OUTPUT
 
-     
-
-      - name: 🚀 推送链接到搜索引擎
-        id: push_urls
+      # ------------------------
+      # 多线程死链检测
+      # ------------------------
+      - name: 🔗 检查文档链接
+        id: check_links
         run: |
-          node .github/workflows/scripts/push_to_indexnow.js | tee /dev/stdout | grep "urls_count" >> $GITHUB_OUTPUT
+          echo "::group::🔗 检查文档链接..."
+          node .github/workflows/scripts/check-links.js docs/.vuepress/dist 100 true | tee check-links.log
+          echo "::endgroup::"
         continue-on-error: true
 
+      # ------------------------
+      # 写入构建摘要
+      # ------------------------
       - name: 📝 写入构建摘要
         run: |
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - ${{ steps.start_time.outputs.start_time }}))
+          echo "## 🚀 文档构建与部署报告" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**完成状态：** ✅ 成功" >> $GITHUB_STEP_SUMMARY
+          echo "**构建时间：** $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 构建产物" >> $GITHUB_STEP_SUMMARY
+          echo "- 构建目录大小：${{ steps.build_stats.outputs.build_size }}" >> $GITHUB_STEP_SUMMARY
+          echo "- HTML 页面数量：${{ steps.build_stats.outputs.page_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🖥️ 构建机器信息" >> $GITHUB_STEP_SUMMARY
+          echo "- CPU 型号：${{ steps.build_stats.outputs.cpu_model }}" >> $GITHUB_STEP_SUMMARY
+          echo "- CPU 核心数：${{ steps.build_stats.outputs.cpu_cores }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 内存总量：${{ steps.build_stats.outputs.mem_total }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 磁盘总量：${{ steps.build_stats.outputs.disk_total }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 系统信息：${{ steps.build_stats.outputs.os_info }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Node.js 版本：${{ steps.build_stats.outputs.node_ver }}" >> $GITHUB_STEP_SUMMARY
+          echo "- NPM 版本：${{ steps.build_stats.outputs.npm_ver }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔍 链接检查结果" >> $GITHUB_STEP_SUMMARY
+          grep -E "❌|×|\?" check-links.log >> $GITHUB_STEP_SUMMARY || echo "✅ 未检测到问题链接" >> $GITHUB_STEP_SUMMARY
 
-          cat << EOF >> $GITHUB_STEP_SUMMARY
-          ## 🚀 文档构建与部署报告
-          **完成状态：** ✅ 成功  
-          **构建时间：** $(date '+%Y-%m-%d %H:%M:%S')  
-          **总耗时：** ${DURATION}s  
-          **推送链接数：** ${{ steps.push_urls.outputs.urls_count }}  
-
-          ### 📦 构建产物
-          - 构建目录大小：${{ steps.build_stats.outputs.build_size }}
-          - HTML 页面数量：${{ steps.build_stats.outputs.page_count }}
-
-          ### 📜 提交信息
-          - 本次提交数量：${{ steps.build_stats.outputs.commit_count }}
-          ${{ steps.build_stats.outputs.all_commits }}
-
-          ### 🖥️ 构建机器信息
-          - CPU 型号：${{ steps.build_stats.outputs.cpu_model }}
-          - CPU 核心数：${{ steps.build_stats.outputs.cpu_cores }}
-          - 内存总量：${{ steps.build_stats.outputs.mem_total }}
-          - 磁盘总量：${{ steps.build_stats.outputs.disk_total }}
-          - 系统信息：${{ steps.build_stats.outputs.os_info }}
-          - Node.js 版本：${{ steps.build_stats.outputs.node_ver }}
-          - NPM 版本：${{ steps.build_stats.outputs.npm_ver }}
-
-          ### 🔍 链接检查结果
-          EOF
-          if [ -f lychee/out.md ]; then
-            cat lychee/out.md >> $GITHUB_STEP_SUMMARY
-          else
-            echo "✅ 未检测到 404 链接" >> $GITHUB_STEP_SUMMARY
-          fi
-
+      # ------------------------
+      # 部署到 GitHub Pages
+      # ------------------------
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
