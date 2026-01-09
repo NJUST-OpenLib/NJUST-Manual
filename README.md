@@ -18,13 +18,6 @@
 ![贡献者头像](https://contrib.rocks/image?repo=NJUST-OpenLib/NJUST-Manual)
 
 
-## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+本项目由阿里云ESA提供加速、计算和保护   
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01H1UU3i1Cti9lYtFrs_!!6000000000139-2-tps-7534-844.png" width="300" height="auto">
