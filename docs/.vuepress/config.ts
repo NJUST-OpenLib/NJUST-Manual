@@ -6,6 +6,8 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
 import { gitPlugin } from '@vuepress/plugin-git'
 
+
+
 const buildDateString = new Date().toISOString();
 console.log('--- Debug: buildDateString in config.js ---', buildDateString);
 console.log('--- Debug: type of buildDateString ---', typeof buildDateString);
