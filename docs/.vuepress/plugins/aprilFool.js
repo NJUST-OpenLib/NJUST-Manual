@@ -1,104 +1,103 @@
 // ============================================================
-//  愚人节整蛊插件
-//  关闭方式：注释掉 client.ts 中的 initAprilFool() 那一行
+// 愚人节整蛊 · 精准需求版
+// 1. 校名 100% 替换
+// 2. 10% 概率加喵
+// 3. 句号直接被喵替换，不保留句号
+// 4. 只作用在句末、换行位置
 // ============================================================
+const CONFIG = {
+  enabled: true,
+  enableCatGirl: true,
 
-const ENABLED = true                        // 👈 总开关
-const TARGETS = ['南京理工大学', '南理工']   // 👈 要替换的词
-const REPLACEMENT = '南京航空航天大学'       // 👈 替换成什么
-const SECRET = '智周万物道济天下'            // 👈 解除口令
-const HINT = ``          // 👈 给用户的提示，不想透露改这里
+  replaceMap: {
+    '南京理工大学': '南京航空航天大学',
+    '南理工': '南京航空航天大学'
+  },
 
-// ------------------------------------------------------------
+suffixList: ['喵呜', '捏', '喵', '捏', '喵~', 'nya~', '喵~', '喵', '(≧◡≦)', '(｡•̀ᴗ-)✧', 'ฅ^•ﻌ•^ฅ', 'UwU', '(๑˃̵ᴗ˂̵)و', '✧٩(ˊωˋ*)و✧'],
 
-let active = false
-let observer = null
+  // 10% 概率替换句号为喵
+  catProbability: 0.3,
+};
 
-function isAprilFool() {
-  const now = new Date()
-  return now.getMonth() === 3 && now.getDate() === 1  // 月份从0开始，3=4月
-}
-function replaceTitle(forward ) {
-  let t = document.title || ''
-  if (forward) {
-    TARGETS.forEach(k => { t = t.replaceAll(k, REPLACEMENT) })
-  } else {
-    t = t.replaceAll(REPLACEMENT, TARGETS[0])
-  }
-  document.title = t
-}
-function replaceText(forward) {
-  replaceTitle(forward)
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
-  const nodes = []
-  let node
-  while ((node = walker.nextNode())) nodes.push(node)
-  nodes.forEach(n => {
-    let v = n.nodeValue || ''
-    if (forward) {
-      TARGETS.forEach(t => { v = v.replaceAll(t, REPLACEMENT) })
-    } else {
-      v = v.replaceAll(REPLACEMENT, TARGETS[0])
+const isAprilFool = () => {
+  const now = new Date();
+  return now.getMonth() === 3 && now.getDate() === 1;
+};
+
+// 100% 替换校名
+const replaceSchoolName = (text) => {
+  let res = text;
+  Object.entries(CONFIG.replaceMap).forEach(([k, v]) => {
+    res = res.replaceAll(k, v);
+  });
+  return res;
+};
+
+// 10% 概率：把句末句号替换成喵（不保留句号）
+const replacePeriodWithCat = (text) => {
+  if (!CONFIG.enabled || !CONFIG.enableCatGirl || !isAprilFool())
+    return text;
+
+  return text.replace(/。([\s\n\r]*)$/gm, (match, whitespace) => {
+    if (Math.random() >= CONFIG.catProbability) return match;
+
+    const suffix = CONFIG.suffixList[Math.floor(Math.random() * CONFIG.suffixList.length)];
+    // 🔥 句号直接替换成喵，后面保留换行/空格
+    return suffix + whitespace;
+  });
+};
+
+// 遍历页面文本
+const processPageText = () => {
+  if (!CONFIG.enabled || !isAprilFool() || !document.body) return;
+
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode: node => {
+        const tag = node.parentElement?.tagName;
+        if (['SCRIPT', 'STYLE', 'TITLE', 'IFRAME'].includes(tag))
+          return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
     }
-    if (n.nodeValue !== v) n.nodeValue = v
-  })
-}
+  );
 
-function showButton() {
-  if (document.getElementById('april-fool-btn')) return
+  const nodes = [];
+  let n;
+  while ((n = walker.nextNode())) nodes.push(n);
 
-  const style = document.createElement('style')
-  style.id = 'april-fool-style'
-  style.textContent = `
-    #april-fool-btn {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      padding: 8px 16px; background: #e8302a; color: #fff;
-      border: none; border-radius: 20px; font-size: 13px;
-      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      opacity: 0.85; font-family: sans-serif; transition: opacity .2s;
-    }
-    #april-fool-btn:hover { opacity: 1; }
-  `
-  document.head.appendChild(style)
+  nodes.forEach(node => {
+    let val = node.nodeValue;
+    if (!val?.trim()) return;
 
-  const btn = document.createElement('button')
-  btn.id = 'april-fool-btn'
-  btn.textContent = '✦ 解除幻觉'
-  btn.addEventListener('click', () => {
-    const input = prompt(`🎭 愚人节快乐！\n\n请输入解除口令（${HINT}）：\n\n口令：${SECRET}`)
-    if (input === null) return
-    if (input.trim() === SECRET) {
-      active = false
-      replaceText(false)
-      btn.remove()
-      document.getElementById('april-fool-style')?.remove()
-      observer?.disconnect()
-      alert('幻觉已解除，欢迎回到南京理工大学 🎓')
-    } else {
-      alert('口令错误，幻觉继续～')
-    }
-  })
-  document.body.appendChild(btn)
-}
+    val = replaceSchoolName(val);
+    val = replacePeriodWithCat(val);
 
+    node.nodeValue = val;
+  });
+};
+
+// 初始化
+let observer;
 export function initAprilFool() {
-  if (!ENABLED || typeof window === 'undefined') return
-  if (!isAprilFool()) return   // 👈 非4月1日直接退出
+  if (!CONFIG.enabled || typeof document === 'undefined') return;
 
-  active = true
-  observer = new MutationObserver(() => {
-    if (active) replaceText(true)
-  })
-
-  const setup = () => {
-    replaceText(true)
-    showButton()
-    observer.observe(document.body, { childList: true, subtree: true })
-  }
+  const run = () => {
+    try { processPageText() } catch (e) {}
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setup)
+    document.addEventListener('DOMContentLoaded', () => setTimeout(run, 200));
   } else {
-    setTimeout(setup, 300)
+    setTimeout(run, 200);
+  }
+
+  // 监听动态内容
+  if (!observer) {
+    observer = new MutationObserver(() => setTimeout(run, 300));
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 }
