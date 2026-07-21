@@ -235,7 +235,7 @@ jobs:
 
 Github Actions 支持 Python 环境，但是 Vercel 和 Cloudflare pages 这两个平台默认不支持 Python 语句，上述修改可能导致部署失败。
 
-![部署失败](static/faild_vercel.png)
+![部署失败](./static/faild_vercel.png)
 
 因此需使用 Node.js 执行相关逻辑。
 
@@ -377,7 +377,7 @@ npm install node-fetch chalk
 
 运行结果如下：
 
-![运行结果](static/fetchcontribu.png)
+![运行结果](./static/fetchcontribu.png)
 
 
 ## 配套贡献者展示组件
