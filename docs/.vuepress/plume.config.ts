@@ -40,8 +40,8 @@ export default defineThemeConfig({
    */
   profile: {
     avatar: 'https://theme-plume.vuejs.press/plume.png',
-    name: 'My Vuepress Site',
-    description: 'discribe info',
+    name: '南京理工大学生存手册',
+    description: '一站式校园信息平台',
     // circle: true,
     // location: '',
     // organization: '',

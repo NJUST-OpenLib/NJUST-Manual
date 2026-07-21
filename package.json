@@ -1,8 +1,8 @@
 {
-  "name": "my-vuepress-site",
+  "name": "njust-manual",
   "type": "module",
   "version": "1.0.0",
-  "description": "discribe info",
+  "description": "南京理工大学生存手册 - 一站式校园信息平台",
   "author": "NJUST-Openlib <admin@njust.wiki>",
   "license": "MIT",
   "engines": {
