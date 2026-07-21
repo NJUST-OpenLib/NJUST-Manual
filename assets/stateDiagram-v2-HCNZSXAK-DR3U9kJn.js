@@ -1,1 +1,0 @@
-import{si as e}from"./common-k_C4MDNo.js";import{i as t,n,r,t as i}from"./chunk-AX4YENZL-C1aCN3KL.js";var a={parser:n,get db(){return new i(2)},renderer:t,styles:r,init:e(e=>{e.state||={},e.state.arrowMarkerAbsolute=e.arrowMarkerAbsolute},`init`)};export{a as diagram};

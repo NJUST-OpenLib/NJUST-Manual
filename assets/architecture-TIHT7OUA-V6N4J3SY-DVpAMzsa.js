@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-k_C4MDNo.js";export{e as createArchitectureServices};
