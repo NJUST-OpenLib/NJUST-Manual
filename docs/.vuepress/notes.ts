@@ -21,4 +21,15 @@ const freshGuideCollection = defineCollection({
     ],
 })
 
-export const collections = defineCollections([freshGuideCollection])
+const blogCollection = defineCollection({
+    type: 'post',
+    dir: 'blog',
+    title: '文章',
+    postList: true,
+    tags: true,
+    archives: true,
+    categories: true,
+    pagination: 15,
+})
+
+export const collections = defineCollections([freshGuideCollection, blogCollection])

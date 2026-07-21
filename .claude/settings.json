@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(git filter-branch *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Misaka\\.claude"
+    ]
+  }
+}
