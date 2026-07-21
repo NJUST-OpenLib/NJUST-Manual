@@ -3,10 +3,12 @@
     "allow": [
       "Skill(update-config)",
       "Skill(update-config:*)",
-      "Bash(git filter-branch *)"
+      "Bash(git filter-branch *)",
+      "Bash(cd \"f:/Github/NJUST-Manual/docs/notes/freshGuide/3.住宿条件/static/mingliju/2-ren-jian\" && rm *.jpg && mv IMG20260621160112.webp 1.webp && mv IMG20260621160114.webp 2.webp && mv IMG20260621160127.webp 3.webp && mv IMG20260621160137.webp 4.webp && mv IMG20260621160222.webp 5.webp && ls -lh)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\Misaka\\.claude"
+      "C:\\Users\\Misaka\\.claude",
+      "f:\\Github\\NJUST-Manual"
     ]
   }
 }
