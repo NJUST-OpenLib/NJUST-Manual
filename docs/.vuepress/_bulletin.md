@@ -1,6 +1,6 @@
 <a href="/notes/freshGuide/FAQ.html" id="currentUrlLink">新生必读！常见问题汇总</a>  
 
-[2025 新生群](https://qm.qq.com/q/QTfKxShMGu)
+[2026 新生群](https://qm.qq.com/q/Cnu7AW1rjy)
 
 请小心诈骗！<a href="/notes/freshGuide/antiScam.html" id="currentUrlLink">反诈骗指南</a>
 
