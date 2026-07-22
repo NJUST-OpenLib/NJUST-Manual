@@ -11,7 +11,7 @@
   "scripts": {
     "fetch-contributors": "node .github/workflows/scripts/fetch_contributors.mjs",
     "predocs:build": "npm run fetch-contributors",
-    "predocs:dev": "npm run fetch-contributors",
+    "predocs:dev": "echo dev server starting...",
     "build": "npm run docs:build",
     "docs:build": "npx vuepress build docs --clean-cache --clean-temp",
     "docs:dev": "npx vuepress dev docs",

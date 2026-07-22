@@ -12,15 +12,25 @@ const commitHash = (() => {
   }
 })()
 
-const buildDate = (() => {
-  const d = new Date()
-  const yy = String(d.getFullYear()).slice(2)
-  const mm = String(d.getMonth() + 1).padStart(2, '0')
-  const dd = String(d.getDate()).padStart(2, '0')
-  return `${yy}${mm}${dd}`
+const commitMessage = (() => {
+  try {
+    return execSync('git log -1 --pretty=%B', { encoding: 'utf-8' }).trim().split('\n')[0]
+  } catch {
+    return ''
+  }
 })()
 
-const version = `rev ${buildDate}-${commitHash}`
+const buildDate = (() => {
+  const d = new Date()
+  const y = d.getFullYear()
+  const mo = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  const h = String(d.getHours()).padStart(2, '0')
+  const mi = String(d.getMinutes()).padStart(2, '0')
+  return `${y}-${mo}-${day} ${h}:${mi}`
+})()
+
+const githubUrl = `https://github.com/NJUST-OpenLib/NJUST-Manual/commit/${commitHash}`
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
  *   logo: 'https://theme-plume.vuejs.press/plume.png',
@@ -49,8 +59,8 @@ export default defineThemeConfig({
 
   /* 站点页脚 */
   footer: {
-    copyright: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()} · <code>${version}</code>`,
-    message: '欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论',
+    message: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()} · 欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论`,
+    copyright: `<div style="text-align:right;font-size:12px;color:#86868b;line-height:1.6"><a href="${githubUrl}" target="_blank" rel="noopener noreferrer"><code>${commitHash}</code></a> · ${buildDate} · ${commitMessage}<br><a id="icp-beian" style="display:none" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">津 ICP 备 2023000212 号-3</a></div>`,
 
   },
 

@@ -29,5 +29,14 @@ export default defineClientConfig({
     // 愚人节整蛊：仅在用户本地时间为 4 月 1 日时生效
     // 节后关闭方式：注释掉下面这一行，或同时注释掉上面的 import
     initAprilFool()
+
+    // njust.store 域名下显示 ICP 备案号
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname
+      if (hostname === 'njust.store' || hostname.endsWith('.njust.store')) {
+        const el = document.getElementById('icp-beian')
+        if (el) el.style.display = 'inline'
+      }
+    }
   },
 })
