@@ -64,7 +64,7 @@ export default {
     },
     dataUrl: {
       type: String,
-      default: 'https://manual.njust.wiki/friend-link.json' // JSON数据文件路径
+      default: '/friend-link.json' // JSON数据文件路径
     },
     applyUrl: {
       type: String,

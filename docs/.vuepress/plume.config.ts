@@ -30,7 +30,7 @@ export default defineThemeConfig({
 
   /* 站点页脚 */
   footer: {
-    copyright: '<a href="https://njust.wiki">NJUST.WIKI</a> © 2025',
+    copyright: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()}`,
     message: '欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论',
 
   },
