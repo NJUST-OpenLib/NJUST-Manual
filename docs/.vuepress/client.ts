@@ -8,6 +8,7 @@ import { defineWalineConfig } from '@vuepress/plugin-comment/client'
 // import CustomComponent from './theme/components/Custom.vue'
 import Contributors from './components/Contributors.vue'
 import FriendLinks from './components/FriendLinks.vue'
+import FraudWarningModal from './components/FraudWarningModal.vue'
 // import './theme/styles/custom.css'
 
 // 愚人节整蛊插件，节后注释掉下面这行 import 即可完全关闭
@@ -18,7 +19,11 @@ export default defineClientConfig({
     // 注册全局组件
     app.component('Contributors', Contributors)
     app.component('FriendLinks', FriendLinks)
+    app.component('FraudWarningModal', FraudWarningModal)
   },
+
+  // 将防诈骗弹窗挂载到应用根节点，确保在任何页面都能触发
+  rootComponents: [FraudWarningModal],
 
   setup() {
     // 愚人节整蛊：仅在用户本地时间为 4 月 1 日时生效
