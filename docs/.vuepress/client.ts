@@ -32,11 +32,15 @@ export default defineClientConfig({
 
     // njust.store 域名下显示 ICP 备案号
     if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname
-      if (hostname === 'njust.store' || hostname.endsWith('.njust.store')) {
-        const el = document.getElementById('icp-beian')
-        if (el) el.style.display = 'inline'
+      const showIcP = () => {
+        const hostname = window.location.hostname
+        if (hostname === 'njust.store' || hostname.endsWith('.njust.store')) {
+          const el = document.getElementById('icp-beian')
+          if (el) el.style.display = 'inline'
+        }
       }
+      // setup 执行时 DOM 可能尚未渲染完，延迟到下一帧
+      requestAnimationFrame(() => requestAnimationFrame(showIcP))
     }
   },
 })
