@@ -85,6 +85,15 @@
                   账号、刷任务赚积分等行为，都存在诈骗风险。
                 </span>
               </li>
+
+              <li class="warning-item">
+                <span class="item-text">
+                  <span class="keyword-critical">电话卡</span>
+                  不是必选内容，如无需要不必办理。信息化处已提供
+                  <span class="keyword-warn">低至 20 元/月</span>
+                  的校园网络服务，覆盖宿舍与教室，足以满足日常学习需求。
+                </span>
+              </li>
             </ol>
 
             <div class="contact-section">
@@ -192,9 +201,11 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 /* ============================================
