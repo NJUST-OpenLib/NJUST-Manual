@@ -2,6 +2,25 @@ import { defineThemeConfig } from 'vuepress-theme-plume'
 import { navbar } from './navbar'
 import { collections } from './notes'
 import path from 'node:path'
+import { execSync } from 'node:child_process'
+
+const commitHash = (() => {
+  try {
+    return execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim()
+  } catch {
+    return 'unknown'
+  }
+})()
+
+const buildDate = (() => {
+  const d = new Date()
+  const yy = String(d.getFullYear()).slice(2)
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${yy}${mm}${dd}`
+})()
+
+const version = `rev ${buildDate}-${commitHash}`
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
  *   logo: 'https://theme-plume.vuejs.press/plume.png',
@@ -30,7 +49,7 @@ export default defineThemeConfig({
 
   /* 站点页脚 */
   footer: {
-    copyright: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()}`,
+    copyright: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()} · <code>${version}</code>`,
     message: '欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论',
 
   },
