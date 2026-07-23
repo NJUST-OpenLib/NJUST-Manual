@@ -1,0 +1,1 @@
+import{Ut as e}from"./common-CPPFeWE3.js";export{e as createArchitectureServices};
