@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-sEVfsjnS.js";export{e as createArchitectureServices};
