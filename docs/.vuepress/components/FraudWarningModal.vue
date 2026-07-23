@@ -48,62 +48,62 @@
             <ol class="warning-list">
               <li class="warning-item">
                 <span class="item-text">
-                  不要向任何陌生人员提供
+                  保管好你的
                   <span class="keyword-critical">身份证</span>
-                  照片、号码，或
-                  <span class="keyword-critical">身份证原件</span>
-                  。部分人员可能会以
+                  （含原件、照片、号码），不要交给任何陌生人。常见的索要借口包括
                   <span class="keyword-warn">"办理电话卡"</span>
                   <span class="keyword-warn">"校园业务登记"</span>
                   <span class="keyword-warn">"学生认证"</span>
                   <span class="keyword-warn">"办理空调"</span>
-                  等理由索要身份证信息，请勿相信，并保管好身份证原件。
+                  等。记住：报到当天只需要录取通知书和身份证，无需其他操作。
                 </span>
               </li>
 
               <li class="warning-item">
                 <span class="item-text">
                   不要
-                  <span class="keyword-critical">购买陌生人员推荐的商品</span>
-                  。可能有人以
+                  <span class="keyword-critical">购买任何上门推销的商品</span>
+                  。骗子常以
                   <span class="keyword-warn">"实习任务"</span>
                   <span class="keyword-warn">"课程作业"</span>
                   <span class="keyword-warn">"校园推广"</span>
-                  等理由，要求购买清洗剂、中性笔或其他商品，请勿参与。
+                  等名义，向你兜售清洗剂、中性笔等物品。这些都是骗局，直接拒绝即可。
                 </span>
               </li>
 
               <li class="warning-item">
                 <span class="item-text">
                   不要
-                  <span class="keyword-critical">下载陌生软件</span>
-                  ，不要关注陌生账号。任何要求
-                  <span class="keyword-critical">下载 APP</span>
+                  <span class="keyword-critical">下载来路不明的 APP</span>
+                  ，不要扫码关注陌生账号。凡是要求你
+                  <span class="keyword-critical">下载软件</span>
                   、注册账号、关注
                   <span class="keyword-warn">抖音</span>
                   /
                   <span class="keyword-warn">快手</span>
-                  账号、刷任务赚积分等行为，都存在诈骗风险。
+                  、刷任务赚积分，都是为了盗取信息或引流变现。
                 </span>
               </li>
 
               <li class="warning-item">
                 <span class="item-text">
-                  警惕以
-                  <span class="keyword-warn">"校园网"</span>
-                  为名推销的电话卡。部分人员会以
+                  警惕推销人员口中的
+                  <span class="keyword-critical">"校园卡"</span>
+                  ——它和学校发的
+                  <span class="keyword-critical">校园一卡通</span>
+                  （吃饭、考试、门禁用的那张）完全不是一回事。对方常以
                   <span class="keyword-warn">"办理校园网"</span>
                   <span class="keyword-warn">"激活上网账号"</span>
-                  等话术诱导新生办卡，并称之为<span class="keyword-critical">"校园卡"</span>——这本质仍是运营商电话卡，与校园网络服务无关。
+                  为由诱导你办卡，实际上就是一张运营商电话卡，与选课、吃饭、考试均无关。
                 </span>
               </li>
 
               <li class="warning-item">
                 <span class="item-text">
-                  <span class="keyword-critical">电话卡</span>
-                  不是必选内容，如无需要不必办理。信息化处已提供
+                  <span class="keyword-critical">电话卡不是必需品</span>
+                  ，你原有的手机卡完全可以继续使用。学校信息化处提供
                   <span class="keyword-warn">低至 20 元/月</span>
-                  的校园网络服务，覆盖宿舍与教室，足以满足日常学习需求。
+                  的校园网络，覆盖宿舍与教室，无需额外办卡即可上网。
                 </span>
               </li>
             </ol>
