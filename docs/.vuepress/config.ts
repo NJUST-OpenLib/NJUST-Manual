@@ -30,9 +30,7 @@ export default defineUserConfig({
     ],
 
     extendsMarkdown: (md) => {
-      md.use(markdownItInclude, {
-        root: './docs/',
-      })
+      md.use(markdownItInclude, { root: 'docs/' })
     },
 
     bundler: viteBundler(),
