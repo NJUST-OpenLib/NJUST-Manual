@@ -12,30 +12,27 @@
         <div class="fraud-modal">
           <!-- 顶部警示区域 -->
           <div class="modal-header">
-            <div class="warning-icon-wrapper">
-              <svg
-                class="warning-icon"
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <linearGradient id="icon-grad" x1="12" y1="4" x2="52" y2="60" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#FF3B30" />
-                    <stop offset="1" stop-color="#FF9500" />
-                  </linearGradient>
-                </defs>
-                <circle cx="32" cy="32" r="29" stroke="url(#icon-grad)" stroke-width="3.5" />
-                <path
-                  d="M32 18V36"
-                  stroke="url(#icon-grad)"
-                  stroke-width="4"
-                  stroke-linecap="round"
-                />
-                <circle cx="32" cy="46" r="2.8" fill="url(#icon-grad)" />
-              </svg>
+            <div class="modal-header-row">
+              <div class="warning-icon-wrapper">
+                <svg
+                  class="warning-icon"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id="icon-grad" x1="12" y1="4" x2="52" y2="60" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FF3B30" />
+                      <stop offset="1" stop-color="#FF9500" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="32" cy="32" r="29" stroke="url(#icon-grad)" stroke-width="3.5" />
+                  <path d="M32 18V36" stroke="url(#icon-grad)" stroke-width="4" stroke-linecap="round" />
+                  <circle cx="32" cy="46" r="2.8" fill="url(#icon-grad)" />
+                </svg>
+              </div>
+              <h2 id="fraud-modal-title" class="modal-title">新生安全提醒</h2>
             </div>
-            <h2 id="fraud-modal-title" class="modal-title">新生安全提醒</h2>
             <p class="modal-subtitle">首次访问请务必阅读</p>
           </div>
 
@@ -285,40 +282,50 @@ onMounted(() => {
    顶部警示区域
    ============================================ */
 .modal-header {
-  padding: 40px 40px 20px;
+  padding: 20px 40px 12px;
   text-align: center;
   background: linear-gradient(180deg, #fff5f5 0%, #ffffff 100%);
 }
 
+.modal-header-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
 .warning-icon-wrapper {
+  position: absolute;
+  left: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
-  margin-bottom: 16px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: linear-gradient(135deg, #fff0f0 0%, #fff6f0 100%);
-  box-shadow: 0 0 0 8px rgba(255, 59, 48, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.08);
+  flex-shrink: 0;
 }
 
 .warning-icon {
-  width: 44px;
-  height: 44px;
+  width: 20px;
+  height: 20px;
 }
 
 .modal-title {
-  margin: 0 0 6px;
-  font-size: 32px;
+  margin: 0;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #1d1d1f;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .modal-subtitle {
   margin: 0;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
   color: #86868b;
   letter-spacing: 0.01em;
@@ -570,26 +577,26 @@ onMounted(() => {
   }
 
   .modal-header {
-    padding: 28px 24px 16px;
+    padding: 16px 24px 10px;
   }
 
   .warning-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 12px;
+    width: 28px;
+    height: 28px;
+    box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.08);
   }
 
   .warning-icon {
-    width: 36px;
-    height: 36px;
+    width: 16px;
+    height: 16px;
   }
 
   .modal-title {
-    font-size: 26px;
+    font-size: 22px;
   }
 
   .modal-subtitle {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .modal-body {
@@ -634,7 +641,10 @@ onMounted(() => {
 /* 极小屏幕 */
 @media (max-width: 380px) {
   .modal-header {
-    padding: 24px 16px 12px;
+    padding: 14px 14px 8px;
+  }
+  .modal-title {
+    font-size: 18px;
   }
 
   .modal-body {
