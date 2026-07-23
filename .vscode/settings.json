@@ -3,5 +3,12 @@
     "markdown.validate.enabled": true,
     "markdown.validate.ignoredLinks": [
         "notes/freshGuide/dorm-conditions/overview.html"
-    ]
+    ],
+    "editor.formatOnSave": false,
+    "[markdown]": {
+        "editor.formatOnSave": false,
+        "editor.wordWrap": "off",
+        "editor.defaultFormatter": null
+    },
+    "markdown.extension.tableFormatter.enabled": false
 }
