@@ -56,6 +56,7 @@
                   <span class="keyword-warn">"办理电话卡"</span>
                   <span class="keyword-warn">"校园业务登记"</span>
                   <span class="keyword-warn">"学生认证"</span>
+                  <span class="keyword-warn">"办理空调"</span>
                   等理由索要身份证信息，请勿相信，并保管好身份证原件。
                 </span>
               </li>
@@ -93,7 +94,7 @@
                   为名推销的电话卡。部分人员会以
                   <span class="keyword-warn">"办理校园网"</span>
                   <span class="keyword-warn">"激活上网账号"</span>
-                  等话术诱导新生办卡——这本质仍是运营商电话卡，与校园网络服务无关。
+                  等话术诱导新生办卡，并称之为<span class="keyword-critical">"校园卡"</span>——这本质仍是运营商电话卡，与校园网络服务无关。
                 </span>
               </li>
 
@@ -108,7 +109,7 @@
             </ol>
 
             <div class="contact-section">
-              <p class="contact-text">如遇问题，请第一时间联系官方新生群：</p>
+              <p class="contact-text">如遇问题，请第一时间联系新生群：</p>
               <a
                 class="qq-group-button"
                 href="https://qm.qq.com/q/Z1XyubZIs0"
@@ -146,7 +147,7 @@
               :disabled="!canConfirm"
               @click="dismiss"
             >
-              <template v-if="!scrolledToBottom">请阅读完以上内容</template>
+              <template v-if="!scrolledToBottom">请滑动查看全部</template>
               <template v-else-if="countdown > 0">我已知晓，继续访问（{{ countdown }}s）</template>
               <template v-else>我已知晓，继续访问</template>
             </button>
@@ -176,12 +177,11 @@ function onScroll() {
   // 滚动到底部（3px 容差）
   if (el.scrollHeight - el.scrollTop - el.clientHeight < 3) {
     scrolledToBottom.value = true
-    startCountdown()
   }
 }
 
 function startCountdown() {
-  if (timer) return // 已经启动了
+  if (timer) return
   timer = setInterval(() => {
     countdown.value--
     if (countdown.value <= 0) {
@@ -238,6 +238,7 @@ onMounted(() => {
     // 小幅延迟以确保 CSR hydration 完成后渲染
     requestAnimationFrame(() => {
       visible.value = true
+      startCountdown() // 弹窗出现即开始 3s 倒计时
     })
   }
 })
