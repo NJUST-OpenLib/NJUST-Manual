@@ -5,6 +5,7 @@ import { collections } from './notes.ts'
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { seoPlugin } from '@vuepress/plugin-seo'
 import { gitPlugin } from '@vuepress/plugin-git'
+import markdownItInclude from 'markdown-it-include'
 
 
 
@@ -27,6 +28,12 @@ export default defineUserConfig({
         // 配置站点图标
         ['link', { rel: 'icon', type: 'image/png', href: 'https://manual.njust.wiki/favicon.ico' }],
     ],
+
+    extendsMarkdown: (md) => {
+      md.use(markdownItInclude, {
+        root: './docs/',
+      })
+    },
 
     bundler: viteBundler(),
     shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
@@ -181,7 +188,7 @@ export default defineUserConfig({
              mark: true,       // 启用图片标记
              size: true,       // 启用图片大小
            },
-        //   include: true,      // 在 Markdown 文件中导入其他 markdown 文件内容，默认true
+          include: true,      // 在 Markdown 文件中导入其他 markdown 文件内容
          imageSize: 'local', // 启用 自动填充 图片宽高属性，避免页面抖动
         },
 
