@@ -40,7 +40,7 @@
           </div>
 
           <!-- 正文内容 -->
-          <div class="modal-body">
+          <div ref="bodyRef" class="modal-body" @scroll="onScroll">
             <div class="content-intro">
               报到当天及入学期间，可能会出现大量诈骗行为，请提高警惕：
             </div>
@@ -50,13 +50,13 @@
                 <span class="item-text">
                   不要向任何陌生人员提供
                   <span class="keyword-critical">身份证</span>
-                  照片、
-                  <span class="keyword-critical">身份证号码</span>
-                  等个人信息。部分人员可能会以
+                  照片、号码，或
+                  <span class="keyword-critical">身份证原件</span>
+                  。部分人员可能会以
                   <span class="keyword-warn">"办理电话卡"</span>
                   <span class="keyword-warn">"校园业务登记"</span>
                   <span class="keyword-warn">"学生认证"</span>
-                  等理由索要身份证信息，请勿相信。
+                  等理由索要身份证信息，请勿相信，并保管好身份证原件。
                 </span>
               </li>
 
@@ -83,6 +83,17 @@
                   /
                   <span class="keyword-warn">快手</span>
                   账号、刷任务赚积分等行为，都存在诈骗风险。
+                </span>
+              </li>
+
+              <li class="warning-item">
+                <span class="item-text">
+                  警惕以
+                  <span class="keyword-warn">"校园网"</span>
+                  为名推销的电话卡。部分人员会以
+                  <span class="keyword-warn">"办理校园网"</span>
+                  <span class="keyword-warn">"激活上网账号"</span>
+                  等话术诱导新生办卡——这本质仍是运营商电话卡，与校园网络服务无关。
                 </span>
               </li>
 
@@ -125,8 +136,19 @@
 
           <!-- 底部操作区 -->
           <div class="modal-footer">
-            <button class="confirm-button" @click="dismiss">
-              我已知晓，继续访问
+            <label class="dont-show-again">
+              <input v-model="dontShowAgain" type="checkbox" />
+              <span>30 日内不再显示</span>
+            </label>
+            <button
+              class="confirm-button"
+              :class="{ 'confirm-button--disabled': !canConfirm }"
+              :disabled="!canConfirm"
+              @click="dismiss"
+            >
+              <template v-if="!scrolledToBottom">请阅读完以上内容</template>
+              <template v-else-if="countdown > 0">我已知晓，继续访问（{{ countdown }}s）</template>
+              <template v-else>我已知晓，继续访问</template>
             </button>
           </div>
         </div>
@@ -136,10 +158,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { fraudWarningConfig } from '../configs/fraudWarning'
 
 const visible = ref(false)
+const bodyRef = ref<HTMLElement | null>(null)
+const scrolledToBottom = ref(false)
+const countdown = ref(3)
+const dontShowAgain = ref(false)
+let timer: ReturnType<typeof setInterval> | null = null
+
+const canConfirm = computed(() => scrolledToBottom.value && countdown.value <= 0)
+
+function onScroll() {
+  if (!bodyRef.value) return
+  const el = bodyRef.value
+  // 滚动到底部（3px 容差）
+  if (el.scrollHeight - el.scrollTop - el.clientHeight < 3) {
+    scrolledToBottom.value = true
+    startCountdown()
+  }
+}
+
+function startCountdown() {
+  if (timer) return // 已经启动了
+  timer = setInterval(() => {
+    countdown.value--
+    if (countdown.value <= 0) {
+      if (timer) { clearInterval(timer); timer = null }
+    }
+  }, 1000)
+}
+
+onBeforeUnmount(() => {
+  if (timer) { clearInterval(timer); timer = null }
+})
 
 function hasConfirmed(): boolean {
   if (typeof window === 'undefined') return false
@@ -169,6 +222,7 @@ function hasConfirmed(): boolean {
 
 function dismiss() {
   visible.value = false
+  if (!dontShowAgain.value) return // 未勾选则不记录，下次继续显示
   try {
     if (typeof window !== 'undefined') {
       localStorage.setItem(fraudWarningConfig.storageKey, String(Date.now()))
@@ -405,7 +459,25 @@ onMounted(() => {
 .modal-footer {
   padding: 16px 40px 32px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dont-show-again {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #86868b;
+  cursor: pointer;
+  user-select: none;
+}
+.dont-show-again input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+  cursor: pointer;
 }
 
 .confirm-button {
@@ -435,6 +507,17 @@ onMounted(() => {
 
 .confirm-button:active {
   transform: scale(0.985);
+}
+
+.confirm-button--disabled {
+  background: #c7c7cc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.confirm-button--disabled:hover {
+  background: #c7c7cc;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ============================================
