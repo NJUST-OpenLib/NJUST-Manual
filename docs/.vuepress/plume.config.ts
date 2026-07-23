@@ -59,7 +59,7 @@ export default defineThemeConfig({
 
   /* 站点页脚 */
   footer: {
-    message: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()} · 欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论`,
+    message: `<a href="https://njust.wiki">NJUST.WIKI</a> © ${new Date().getFullYear()} · 欢迎访问 <a href="https://njust.club">[闭舍] 南理站</a> 一同参与讨论<br><a href="/about/privacy.html" style="font-size:12px;color:#86868b">隐私政策</a>`,
     copyright: `<div style="text-align:right;font-size:12px;color:#86868b;line-height:1.6"><a href="${githubUrl}" target="_blank" rel="noopener noreferrer"><code>${commitHash}</code></a> · ${buildDate} · ${commitMessage}<br><a id="icp-beian" style="display:none" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">津 ICP 备 2023000212 号-3</a></div>`,
 
   },
