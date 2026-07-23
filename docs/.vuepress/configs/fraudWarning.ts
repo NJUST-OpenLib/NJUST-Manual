@@ -14,7 +14,9 @@ export const fraudWarningConfig = {
   enabled: true,
 
   /** localStorage 存储键名，用于记录用户确认状态 */
-  storageKey: 'njust_fraud_warning_confirmed',
+  storageKey: 'njust_fraud_warning_v2',
+  /** sessionStorage 键名，同一浏览器会话内只弹一次 */
+  sessionKey: 'njust_fraud_warning_seen',
 
   /**
    * 有效期（天）

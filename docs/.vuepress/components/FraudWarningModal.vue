@@ -123,7 +123,7 @@
                     d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879.112.484.212.97.3 1.446.05.274.095.544.133.804.02.148.04.286.055.414.012.08.02.154.029.22-.137-.012-.28-.026-.433-.042-1.762-.191-3.325-.742-4.586-1.553C3.954 21.381 2 16.943 2 12 2 6.486 6.486 2 12 2zm0 1.5c-4.687 0-8.5 3.813-8.5 8.5 0 4.398 3.028 7.964 7.104 8.466.106-.56.222-1.104.349-1.616.01-.045.022-.09.033-.133-3.66-.645-6.236-3.213-6.236-6.217 0-3.59 3.41-6.5 7.25-6.5s7.25 2.91 7.25 6.5c0 3.004-2.577 5.572-6.236 6.217.011.044.022.088.033.133.127.512.243 1.056.349 1.616C19.472 19.964 22.5 16.398 22.5 12c0-4.687-3.813-8.5-8.5-8.5z"
                   />
                 </svg>
-                加入官方新生群
+                加入新生群
               </a>
             </div>
 
@@ -194,6 +194,9 @@ onBeforeUnmount(() => {
 function hasConfirmed(): boolean {
   if (typeof window === 'undefined') return false
   try {
+    // 同一浏览器会话内已弹出过，不再显示
+    if (sessionStorage.getItem(fraudWarningConfig.sessionKey)) return true
+
     const stored = localStorage.getItem(fraudWarningConfig.storageKey)
     if (!stored) return false
 
@@ -219,13 +222,17 @@ function hasConfirmed(): boolean {
 
 function dismiss() {
   visible.value = false
-  if (!dontShowAgain.value) return // 未勾选则不记录，下次继续显示
   try {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(fraudWarningConfig.storageKey, String(Date.now()))
+      // 同一会话内不再弹出
+      sessionStorage.setItem(fraudWarningConfig.sessionKey, '1')
+      // 仅勾选后才写入长期记录
+      if (dontShowAgain.value) {
+        localStorage.setItem(fraudWarningConfig.storageKey, String(Date.now()))
+      }
     }
   } catch {
-    // localStorage 不可用时静默失败
+    // storage 不可用时静默失败
   }
 }
 
