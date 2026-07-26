@@ -10,8 +10,8 @@ const freshGuideCollection = defineCollection({
             link: '/群组链接/各地老乡群.html',
         },
         {
-            text: '😋 加入贴吧官方新生群',
-            link: 'https://qm.qq.com/q/5VCp9OkJ8c',
+            text: '😋 加入2026新生群',
+            link: 'https://qm.qq.com/q/qATRiS489O',
         },
         {
             text: '新生指南',
