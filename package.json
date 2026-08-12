@@ -17,7 +17,9 @@
     "docs:dev": "npx vuepress dev docs",
     "docs:dev-clean": "npx vuepress dev docs --clean-cache --clean-temp",
     "docs:preview": "http-server docs/.vuepress/dist",
-    "vp-update": "npx vp-update"
+    "vp-update": "npx vp-update",
+    "check:images": "node scripts/check-image-paths.mjs",
+    "setup-hooks": "node scripts/setup-hooks.mjs"
   },
   "dependencies": {
     "@iconify/iconify": "^3.1.1",

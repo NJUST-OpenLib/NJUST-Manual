@@ -1,0 +1,35 @@
+#!/bin/sh
+# =============================================================================
+# Pre-commit hook: 检查 Markdown 图片引用路径
+# 由 scripts/setup-hooks.mjs 安装到 .git/hooks/pre-commit
+# =============================================================================
+#
+# 检查规则：
+#   - ![](static/xxx.jpg)  缺少 ./ 前缀（会导致 Vite 构建失败）
+#   - <img src="static/..."  同上
+#   - ./static/ 或 ../static/ 引用的图片文件是否存在
+#
+# =============================================================================
+
+echo ""
+echo "🔍 [pre-commit] 检查 Markdown 图片引用路径..."
+
+node scripts/check-image-paths.mjs
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "  ❌ COMMIT BLOCKED: 图片路径检查未通过"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    echo "  常见修复方法："
+    echo "    ![](static/xxx.jpg)   →  ![](./static/xxx.jpg)"
+    echo "    <img src=\"static/...\"  →  <img src=\"./static/...\""
+    echo ""
+    exit 1
+fi
+
+echo "✅ [pre-commit] 图片路径检查通过"
+echo ""
+exit 0
