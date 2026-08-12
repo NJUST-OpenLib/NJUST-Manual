@@ -5,7 +5,7 @@ permalink: /about/privacy.html
 ---
 # 隐私政策
 
-**最后更新日期**：2025年6月27日
+**最后更新日期**：2026年7月23日
 
 ---
 
@@ -21,6 +21,8 @@ permalink: /about/privacy.html
 
 *   **非个人身份信息**：为了解用户如何使用本平台并优化服务，我们通过 **Google Analytics** 收集匿名的网站使用数据，例如页面浏览量、访问时长、浏览器类型和大致地理位置。这些信息无法用于识别您的个人身份。
 *   **用户在第三方平台的公开信息**：如果您通过 **GitHub** 等平台参与本项目的贡献（如提交代码、报告问题或发表评论），您在该平台上的公开信息（如用户名和贡献内容）将被记录。此类信息的处理遵循相应平台的隐私政策。
+*   **Cookie 与本地存储**：本站使用浏览器的 `localStorage` 和 `sessionStorage` 技术，仅用于记录防诈骗弹窗的确认状态，避免向您重复展示相同提醒。此数据仅存储在您的设备本地，**不会上传至服务器或与任何第三方共享**。
+*   **评论系统**：本站使用自托管的 [Waline](https://github.com/walinejs/waline) 评论服务。当您发表评论时，您提供的昵称、邮箱（仅用于头像获取，不会公开展示）、网站链接及评论内容将被提交至我们的 Waline 服务实例。头像服务由 [WeAvatar](https://weavatar.com) 提供。
 
 ## 3. 我们如何使用信息
 
@@ -48,6 +50,8 @@ permalink: /about/privacy.html
 *   **腾讯云**：[腾讯云隐私政策](https://www.tencentcloud.com/zh/document/product/301/69461)
 *   **GitHub**：[GitHub 隐私声明](https://docs.github.com/cn/site-policy/privacy-policies/github-privacy-statement)
 *   **Google**：[Google 如何利用从使用其服务的网站或应用中收集的信息](https://policies.google.com/technologies/partner-sites) 及 [Google 隐私政策](https://policies.google.com/privacy)
+*   **Waline**：[Waline 官方仓库](https://github.com/walinejs/waline)（本站自托管实例）
+*   **WeAvatar**：[WeAvatar 隐私政策](https://weavatar.com/privacy)
 
 ## 6. 政策更新
 
