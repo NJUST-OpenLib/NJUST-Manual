@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-DiVVSKLj.js";export{e as createArchitectureServices};
