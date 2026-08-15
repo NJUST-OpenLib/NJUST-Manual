@@ -1,0 +1,21 @@
+--- Debug: buildDateString in config.js --- 2026-08-15T16:13:29.034Z
+--- Debug: type of buildDateString --- string
+[33mwarning[39m plugin [35m@vuepress/plugin-git[39m has been used multiple times, only the last one will take effect
+[33mwarning[39m plugin [35m@vuepress/plugin-seo[39m has been used multiple times, only the last one will take effect
+- Initializing and preparing data
+[32m✔[39m Initializing and preparing data - done in 6.68s
+- Compiling with vite
+[33m[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vuepress:markdown (39%)
+  - vite:vue (26%)
+  - vite:css (15%)
+  - vite:asset (13%)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+[39m
+[32m✔[39m Compiling with vite - done in 3.74s
+- Rendering 89 pages
+[32m✔[39m Rendering 89 pages - done in 1.58s
+[34m@vuepress/plugin-sitemap: [39m [32m✔[39m [32mGenerating sitemap to [36msitemap.xml[32m[39m
+[34m@vuepress/plugin-sitemap: [39m [32m✔[39m Appending sitemap path to [36mrobots.txt[39m
+[34m@vuepress/plugin-seo: [39m [32m✔[39m Generating robots.txt
+[32msuccess[39m VuePress build completed in 14.48s!

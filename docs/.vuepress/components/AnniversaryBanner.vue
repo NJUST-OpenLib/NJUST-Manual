@@ -67,12 +67,17 @@ function close() {
 }
 
 onMounted(async () => {
-  if (!anniversaryConfig.enabled || isClosedThisSession()) return
   const now = new Date()
   const match = anniversaryConfig.items.find(
     (item) => item.month === now.getMonth() + 1 && item.day === now.getDate(),
   )
-  if (!match) return
+
+  // 全站变灰（如 7·7、12·13）：独立于横幅的关闭状态，哀悼效果始终生效
+  if (anniversaryConfig.grayEnabled && match?.gray) {
+    document.documentElement.classList.add(MOURNING_CLASS)
+  }
+
+  if (!anniversaryConfig.enabled || isClosedThisSession() || !match) return
 
   active.value = match
   visible.value = true
@@ -90,6 +95,7 @@ onBeforeUnmount(() => {
   resizeObserver?.disconnect()
   resizeObserver = null
   clearLayoutOffset()
+  document.documentElement.classList.remove(MOURNING_CLASS)
 })
 </script>
 
@@ -213,5 +219,16 @@ onBeforeUnmount(() => {
     width: 100%;
     font-size: 12px;
   }
+}
+</style>
+
+<!-- 全站哀悼变灰（图片除外）：
+     filter 作用于父元素时会连子元素一起变灰，且子元素无法抵消；
+     因此只给"不含图片/媒体"的元素单独加灰色滤镜，图片永远不在被滤镜的祖先里，天然保持彩色。
+     同时排除 body/#app/.vp-layout/.vp-nav 等固定定位元素的祖先，
+     避免滤镜把 fixed 元素的定位基准从视口改成祖先而错位。 -->
+<style>
+html.anniv-mourning *:not(body):not(#app):not(.vp-layout):not(.vp-nav):not(img):not(svg):not(picture):not(video):not(canvas):not(iframe):not(:has(img, svg, picture, video, canvas, iframe)) {
+  filter: grayscale(1) !important;
 }
 </style>
