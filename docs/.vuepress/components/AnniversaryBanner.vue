@@ -228,7 +228,12 @@ onBeforeUnmount(() => {
      同时排除 body/#app/.vp-layout/.vp-nav 等固定定位元素的祖先，
      避免滤镜把 fixed 元素的定位基准从视口改成祖先而错位。 -->
 <style>
-html.anniv-mourning *:not(body):not(#app):not(.vp-layout):not(.vp-nav):not(img):not(svg):not(picture):not(video):not(canvas):not(iframe):not(:has(img, svg, picture, video, canvas, iframe)) {
+html.anniv-mourning *:not(body):not(#app):not(.vp-layout):not(.vp-nav):not(img):not(picture):not(video):not(canvas):not(iframe):not(:has(img, picture, video, canvas, iframe)) {
+  filter: grayscale(1) !important;
+}
+
+/* 横幅为 Teleport 到 body 的固定元素，通用 :has() 规则对其不生效，单独补一条 */
+html.anniv-mourning .anniversary-banner {
   filter: grayscale(1) !important;
 }
 </style>
