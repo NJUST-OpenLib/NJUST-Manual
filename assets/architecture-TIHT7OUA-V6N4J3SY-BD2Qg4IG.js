@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-CSTK5LUx.js";export{e as createArchitectureServices};

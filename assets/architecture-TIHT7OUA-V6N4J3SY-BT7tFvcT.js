@@ -1,0 +1,1 @@
+import{Ut as e}from"./common-DnDZsS0P.js";export{e as createArchitectureServices};
