@@ -1,5 +1,18 @@
 // .github/workflows/scripts/fetch_contributors.mjs
 
+// ============================================================
+// 网站贡献者数据生成器
+//
+// 本脚本在每次构建前由 `predocs:build` 自动执行（npm run fetch-contributors），
+// 从 GitHub 拉取仓库贡献者列表，写入 docs/.vuepress/public/contributors.json。
+//
+// 注意：
+// - 该 JSON 是程序生成产物，**请勿手动编辑**——下次构建会被完全覆盖。
+// - JSON 规范不支持注释，请勿向文件中添加 // 或 /* */ 注释，
+//   否则前端 fetch('/contributors.json') 的 res.json() 解析会失败。
+// - 如需调整输出字段或分页规则，改本脚本后重新构建即可。
+// ============================================================
+
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
