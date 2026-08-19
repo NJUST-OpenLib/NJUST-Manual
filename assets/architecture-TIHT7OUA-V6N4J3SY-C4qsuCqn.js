@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-CcH9WCxU.js";export{e as createArchitectureServices};

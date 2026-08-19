@@ -1,17 +1,5 @@
 [
   {
-    "name": "Vue.js 官方网站",
-    "url": "https://vuejs.org/",
-    "logo": "https://vuejs.org/images/logo.png",
-    "desc": "渐进式JavaScript框架"
-  },
-  {
-    "name": "Netlify",
-    "url": "https://www.netlify.com/",
-    "logo": "https://www.netlify.com/assets/logos/encapsulated/lightmode/logo-netlify-encapsulated-fullcolor-lightmode.svg",
-    "desc": "全球托管平台"
-  },
-  {
     "name": "南京理工大学校园论坛",
     "url": "https://njust.club/",
     "desc": "多个高校联合论坛，支持匿名发言",
@@ -22,5 +10,11 @@
     "url": "https://m.njust.store",
     "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%234CAF50'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='white' font-family='sans-serif'%3E梨%3C/text%3E%3C/svg%3E",
     "desc": "手机随时查课表、考试、成绩，支持本科生与研究生"
+  },
+  {
+    "name": "青岛理工大学生活指南",
+    "url": "https://wiki.quters.top/",
+    "desc": "为青岛理工大学学生提供便捷的生活信息和资源",
+    "logo": "https://pic1.imgdb.cn/i/0349E4NqLje1oLHNowvJ4R.png"
   }
 ]
