@@ -21,12 +21,13 @@ const commitMessage = (() => {
 })()
 
 const buildDate = (() => {
-  const d = new Date()
-  const y = d.getFullYear()
-  const mo = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  const h = String(d.getHours()).padStart(2, '0')
-  const mi = String(d.getMinutes()).padStart(2, '0')
+  // 显式按 UTC+8（中国标准时间）计算，避免部署机器（CI 常为 UTC）导致页脚时间偏移 8 小时
+  const d = new Date(Date.now() + 8 * 60 * 60 * 1000)
+  const y = d.getUTCFullYear()
+  const mo = String(d.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(d.getUTCDate()).padStart(2, '0')
+  const h = String(d.getUTCHours()).padStart(2, '0')
+  const mi = String(d.getUTCMinutes()).padStart(2, '0')
   return `${y}-${mo}-${day} ${h}:${mi}`
 })()
 
