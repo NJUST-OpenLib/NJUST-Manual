@@ -1,1 +1,0 @@
-import{Ut as e}from"./common-BGzeSu7g.js";export{e as createArchitectureServices};
