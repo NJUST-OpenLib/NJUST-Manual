@@ -1,0 +1,1 @@
+import{Ut as e}from"./common-CqjGsm4o.js";export{e as createArchitectureServices};
