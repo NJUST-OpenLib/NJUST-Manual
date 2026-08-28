@@ -1,0 +1,1 @@
+import{Ut as e}from"./common-DUUmTCzc.js";export{e as createArchitectureServices};
